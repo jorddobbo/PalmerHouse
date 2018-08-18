@@ -1,0 +1,86 @@
+.footer {
+	background: $darker;
+	padding: 80px 0 0 0;
+	background-image: url(#{$img-path}footer/footer_pattern.png);
+    background-size: 100% auto;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+
+    @media screen and (min-width: $lap-start) {
+		padding: 180px 0 28px 0;
+	}
+}
+
+.footer__row {
+
+	@media screen and (min-width: $lap-start) {
+		display: flex;
+		margin: 0 -20px;
+	}
+}
+
+.footer__column {
+	text-align: center;
+	width: 100%;
+	padding: 0 0 40px 0;
+
+	@media screen and (min-width: $lap-start) {
+		width: 33.333%;
+		padding: 0 20px;
+	}
+}
+
+.footer__sub-title {
+	color: $dark;
+	font-family: $sans;
+	margin: 0 0 10px 0;
+
+	@media screen and (min-width: $lap-start) {
+		margin: 0 0 30px 0;
+	}
+}
+
+.footer__title {
+	color: #fff;
+	padding: 0;
+	font-size: 24px;
+	line-height: 1.2em;
+	margin: 0;
+
+	@media screen and (min-width: $lap-start) {
+		font-size: 30px;
+	}
+}
+
+.footer__social {
+	list-style: none;
+}
+
+.footer__social-icon {
+	display: inline-block;
+}
+
+.footer__social-icon a {
+	color: #fff;
+	font-size: 24px;
+    margin: 0 10px;
+
+    @media screen and (min-width: $lap-start) {
+		font-size: 30px;
+	}
+}
+
+.footer__bottom {
+	text-align: center;
+	padding: 20px 0 20px 0;
+
+	@media screen and (min-width: $lap-start) {
+		padding: 220px 0 0 0;
+	}
+}
+
+.footer__paragraph {
+	margin: 0;
+	color: #fff;
+	font-size: 16px;
+}

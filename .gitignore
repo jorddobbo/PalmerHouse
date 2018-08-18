@@ -1,0 +1,14 @@
+# Application
+app/public/wp-content/upgrade
+app/public/wp-content/uploads/*
+!app/public/wp-content/uploads/.gitkeep
+
+app/sql
+
+logs
+
+# Node Package Manager
+node_modules
+
+#OS
+.DS_Store

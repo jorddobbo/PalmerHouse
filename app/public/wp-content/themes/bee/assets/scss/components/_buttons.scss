@@ -1,0 +1,36 @@
+.btn,
+button,
+a.button {
+    display: inline-block;
+    border: 0;
+    padding: 12px 22px;
+    width: auto;
+    vertical-align: middle;
+    background-color: $darker;
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-font-smoothing: antialiased;
+    transition: all ease $base-transition;
+
+    &:hover,
+    &:focus {
+        outline: none;
+        color: #fff;
+        background-color: darken($darker, 10%);
+    }
+
+    &:active {
+
+    }
+}
+
+.btn--outline,
+button.button--outline,
+a.button--outline {
+    background: transparent;
+    border: 1px solid $beige;
+    color: $darker;
+}

@@ -1,0 +1,61 @@
+
+// Grid settings
+
+$main-sm-columns: 12;
+$sidebar-sm-columns: 4;
+
+// Colors
+
+$dark: #8E8E8A;
+$darker: #42423B;
+$light: #F2ECE8;
+$beige: #C5C6B8;
+$pink: #F3F4F1;
+
+// Fonts
+
+$base-font-size: 22px;
+$base-line-height: 35px;
+$sans: 'Col', sans-serif;
+$serif: 'Ei', sans-serif;
+
+// Paths
+
+$img-path: '../../assets/img/';
+
+// Radius
+
+$base-radius: 4px;
+
+// Transition
+
+$base-transition: all .25s ease-in-out;
+
+// Grids
+$page-width: 1160px;
+$mob-start: 420px;
+$lap-start: 680px;
+$desk-start: 850px;
+$wide-start: 1000px;
+
+$breakpoints: (
+    'mob' 0 $lap-start 4% (3, 4),
+    'lap' $lap-start $desk-start 4% (3, 4, 6, 8),
+    'desk' $desk-start $wide-start 2% (6, 8, 10, 12),
+    'wide' $wide-start 0 2% (6, 8, 10, 12)
+);
+
+$blockgrids: (2, 3, 4, 5, 8);
+
+$col-1: 8.33%;
+$col-2: 16.66%;
+$col-3: 25%;
+$col-4: 33.33%;
+$col-5: 41.66%;
+$col-6: 50%;
+$col-7: 58.33%;
+$col-8: 66.66%;
+$col-9: 75%;
+$col-10: 83.33%;
+$col-11: 91.66%;
+$col-12: 100%;

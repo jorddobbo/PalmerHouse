@@ -1,0 +1,18 @@
+Aug 17 2018 23:23:43
+{"action":"ai1wm_export","options":{"replace":{"old_value":["localhost:3000"],"new_value":["palmer-house.co.uk"]}},"ai1wm_manual_export":"1","storage":"5awg68catroa","secret_key":"MakhiUOaIrku","archive":"palmer-house--new.tld-20180817-232343-411.wpress"}
+
+Aug 17 2018 23:23:43
+{"action":"ai1wm_export","options":{"replace":{"old_value":["localhost:3000"],"new_value":["palmer-house.co.uk"]}},"ai1wm_manual_export":"1","storage":"5awg68catroa","secret_key":"MakhiUOaIrku","archive":"palmer-house--new.tld-20180817-232343-411.wpress"}
+
+Aug 17 2018 23:24:17
+{"action":"ai1wm_export","options":{"replace":{"old_value":["localhost:3000"],"new_value":["palmer-house.co.uk"]}},"ai1wm_manual_export":"1","storage":"5awg68catroa","secret_key":"MakhiUOaIrku","archive":"palmer-house--new.tld-20180817-232343-411.wpress","priority":"10"}
+
+Aug 17 2018 23:24:46
+{"action":"ai1wm_export","options":{"replace":{"old_value":["localhost:3000"],"new_value":["palmer-house.co.uk"]}},"ai1wm_manual_export":"1","storage":"5awg68catroa","secret_key":"MakhiUOaIrku","archive":"palmer-house--new.tld-20180817-232343-411.wpress","priority":"50"}
+
+Aug 17 2018 23:25:18
+{"action":"ai1wm_export","options":{"replace":{"old_value":["localhost:3000"],"new_value":["palmer-house.co.uk"]}},"ai1wm_manual_export":"1","storage":"5awg68catroa","secret_key":"MakhiUOaIrku","archive":"palmer-house--new.tld-20180817-232343-411.wpress","priority":"60"}
+
+Aug 17 2018 23:28:00
+{"action":"ai1wm_export","options":{"replace":{"old_value":["localhost:3000"],"new_value":["palmer-house.co.uk"]}},"ai1wm_manual_export":"1","storage":"5awg68catroa","secret_key":"MakhiUOaIrku","archive":"palmer-house--new.tld-20180817-232343-411.wpress","priority":"100","total_files_count":5196,"total_files_size":89970754}
+
