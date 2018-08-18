@@ -31,7 +31,7 @@
 				<img src="<?= get_template_directory_uri(); ?>/assets/img/home/intro_img3.jpg" alt="">
 			</div>
 			<p class="home-detail__paragraph">
-				<span class="home-detail__highlight">We have six counselling rooms suitable for individual/couple counselling and two larger rooms for training/ supervision. The largest room can fit up to thirty people.</span>
+				<span class="home-detail__highlight">We have six counselling rooms suitable for individual/couple counselling and two larger rooms for training/ supervision. The largest room can fit up to thirty people</span>
 
 				As well as providing therapy rooms our aim is to nurture a ‘community of counsellors’ where you can feel welcomed, supported and meet other like-minded practitioners.  So, we also have a common room where you can eat your lunch or (even write that assignment) with tea/coffee on tap. In the future we hope to provide a range of affordable CPD days for therapists.
 			</p>
