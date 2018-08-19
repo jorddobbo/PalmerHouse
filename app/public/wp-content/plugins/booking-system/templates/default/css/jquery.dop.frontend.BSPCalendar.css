@@ -405,8 +405,8 @@
 } 
 
 .DOPBSPCalendar-day .dopbsp-bind-middle .dopbsp-body{
-    background-color: #ffffff !important;
-    border: 1px solid #cccccc !important; /* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Change to your DEFAULT color. */
+    background-color: #ffffff;
+    border: 1px solid #cccccc; /* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Change to your DEFAULT color. */
     border-top: none !important;
     -webkit-box-sizing: content-box !important;
     -moz-box-sizing: content-box !important;
@@ -527,6 +527,10 @@
     background-color: #cccccc !important;
 }
 
+.DOPBSPCalendar-day.dopbsp-past-day .dopbsp-bind-middle .dopbsp-head .dopbsp-day {
+    color: #42423C;
+}
+
 .DOPBSPCalendar-day.dopbsp-selected .dopbsp-bind-middle .dopbsp-body {
     background-color: #42423C !important;
 }
@@ -623,15 +627,16 @@
  */
 .DOPBSPCalendar-day.dopbsp-booked .dopbsp-head,
 .DOPBSPCalendar-day .dopbsp-head .dopbsp-co.dopbsp-booked,
-.DOPBSPCalendar-day .dopbsp-head .dopbsp-ci.dopbsp-booked{
-    background-color: #dd6464 !important; /* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Change to your BOOKED color. */
-    border-color: #dd6464 !important; /* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Change to your BOOKED color. */
+.DOPBSPCalendar-day .dopbsp-head .dopbsp-ci.dopbsp-booked,
+.DOPBSPCalendar-day.dopbsp-booked .dopbsp-bind-middle .dopbsp-body{
+    background-color: #dd6464; /* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Change to your BOOKED color. */
+    border-color: #dd6464; /* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Change to your BOOKED color. */
 }
 
 .DOPBSPCalendar-day.dopbsp-booked .dopbsp-body,
 .DOPBSPCalendar-day .dopbsp-body .dopbsp-co.dopbsp-booked,
 .DOPBSPCalendar-day .dopbsp-body .dopbsp-ci.dopbsp-booked{
-    border-color: #dd6464 !important; /* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Change to your BOOKED color. */
+    border-color: #dd6464; /* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Change to your BOOKED color. */
 }
 
 /*
@@ -875,7 +880,7 @@
 }
 
 .DOPBSPCalendar-hour.dopbsp-selected .dopbsp-bind-middle {
-    background-color: #42423C;
+    background-color: #42423C !important;
 }
 
 .DOPBSPCalendar-hour .dopbsp-bind-middle.dopbsp-group1{
@@ -1023,6 +1028,7 @@
 
 .DOPBSPCalendar-hour.dopbsp-booked .dopbsp-bind-middle{    
     border-color: #dd6464; /* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Change to your BOOKED color. */
+    background-color: #dd6464;
 }
 
 .DOPBSPCalendar-hour.dopbsp-booked .dopbsp-bind-top{    
@@ -1162,6 +1168,14 @@
 .DOPBSPCalendar-hour.dopbsp-past-hour{  
     cursor: default;
     opacity: 0.25;
+}
+
+.DOPBSPCalendar-hour.dopbsp-past-hour .dopbsp-bind-middle {
+    background-color: #ccc;
+}
+
+.DOPBSPCalendar-hour.dopbsp-past-hour .dopbsp-bind-middle .dopbsp-hour {
+    color: #42423C;
 }
 
 .DOPBSPCalendar-hour.dopbsp-past-hour .dopbsp-bind-middle .dopbsp-notes{
@@ -1454,7 +1468,7 @@
 
 .DOPBSPCalendar-sidebar .dopbsp-module h4,
 .DOPBSPCalendar-outer-sidebar .dopbsp-module h4{
-    text-align: center;
+    text-align: left;
     color: #42423C !important;
     display: block !important;
     font-size: 18px !important;
@@ -1800,7 +1814,7 @@
 .DOPBSPCalendar-outer-sidebar .dopbsp-module .dopbsp-input-wrapper input[type=submit],
 .DOPBSPCalendar-outer-sidebar .dopbsp-module .dopbsp-input-wrapper input[type=button]{
     -webkit-appearance: none !important;
-    background: #ff6300;
+    background: #42423C;
     border: none;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;

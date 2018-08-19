@@ -1,0 +1,85 @@
+.booking-rates {
+	padding: 0 0 80px 0;
+	background-color: transparent;
+
+	&::after {
+		display: none;
+	}
+}
+
+.booking-rates .home-rates__info-indicator {
+	color: $darker;
+}
+
+.booking-rates .home-rates__info-sub-title {
+	color: $dark;
+}
+
+.booking-rates .home-rates__info-title {
+	color: $darker;
+}
+
+.home-rates__times {
+	&::after {
+		background: $pink;
+	}
+}
+
+.booking-tabs__list {
+	background: #fff;
+	padding: 20px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.booking-tabs__item {
+	flex: 0 1 auto;
+	width: calc(25% - 15px);
+	box-sizing: border-box;
+
+	&.active {
+		.booking-tabs__image {
+			opacity: 1;
+		}
+	}
+
+	@media screen and (min-width: $wide-start) {
+		width: calc(12.5% - 15px);
+	}
+}
+
+.booking-tabs__image {
+	position: relative;
+	width: 100%;
+	padding: 0 0 75% 0;
+	background-size: cover;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	opacity: 0.2;
+
+	@media screen and (min-width: $wide-start) {
+		padding: 0 0 125% 0;
+	}
+
+	/*&::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		background: rgb(66,66,60);
+		background: -webkit-linear-gradient(rgba(66,66,60,0) 0%, rgba(66,66,60,1) 100%);
+		background: -o-linear-gradient(rgba(66,66,60,0) 0%, rgba(66,66,60,1) 100%);
+		background: linear-gradient(rgba(66,66,60,0) 0%, rgba(66,66,60,1) 100%);
+		z-index: 2;
+	}*/
+}
+
+.booking-tabs__title {
+	padding: 10px 0 0 0;
+	margin: 0;
+	font-size: 16px;
+	line-height: 20px;
+}

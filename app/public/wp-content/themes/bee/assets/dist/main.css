@@ -4720,9 +4720,6 @@ html {
   height: 100%;
   overflow-x: hidden; }
 body {
-  position: relative;
-  width: 100%;
-  height: 100%;
   background: #fff;
   color: #8E8E8A;
   font: 137.5%/35px "Col", sans-serif;
@@ -5276,8 +5273,8 @@ select {
   color: #fff;
   font-size: 16px; }
 .page-wrap {
-  background: #F3F4F1;
-  padding: 105px 0 80px 0; }
+  padding: 40px 0;
+  background: #F3F4F1; }
 .page-title {
   text-align: center; }
 .page-title__title {
@@ -6078,6 +6075,74 @@ body#tinymce {
     transition: all .7s ease;
     -webkit-transition-delay: .1s;
             transition-delay: .1s; }
+.booking-rates {
+  padding: 0 0 80px 0;
+  background-color: transparent; }
+.booking-rates::after {
+    display: none; }
+.booking-rates .home-rates__info-indicator {
+  color: #42423B; }
+.booking-rates .home-rates__info-sub-title {
+  color: #8E8E8A; }
+.booking-rates .home-rates__info-title {
+  color: #42423B; }
+.home-rates__times::after {
+  background: #F3F4F1; }
+.booking-tabs__list {
+  background: #fff;
+  padding: 20px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between; }
+.booking-tabs__item {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 1 auto;
+      -ms-flex: 0 1 auto;
+          flex: 0 1 auto;
+  width: calc(25% - 15px);
+  box-sizing: border-box; }
+.booking-tabs__item.active .booking-tabs__image {
+    opacity: 1; }
+@media screen and (min-width: 1000px) {
+    .booking-tabs__item {
+      width: calc(12.5% - 15px); } }
+.booking-tabs__image {
+  position: relative;
+  width: 100%;
+  padding: 0 0 75% 0;
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  opacity: 0.2;
+  /*&::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		background: rgb(66,66,60);
+		background: -webkit-linear-gradient(rgba(66,66,60,0) 0%, rgba(66,66,60,1) 100%);
+		background: -o-linear-gradient(rgba(66,66,60,0) 0%, rgba(66,66,60,1) 100%);
+		background: linear-gradient(rgba(66,66,60,0) 0%, rgba(66,66,60,1) 100%);
+		z-index: 2;
+	}*/ }
+@media screen and (min-width: 1000px) {
+    .booking-tabs__image {
+      padding: 0 0 125% 0; } }
+.booking-tabs__title {
+  padding: 10px 0 0 0;
+  margin: 0;
+  font-size: 16px;
+  line-height: 20px; }
 /* Dropdown control */
 .selectBox-dropdown {
   width: auto !important;
