@@ -1,10 +1,10 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.8
 * File                    : views/views.php
-* File Version            : 1.1.0
+* File Version            : 1.1.1
 * Created / Last Modified : 15 March 2016
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
@@ -190,14 +190,6 @@
                                                'name' => 'DOPBSPViewsBackEndModel'));
                 
                 /*
-                 * Set PRO view classes.
-                 */
-                array_push($this->views, array('key' => 'backend_pro',
-                                               'name' => 'DOPBSPViewsBackEndPRO'));
-                array_push($this->views, array('key' => 'backend_pro_features',
-                                               'name' => 'DOPBSPViewsBackEndPROFeatures'));
-                
-                /*
                  * Set reservations view classes.
                  */
                 array_push($this->views, array('key' => 'backend_reservations',
@@ -236,6 +228,28 @@
                                                'name' => 'DOPBSPViewsBackEndRule'));
                 
                 /*
+                 * Set search view classes.
+                 */
+                array_push($this->views, array('key' => 'backend_searches',
+                                               'name' => 'DOPBSPViewsBackEndSearches'));
+                array_push($this->views, array('key' => 'backend_search',
+                                               'name' => 'DOPBSPViewsBackEndSearch'));
+                array_push($this->views, array('key' => 'frontend_search',
+                                               'name' => 'DOPBSPViewsFrontEndSearch'));
+                array_push($this->views, array('key' => 'frontend_search_results',
+                                               'name' => 'DOPBSPViewsFrontEndSearchResults'));
+                array_push($this->views, array('key' => 'frontend_search_results_list',
+                                               'name' => 'DOPBSPViewsFrontEndSearchResultsList'));
+                array_push($this->views, array('key' => 'frontend_search_results_grid',
+                                               'name' => 'DOPBSPViewsFrontEndSearchResultsGrid'));
+                array_push($this->views, array('key' => 'frontend_search_sidebar',
+                                               'name' => 'DOPBSPViewsFrontEndSearchSidebar'));
+                array_push($this->views, array('key' => 'frontend_search_sort',
+                                               'name' => 'DOPBSPViewsFrontEndSearchSort'));
+                array_push($this->views, array('key' => 'frontend_search_view',
+                                               'name' => 'DOPBSPViewsFrontEndSearchView'));
+                
+                /*
                  * Set settings view classes.
                  */
                 array_push($this->views, array('key' => 'backend_settings',
@@ -244,12 +258,12 @@
                                                'name' => 'DOPBSPViewsBackEndSettingsGeneral'));
                 array_push($this->views, array('key' => 'backend_settings_calendar',
                                                'name' => 'DOPBSPViewsBackEndSettingsCalendar'));
+                array_push($this->views, array('key' => 'backend_settings_licences',
+                                               'name' => 'DOPBSPViewsBackEndSettingsLicences'));
                 array_push($this->views, array('key' => 'backend_settings_notifications',
                                                'name' => 'DOPBSPViewsBackEndSettingsNotifications'));
                 array_push($this->views, array('key' => 'backend_settings_payment_gateways',
                                                'name' => 'DOPBSPViewsBackEndSettingsPaymentGateways'));
-                array_push($this->views, array('key' => 'backend_settings_licences',
-                                               'name' => 'DOPBSPViewsBackEndSettingsLicences'));
                 array_push($this->views, array('key' => 'backend_settings_search',
                                                'name' => 'DOPBSPViewsBackEndSettingsSearch'));
                 array_push($this->views, array('key' => 'backend_settings_users',

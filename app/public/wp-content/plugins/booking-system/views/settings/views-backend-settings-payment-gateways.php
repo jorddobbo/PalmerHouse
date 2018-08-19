@@ -1,10 +1,10 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.2
 * File                    : views/settings/views-backend-settings-payment-gateways.php
-* File Version            : 1.0.9
+* File Version            : 1.0.8
 * Created / Last Modified : 11 October 2015
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper

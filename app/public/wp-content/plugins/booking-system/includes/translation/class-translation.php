@@ -1,11 +1,11 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.1
 * File                    : includes/translation/class-translation.php
 * File Version            : 1.1.6
-* Created / Last Modified : 26 August 2015
+* Created / Last Modified : 25 August 2015
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
 * Website                 : http://www.dotonpaper.net
@@ -92,8 +92,8 @@
                 
 //                if (count($this->text) != 0
 //                        && count($this->text) != count($translation)){
-//                     $DOPBSP->classes->backend_translation->database($language);
-//                     $translation = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->translation.'_'.$language.' WHERE location '.$locations_in);
+//                    $DOPBSP->classes->backend_translation->database($language);
+//                    $translation = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->translation.'_'.$language.' WHERE location '.$locations_in);
 //                }
                 
                 $DOPBSP->vars->translation_text = array();

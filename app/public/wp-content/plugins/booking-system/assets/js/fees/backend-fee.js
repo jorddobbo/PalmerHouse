@@ -1,6 +1,6 @@
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.8
 * File                    : assets/js/fees/backend-fee.js
 * File Version            : 1.0.8

@@ -1,6 +1,6 @@
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.6
 * File                    : assets/js/calendars/backend-calendars.js
 * File Version            : 1.0.7

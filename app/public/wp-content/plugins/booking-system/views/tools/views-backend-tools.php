@@ -1,7 +1,7 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.2
 * File                    : views/tools/views-backend-tools.php
 * File Version            : 1.0.3
@@ -55,7 +55,7 @@
                                 <br class="dopbsp-clear" />
                             </div>
                             <div class="dopbsp-column-content">
-                                <ul class="DOPBSP-pro-tips">
+                                <ul>
                                     <li class="dopbsp-tools-item dopbsp-repair-database-text" onclick="DOPBSPBackEndTools.toggle('repair-database-text'); DOPBSPBackEnd.confirmation('TOOLS_REPAIR_DATABASE_TEXT_CONFIRMATION', 'DOPBSPBackEndToolsRepairDatabaseText.set()', 'DOPBSPBackEndTools.toggle()', 'Are you sure you want to verify the database & the text and repair them if needed?')">
                                         <div class="dopbsp-icon"></div>
                                         <div class="dopbsp-title"><?php echo $DOPBSP->text('TOOLS_REPAIR_DATABASE_TEXT_TITLE', 'Repair database & text'); ?></div>
@@ -63,6 +63,10 @@
                                     <li class="dopbsp-tools-item dopbsp-repair-calendars-settings" onclick="DOPBSPBackEndTools.toggle('repair-calendars-settings'); DOPBSPBackEnd.confirmation('TOOLS_REPAIR_CALENDARS_SETTINGS_CONFIRMATION', 'DOPBSPBackEndToolsRepairCalendarsSettings.init()', 'DOPBSPBackEndTools.toggle()')">
                                         <div class="dopbsp-icon"></div>
                                         <div class="dopbsp-title"><?php echo $DOPBSP->text('TOOLS_REPAIR_CALENDARS_SETTINGS_TITLE'); ?></div>
+                                    </li>
+                                    <li class="dopbsp-tools-item dopbsp-repair-search-settings" onclick="DOPBSPBackEndTools.toggle('repair-search-settings'); DOPBSPBackEnd.confirmation('TOOLS_REPAIR_SEARCH_SETTINGS_CONFIRMATION', 'DOPBSPBackEndToolsRepairSearchSettings.init()', 'DOPBSPBackEndTools.toggle()')">
+                                        <div class="dopbsp-icon"></div>
+                                        <div class="dopbsp-title"><?php echo $DOPBSP->text('TOOLS_REPAIR_SEARCH_SETTINGS_TITLE'); ?></div>
                                     </li>
                                 </ul>
                             </div>

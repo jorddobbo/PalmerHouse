@@ -1,11 +1,11 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.3
 * File                    : includes/translation/class-translation-text-custom-posts.php
-* File Version            : 1.0.4
-* Created / Last Modified : 17 December 2015
+* File Version            : 1.0.5
+* Created / Last Modified : 14 December 2015
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
 * Website                 : http://www.dotonpaper.net

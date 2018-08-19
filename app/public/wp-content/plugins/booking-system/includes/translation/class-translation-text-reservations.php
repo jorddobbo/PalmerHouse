@@ -1,7 +1,7 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.1
 * File                    : includes/translation/class-translation-text-reservations.php
 * File Version            : 1.1
@@ -254,6 +254,8 @@
                                         'parent' => 'PARENT_RESERVATIONS_RESERVATION',
                                         'text' => 'Another approved reservation already exists for this period.',
                                         'location' => 'all'));
+                
+                
                 /*
                  * No data.
                  */

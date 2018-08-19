@@ -54,14 +54,22 @@
                     <tr>
                         <td class="dopbsp-column" id="DOPBSP-column1">
                             <div class="dopbsp-column-header">
+<?php 
+		global $DOT;
+		
+                if ($DOT->get('page')
+                        && $DOPBSP->classes->backend_settings_users->permission(wp_get_current_user()->ID, 'use-booking-system')){ 
+?>                  
+                                <a href="javascript:DOPBSPBackEndLocation.add()" class="dopbsp-button dopbsp-add"><span class="dopbsp-info"><?php echo $DOPBSP->text('LOCATIONS_ADD_LOCATION_SUBMIT'); ?></span></a>
+                                <a href="<?php echo DOPBSP_CONFIG_HELP_DOCUMENTATION_URL; ?>" target="_blank" class="dopbsp-button dopbsp-help"><span class="dopbsp-info dopbsp-help"><?php echo $DOPBSP->text('LOCATIONS_HELP').'<br /><br />'.$DOPBSP->text('LOCATIONS_ADD_LOCATION_HELP').'<br /><br />'.$DOPBSP->text('HELP_VIEW_DOCUMENTATION'); ?></span></a>
 <?php
-    if ($DOPBSP->vars->view_pro){
-?>
-				<a href="<?php echo admin_url('admin.php?page=dopbsp-pro'); ?>" class="dopbsp-button dopbsp-add"><span class="dopbsp-info dopbsp-pro"><?php echo $DOPBSP->text('LOCATIONS_ADD_LOCATION_SUBMIT').' - '.$DOPBSP->text('MESSAGES_PRO_TEXT'); ?> </span></a>
+                }
+                else{
+?>           
+                             <a href="<?php echo DOPBSP_CONFIG_HELP_DOCUMENTATION_URL; ?>" target="_blank" class="dopbsp-button dopbsp-help"><span class="dopbsp-info dopbsp-help"><?php echo $DOPBSP->text('LOCATIONS_HELP').'<br /><br />'.$DOPBSP->text('HELP_VIEW_DOCUMENTATION'); ?></span></a>
 <?php
-    }
-?>
-                                <a href="<?php echo DOPBSP_CONFIG_HELP_DOCUMENTATION_URL; ?>" target="_blank" class="dopbsp-button dopbsp-help"><span class="dopbsp-info dopbsp-help"><?php echo $DOPBSP->text('LOCATIONS_HELP').'<br /><br />'.$DOPBSP->text('LOCATIONS_ADD_LOCATION_HELP').'<br /><br />'.$DOPBSP->text('HELP_VIEW_DOCUMENTATION'); ?></span></a>                
+                }
+?>                           
                                 <br class="dopbsp-clear" />
                             </div>
                             <div class="dopbsp-column-content">&nbsp;</div>

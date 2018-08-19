@@ -1,11 +1,11 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.1
 * File                    : includes/api/class-frontend-api.php
 * File Version            : 1.0
-* Created / Last Modified : 16 August 2015
+* Created / Last Modified : 25 August 2015
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
 * Website                 : http://www.dotonpaper.net
@@ -41,9 +41,12 @@
                 global $DOPBSP;
                 
                 if ($DOT->get('dopbsp_api') == 'true'){
+                    
                     // ICS
-                    if ($DOT->get('type') == 'ics'){
+                    if ($DOT->get('type')
+			    && $DOT->get('type') == 'ics'){
                         $key = $DOT->get('key') ? $DOT->get('key'):'0-0';
+                        //set correct content-type-header
 //                        header('Content-type: text/calendar; charset=utf-8');
                         if($DOPBSP->classes->backend_api_key->verify($key)) {
                             header('Content-type: text/calendar; charset=iso-8859-1');
@@ -55,7 +58,7 @@
                         exit;
                     }
                     
-                    $key = $DOT->get('key') ? $DOT->get('key'):'0-0';
+                    $key = $DOT->post('key') ? $DOT->post('key'):'0-0';
                     $action = $DOT->get('action') ? $DOT->get('action'):'';
                     $data = $DOT->get('data') ? $DOT->get('data'):'';
                     

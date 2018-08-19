@@ -1,10 +1,10 @@
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
-* Version                 : 2.1.6
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
+* Version                 : 2.1.8
 * File                    : assets/js/coupons/backend-coupon.js
-* File Version            : 1.0.7
-* Created / Last Modified : 16 February 2016
+* File Version            : 1.0.8
+* Created / Last Modified : 14 March 2016
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
 * Website                 : http://www.dotonpaper.net
@@ -210,8 +210,8 @@ var DOPBSPBackEndCoupon = new function(){
      * 
      * @param id (Number): coupon ID
      * @param type (String): field type
-     * @param field (String): coupon field
-     * @param value (String): coupon field value
+     * @param field (String): field name
+     * @param value (String): field value
      * @param onBlur (Boolean): true if function has been called on blur event
      */
     this.edit = function(id, 

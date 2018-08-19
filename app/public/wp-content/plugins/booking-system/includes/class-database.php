@@ -1,11 +1,11 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
-* Version                 : 2.1.8
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
+* Version                 : 2.5.8
 * File                    : includes/class-database.php
-* File Version            : 1.2.2
-* Created / Last Modified : 14 March 2016
+* File Version            : 1.2.4
+* Created / Last Modified : 22 June 2017
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
 * Website                 : http://www.dotonpaper.net
@@ -38,7 +38,7 @@
             private $db_version_forms_fields = 1.01;
             private $db_version_forms_select_options = 1.0;
             private $db_version_languages = 1.0;
-            private $db_version_locations = 1.0;
+            private $db_version_locations = 1.01;
             private $db_version_models = 1.0;
             private $db_version_reservations = 1.01;
             private $db_version_rules = 1.0;
@@ -48,7 +48,7 @@
             private $db_version_settings_notifications = 1.0;
             private $db_version_settings_payment = 1.0;
             private $db_version_settings_search = 1.0;
-            private $db_version_translation = 1.01;
+            private $db_version_translation = 1.02;
             
             /*
              * Public variables.
@@ -125,8 +125,8 @@
                 /*
                  * Get current database version.
                  */
-                $current_db_version = get_option('DOPBSP_db_version');
-                 
+		$current_db_version = get_option('DOPBSP_db_version');
+		
                 if ($this->db_version != (float)$current_db_version){
                     require_once(str_replace('\\', '/', ABSPATH).'wp-admin/includes/upgrade.php');
                     
@@ -235,10 +235,10 @@
                                             address_en VARCHAR(512) DEFAULT '".$this->db_config->calendars['address_en']."' COLLATE ".$this->db_collation." NOT NULL,
                                             address_alt VARCHAR(512) DEFAULT '".$this->db_config->calendars['address_alt']."' COLLATE ".$this->db_collation." NOT NULL,
                                             address_alt_en VARCHAR(512) DEFAULT '".$this->db_config->calendars['address_alt_en']."' COLLATE ".$this->db_collation." NOT NULL,
+                                            coordinates TEXT COLLATE ".$this->db_collation." NOT NULL,
                                             default_availability TEXT COLLATE ".$this->db_collation." NOT NULL,
                                             last_update_google DATETIME DEFAULT '0000-00-00 00:00:00' NOT NULL,
                                             last_update_airbnb DATETIME DEFAULT '0000-00-00 00:00:00' NOT NULL,
-                                            coordinates TEXT COLLATE ".$this->db_collation." NOT NULL,
                                             UNIQUE KEY id (id),
                                             KEY user_id (user_id),
                                             KEY post_id (post_id),
@@ -272,7 +272,7 @@
                     /*
                      * Days table.
                      */
-                    $sql_days = "CREATE TABLE " . $DOPBSP->tables->days." (
+                    $sql_days = "CREATE TABLE ".$DOPBSP->tables->days." (
                                             unique_key VARCHAR(32) COLLATE ".$this->db_collation." NOT NULL,
                                             calendar_id BIGINT UNSIGNED DEFAULT ".$this->db_config->days['calendar_id']." NOT NULL,
                                             day VARCHAR(16) DEFAULT '".$this->db_config->days['day']."' COLLATE ".$this->db_collation." NOT NULL,
@@ -484,7 +484,7 @@
                                             UNIQUE KEY id (id),
                                             KEY user_id (user_id)
                                         );";
-		    
+                    
                     /*
                      * Models table.
                      */
@@ -705,7 +705,7 @@
                     $this->update();
                     
                     if ($current_db_version != ''
-                            && $current_db_version <= 2.42){
+                            && $current_db_version <= 2.62){
                         /*
                          * Reservation table.
                          */
@@ -721,7 +721,7 @@
                      * Update tables' versions.
                      */
                     $current_db_version_api_keys == '' ? add_option('DOPBSP_db_version_api_keys', $this->db_version_api_keys):
-                                                          update_option('DOPBSP_db_version_api_keys', $this->db_version_api_keys);
+                                                         update_option('DOPBSP_db_version_api_keys', $this->db_version_api_keys);
                     $current_db_version_availability == '' ? add_option('DOPBSP_db_version_availability', $this->db_version_availability):
 							     update_option('DOPBSP_db_version_availability', $this->db_version_availability);
                     $current_db_version_availability_no == '' ? add_option('DOPBSP_db_version_availability_no', $this->db_version_availability_no):
@@ -783,6 +783,11 @@
                     $current_db_version_translation == '' ? add_option('DOPBSP_db_version_translation', $this->db_version_translation):
                                                             update_option('DOPBSP_db_version_translation', $this->db_version_translation);
                     
+                    /*
+                     * Initialize users permissions.
+                     */
+                    $DOPBSP->classes->backend_settings_users->init();
+                    
                     $this->set();
                 }
             }
@@ -794,10 +799,10 @@
              */
             function set(){
                 global $DOPBSP;
+                
                 /*
                  * Translation data.
                  */
-                
                 $DOPBSP->classes->backend_translation->database();
                 
                 if(is_admin()) {
@@ -805,20 +810,10 @@
                 }
                 
                 /*
-                 * Add calendar
-                 */
-                $this->setCalendar();
-                
-                /*
-                 * Add calendar
-                 */
-                $this->setLocation();
-                
-                /*
                  * Emails data.
                  */
                 $this->setEmails();
-                
+
                 /*
                  * Extras data.
                  */
@@ -828,58 +823,11 @@
                  * Forms data.
                  */
                 $this->setForms();
-            }
-            
-            /*
-             * Add calendar if not exist.
-             */
-            function setCalendar($name = ''){
-                global $wpdb;
-                global $DOPBSP;
-                
-                if($name == '') {
-                    $name = $DOPBSP->text('CALENDARS_ADD_CALENDAR_NAME');
-                }
                 
                 /*
-                 * Update calendar data.
+                 * Searches data.
                  */
-                $calendars = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->calendars.' where id=1');
-                
-                if ($wpdb->num_rows == 0){
-                    /*
-                     * Add calendar.
-                     */
-                    $wpdb->insert($DOPBSP->tables->calendars, array('id' => 1,
-                                                                    'user_id' => wp_get_current_user()->ID,
-                                                                    'name' => $name));
-                }
-            }
-            
-            /*
-             * Add location if not exist.
-             */
-            function setLocation($name = ''){
-                global $wpdb;
-                global $DOPBSP;
-                
-                if($name == '') {
-                    $name = $DOPBSP->text('LOCATIONS_ADD_LOCATION_NAME');
-                }
-                
-                /*
-                 * Update location data.
-                 */
-                $locations = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->locations.' where id=1');
-                
-                if ($wpdb->num_rows == 0){
-                    /*
-                     * Add calendar.
-                     */
-                    $wpdb->insert($DOPBSP->tables->locations, array('id' => 1,
-                                                                    'user_id' => wp_get_current_user()->ID,
-                                                                    'name' => $name));
-                }
+                $this->setSearches();
             }
             
             /*
@@ -899,45 +847,45 @@
                      * Simple book.
                      */
                     $wpdb->insert($DOPBSP->tables->emails_translation, array('email_id' => 1,
-                                                                            'template' => 'book_admin',
-                                                                            'subject' => $DOPBSP->classes->translation->encodeJSON('EMAILS_DEFAULT_BOOK_ADMIN_SUBJECT'),
-                                                                            'message' => $DOPBSP->classes->backend_email->defaultTemplate('EMAILS_DEFAULT_BOOK_ADMIN')));
+                                                                             'template' => 'book_admin',
+                                                                             'subject' => $DOPBSP->classes->translation->encodeJSON('EMAILS_DEFAULT_BOOK_ADMIN_SUBJECT'),
+                                                                             'message' => $DOPBSP->classes->backend_email->defaultTemplate('EMAILS_DEFAULT_BOOK_ADMIN')));
                     $wpdb->insert($DOPBSP->tables->emails_translation, array('email_id' => 1,
-                                                                            'template' => 'book_user',
-                                                                            'subject' => $DOPBSP->classes->translation->encodeJSON('EMAILS_DEFAULT_BOOK_USER_SUBJECT'),
-                                                                            'message' => $DOPBSP->classes->backend_email->defaultTemplate('EMAILS_DEFAULT_BOOK_USER')));
+                                                                             'template' => 'book_user',
+                                                                             'subject' => $DOPBSP->classes->translation->encodeJSON('EMAILS_DEFAULT_BOOK_USER_SUBJECT'),
+                                                                             'message' => $DOPBSP->classes->backend_email->defaultTemplate('EMAILS_DEFAULT_BOOK_USER')));
                     /*
                      * Book with approval.
                      */
                     $wpdb->insert($DOPBSP->tables->emails_translation, array('email_id' => 1,
-                                                                            'template' => 'book_with_approval_admin',
-                                                                            'subject' => $DOPBSP->classes->translation->encodeJSON('EMAILS_DEFAULT_BOOK_WITH_APPROVAL_ADMIN_SUBJECT'),
-                                                                            'message' => $DOPBSP->classes->backend_email->defaultTemplate('EMAILS_DEFAULT_BOOK_WITH_APPROVAL_ADMIN')));
+                                                                             'template' => 'book_with_approval_admin',
+                                                                             'subject' => $DOPBSP->classes->translation->encodeJSON('EMAILS_DEFAULT_BOOK_WITH_APPROVAL_ADMIN_SUBJECT'),
+                                                                             'message' => $DOPBSP->classes->backend_email->defaultTemplate('EMAILS_DEFAULT_BOOK_WITH_APPROVAL_ADMIN')));
                     $wpdb->insert($DOPBSP->tables->emails_translation, array('email_id' => 1,
-                                                                            'template' => 'book_with_approval_user',
-                                                                            'subject' => $DOPBSP->classes->translation->encodeJSON('EMAILS_DEFAULT_BOOK_WITH_APPROVAL_USER_SUBJECT'),
-                                                                            'message' => $DOPBSP->classes->backend_email->defaultTemplate('EMAILS_DEFAULT_BOOK_WITH_APPROVAL_USER')));
+                                                                             'template' => 'book_with_approval_user',
+                                                                             'subject' => $DOPBSP->classes->translation->encodeJSON('EMAILS_DEFAULT_BOOK_WITH_APPROVAL_USER_SUBJECT'),
+                                                                             'message' => $DOPBSP->classes->backend_email->defaultTemplate('EMAILS_DEFAULT_BOOK_WITH_APPROVAL_USER')));
                     /*
                      * Approved
                      */
                     $wpdb->insert($DOPBSP->tables->emails_translation, array('email_id' => 1,
-                                                                            'template' => 'approved',
-                                                                            'subject' => $DOPBSP->classes->translation->encodeJSON('EMAILS_DEFAULT_APPROVED_SUBJECT'),
-                                                                            'message' => $DOPBSP->classes->backend_email->defaultTemplate('EMAILS_DEFAULT_APPROVED')));
+                                                                             'template' => 'approved',
+                                                                             'subject' => $DOPBSP->classes->translation->encodeJSON('EMAILS_DEFAULT_APPROVED_SUBJECT'),
+                                                                             'message' => $DOPBSP->classes->backend_email->defaultTemplate('EMAILS_DEFAULT_APPROVED')));
                     /*
                      * Canceled
                      */
                     $wpdb->insert($DOPBSP->tables->emails_translation, array('email_id' => 1,
-                                                                            'template' => 'canceled',
-                                                                            'subject' => $DOPBSP->classes->translation->encodeJSON('EMAILS_DEFAULT_CANCELED_SUBJECT'),
-                                                                            'message' => $DOPBSP->classes->backend_email->defaultTemplate('EMAILS_DEFAULT_CANCELED')));
+                                                                             'template' => 'canceled',
+                                                                             'subject' => $DOPBSP->classes->translation->encodeJSON('EMAILS_DEFAULT_CANCELED_SUBJECT'),
+                                                                             'message' => $DOPBSP->classes->backend_email->defaultTemplate('EMAILS_DEFAULT_CANCELED')));
                     /*
                       Rejected
                      */
                     $wpdb->insert($DOPBSP->tables->emails_translation, array('email_id' => 1,
-                                                                            'template' => 'rejected',
-                                                                            'subject' => $DOPBSP->classes->translation->encodeJSON('EMAILS_DEFAULT_REJECTED_SUBJECT'),
-                                                                            'message' => $DOPBSP->classes->backend_email->defaultTemplate('EMAILS_DEFAULT_REJECTED')));
+                                                                             'template' => 'rejected',
+                                                                             'subject' => $DOPBSP->classes->translation->encodeJSON('EMAILS_DEFAULT_REJECTED_SUBJECT'),
+                                                                             'message' => $DOPBSP->classes->backend_email->defaultTemplate('EMAILS_DEFAULT_REJECTED')));
 
                     /*
                      * Payment gateways.
@@ -970,7 +918,7 @@
                 
                 if ($wpdb->num_rows == 0){
                     $wpdb->insert($DOPBSP->tables->extras, array('id' => 1,
-                                                                 'user_id' => wp_get_current_user()->ID,
+                                                                 'user_id' => 0,
                                                                  'name' => $DOPBSP->text('EXTRAS_DEFAULT_PEOPLE')));
                     $wpdb->insert($DOPBSP->tables->extras_groups, array('id' => 1,
                                                                         'extra_id' => 1,
@@ -1034,7 +982,7 @@
                 
                 if ($wpdb->num_rows == 0){
                     $wpdb->insert($DOPBSP->tables->forms, array('id' => 1,
-                                                                'user_id' => wp_get_current_user()->ID,
+                                                                'user_id' => 0,
                                                                 'name' => $DOPBSP->text('FORMS_DEFAULT_NAME')));
                     $wpdb->insert($DOPBSP->tables->forms_fields, array('id' => 1,
                                                                        'form_id' => 1,
@@ -1094,6 +1042,21 @@
                 }
             }
             
+            /*
+             * Set search data.
+             */
+            function setSearches(){
+                global $wpdb;
+                global $DOPBSP;
+                
+                $control_data = $wpdb->get_row('SELECT * FROM '.$DOPBSP->tables->searches.' WHERE id=1');
+                
+                if ($wpdb->num_rows == 0){
+                    $wpdb->insert($DOPBSP->tables->searches, array('user_id' => 0,
+                                                                   'name' => $DOPBSP->text('SEARCHES_ADD_SEARCH_NAME')));
+                }
+            }
+            
 // Update
             
             /*
@@ -1107,34 +1070,15 @@
                  */
                 $this->updateRename();
                 
-                /*
-                 * Update Calendar table.
-                 */
                 if ($current_db_version != ''
                         && $current_db_version < 2.0){
-                    
-                    /*
-                     * Calendars tables.
-                     */
-                    $this->updateCalendars1x();
-                    
-                    /*
-                     * Settings tables.
-                     */
-                    $this->updateSettings1x();
-                    
-                    /*
-                     * Days tables.
-                     */
-                    $this->updateDays1x();
-                    
                     /*
                      * Forms tables.
                      */
                     $this->updateForms1x();
-                    
+
                     /*
-                     * Reservations tables.
+                     * Reservation table.
                      */
                     $this->updateReservations1x();
                 }
@@ -1149,117 +1093,21 @@
             }
             
             /*
-             * Update calendars tables from versions 1.x
-             */
-            function updateCalendars1x(){
-                global $wpdb;
-                global $DOPBSP;
-                
-                $old_calendar = $wpdb->get_row('SELECT * FROM '.$DOPBSP->tables->old_calendars.' where id=1');
-                
-                if($wpdb->num_rows > 0) {
-                    $this->setCalendar($old_calendar->name);
-                }
-            }
-            
-            /*
-             * Update days tables from versions 1.x
-             */
-            function updateDays1x(){
-                global $wpdb;
-                global $DOPBSP;
-                
-                $old_days = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->old_days.' where calendar_id=1');
-                
-                if($wpdb->num_rows > 0) {
-                    
-                    foreach($old_days as $day) {
-                        
-                        
-                        $current_day = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->days.' where unique_key="'.$day->calendar_id.'_'.$day->day.'"');
-                        
-                        if($wpdb->num_rows < 1) {
-                            
-                            $newJSONData = json_decode($day->data);
-                            $newJSONData->available = intval($newJSONData->available);
-                            $newJSONData->bind = intval($newJSONData->bind);
-                            $newJSONData->price = floatval($newJSONData->price);
-                            $newJSONData->promo = floatval($newJSONData->promo);
-                            $newJSONData->info_info = array();
-                            $newJSONData->info_body = array();
-
-
-                            $hours = $newJSONData->hours;
-
-                            foreach($hours as $key => $value){
-                                $newJSONData->hours->{$key}->available = intval($hours->{$key}->available);
-                                $newJSONData->hours->{$key}->bind = intval($hours->{$key}->bind);
-                                $newJSONData->hours->{$key}->price = floatval($hours->{$key}->price);
-                                $newJSONData->hours->{$key}->promo = intval($hours->{$key}->promo);
-                            }
-
-                            /*
-                             * Add day.
-                             */
-                            $wpdb->insert($DOPBSP->tables->days, array('unique_key' => $day->calendar_id.'_'.$day->day,
-                                                                       'calendar_id' => $day->calendar_id,
-                                                                       'day' => $day->day,
-                                                                       'year' => $day->year,
-                                                                       'data' => json_encode($newJSONData))); 
-                        }
-                   }
-                }
-            }
-            
-            /*
              * Update forms tables from versions 1.x
              */
             function updateForms1x(){
                 global $wpdb;
                 global $DOPBSP;
                 
-                $old_form = $wpdb->get_row('SELECT * FROM '.$DOPBSP->tables->old_forms);
-                
-                if ($wpdb->num_rows > 0){
-                    $wpdb->insert($DOPBSP->tables->forms, array('id' => 1,
-                                                                'user_id' => 0,
-                                                                'name' => $old_form->name));
-                    
-                    $old_fields = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->old_forms_fields.' where form_id='.$old_form->id);
-                    
-                    if ($wpdb->num_rows > 0){
-                        
-                        foreach ($old_fields as $field) {
-                            $wpdb->insert($DOPBSP->tables->forms_fields, array('id' => $field->id,
-                                                                               'form_id' => $field->form_id,
-                                                                               'type' => $field->type,
-                                                                               'position' => $field->position,
-                                                                               'multiple_select' => $field->multiple_select,
-                                                                               'allowed_characters' => $field->allowed_characters,
-                                                                               'size' => $field->size,
-                                                                               'is_email' => $field->is_email,
-                                                                               'required' => $field->required,
-                                                                               'translation' => $field->translation));
-                            
-                            if($field->type == 'select' || $field->type == 'checkbox') {
-                                $old_fields_options = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->old_forms_fields_options.' where field_id='.$field->id);
-                    
-                                if ($wpdb->num_rows > 0){
-                                    
-                                    foreach ($old_fields_options as $field_option) {
-                                        $wpdb->insert($DOPBSP->tables->forms_fields_options, array('id' => $field_option->id,
-                                                                                                   'field_id' => $field_option->field_id,
-                                                                                                   'translation' => $field_option->translation));
-                                    }
-                                }
-                            }
-                
-                        } 
+                $fields = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->forms_fields);
+
+                foreach ($fields as $field){
+                    if (!is_object(json_decode($field->translation))){
+                        $wpdb->update($DOPBSP->tables->forms_fields, array('translation' => stripslashes($field->translation)), 
+                                                                     array('id' => $field->id));
                     }
                 }
             }
-            
-            
             
             /*
              * Update reservations tables from versions 1.x
@@ -1268,76 +1116,67 @@
                 global $wpdb;
                 global $DOPBSP;
                 
-                $old_reservations = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->old_reservations);
-                
-                if($wpdb->num_rows > 0) {
-                    
-                    foreach($old_reservations as $reservation) {
-                        /*
-                         * Add reservation.
-                         */
-                        $discount = '{"id":"0","rule_id":"0","operation":"-","price":"'.$reservation->discount.'","price_type":"percent","price_by":"once","start_date":"","end_date":"","start_hour":"","end_hour":"","translation":""}';
-                        $coupon = '{"id":"0","code":"","operation":"-","price":"0","price_type":"percent","price_by":"once","translation":""}';
-                        $deposit = '{"price":"'.$reservation->deposit.'","price_type":"percent"}';
-                        
-                        $old_form = json_decode($reservation->info);
-                        $new_form = '';
-                        
-                        $new_form .='[';
-                        $k = 0;
-                        
-                        foreach($old_form as $form_field) {
-                            
-                            if ($k > 0) {
-                                $new_form .=',';
-                            }
-                            $new_form .='{';
-                            $new_form .='"id":"'.$form_field->id.'",';
-                            
-                            if(strpos($form_field->value, '@') !== false) {
-                                $new_form .='"is_email":"true",';
-                            } else {
-                                $new_form .='"is_email":"false",';
-                            }
-                            $new_form .='"add_to_day_hour_info":"false",';
-                            $new_form .='"add_to_day_hour_body":"false",';
-                            $new_form .='"translation":"'.$form_field->name.'",';
-                            $new_form .='"value":"'.$form_field->value.'"';
-                            $new_form .='}';
-                            $k++;
+                $control_data = $wpdb->query('SHOW TABLES LIKE "'.$DOPBSP->tables->reservations.'"');
+
+                if ($wpdb->num_rows != 0){
+                    $new_columns = array('total_price' => 'CHANGE total_price price_total FLOAT DEFAULT '.$this->db_config->reservations['price_total'].' NOT NULL',
+                                         'discount' => 'CHANGE discount discount_price FLOAT DEFAULT '.$this->db_config->reservations['discount_price'].' NOT NULL',
+                                         'deposit' => 'CHANGE deposit deposit_price FLOAT DEFAULT '.$this->db_config->reservations['deposit_price'].' NOT NULL',
+                                         'paypal_transaction_id' => 'CHANGE paypal_transaction_id transaction_id VARCHAR(128) DEFAULT "'.$this->db_config->reservations['transaction_id'].'" COLLATE '.$this->db_collation.' NOT NULL',
+                                         'info' => 'CHANGE info form TEXT COLLATE '.$this->db_collation.' NOT NULL');
+                    $valid = true;
+
+                    $columns = $wpdb->get_results('SHOW COLUMNS FROM '.$DOPBSP->tables->reservations);
+
+                    foreach ($columns as $column){
+                        if ($column->Field == 'discount_price'
+                                || $column->Field == 'deposit_price'){
+                            $valid = false;
                         }
-                        
-                        $new_form .=']';
-                         
-                        $wpdb->insert($DOPBSP->tables->reservations, array('id' => $reservation->id,
-                                                                            'calendar_id' => $reservation->calendar_id,
-                                                                            'language' => $reservation->language,
-                                                                            'currency' => $reservation->currency,
-                                                                            'currency_code' => $reservation->currency_code,
-                                                                            'check_in' => $reservation->check_in,
-                                                                            'check_out' => $reservation->check_out,
-                                                                            'start_hour' => $reservation->start_hour,
-                                                                            'end_hour' => $reservation->end_hour,
-                                                                            'no_items' => $reservation->no_items,
-                                                                            'price' => $reservation->price,
-                                                                            'price_total' => $reservation->total_price,
-                                                                            'discount_price' => $reservation->discount,
-                                                                            'discount' => $discount,
-                                                                            'coupon_price' => 0,
-                                                                            'coupon' => $coupon,
-                                                                            'fees_price' => 0,
-                                                                            'deposit_price' => $reservation->deposit,
-                                                                            'deposit' => $deposit,
-                                                                            'email' => $reservation->email,
-                                                                            'status' => $reservation->status,
-                                                                            'payment_method' => $reservation->payment_method,
-                                                                            'transaction_id' => $reservation->paypal_transaction_id, 
-                                                                            'refund' => 0, 
-                                                                            'payment_status' => ($reservation->status == 'approved' && $reservation->paypal_transaction_id != '') ? 'paid':(($reservation->status == 'expired' || $reservation->status == 'canceled') ? '':$reservation->status), 
-                                                                            'form' => $new_form,
-                                                                            'date_created' => $reservation->date_created)); 
-                        $new_form = '';
-                   }
+                    }
+
+                    if ($valid){
+                        foreach ($columns as $column){
+                            foreach ($new_columns as $key => $query){
+                                if ($column->Field == $key){
+                                    $wpdb->query('ALTER TABLE '.$DOPBSP->tables->reservations.' '.$query);
+                                }
+                            }
+                        }  
+
+                        /*
+                         * Update reservations data.
+                         */
+                        $reservations = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->reservations);
+
+                        foreach ($reservations as $reservation){
+                            switch ($reservation->payment_method){
+                                case '0':
+                                    $payment_method = 'none';
+                                    break;
+                                case '1':
+                                    $payment_method = 'default';
+                                    break;
+                                case '2':
+                                    $payment_method = 'paypal';
+                                    break;
+                                default:
+                                    $payment_method = $reservation->payment_method;
+                            }
+
+                            $form = json_decode($reservation->form);
+
+                            for ($i=0; $i<count($form); $i++){
+                                $form[$i]->translation = $form[$i]->name;
+                            }
+
+                            $wpdb->update($DOPBSP->tables->reservations, array('discount_price' => $reservation->discount,
+                                                                               'deposit_price' => $reservation->deposit,
+                                                                               'form' => json_encode($form),
+                                                                               'payment_method' => $payment_method), 
+                                                                         array('id' => $reservation->id));
+                        }  
+                    }
                 }
             }
             
@@ -1350,7 +1189,7 @@
                 $current_db_version = get_option('DOPBSP_db_version');
                 
                 if ($current_db_version != ''
-                        && $current_db_version <= 2.42){
+                        && $current_db_version <= 2.62){
                     /*
                      * Update reservations data.
                      */
@@ -1365,291 +1204,6 @@
             }
             
             /*
-             * Update settings tables from versions 1.x
-             */
-            function updateSettings1x(){
-                global $wpdb;
-                global $DOPBSP;
-                
-                $settings = $wpdb->get_row('SELECT * FROM '.$DOPBSP->tables->old_settings.' where calendar_id=1');
-                
-                if($wpdb->num_rows > 0) {
-
-                        /*
-                         * Days Available
-                         */
-                        if ($settings->available_days != 'true,true,true,true,true,true,true' && $settings->available_days != '') { 
-                            $wpdb->insert($DOPBSP->tables->settings_calendar, array('calendar_id' => 1,
-                                                                                    'unique_key' => 'days_available',
-                                                                                    'value' => $settings->available_days));
-                        }
-
-                        /*
-                         * First Day
-                         */
-                        if ($settings->first_day != 1) { 
-                            $wpdb->insert($DOPBSP->tables->settings_calendar, array('calendar_id' => 1,
-                                                                                    'unique_key' => 'days_first',
-                                                                                    'value' => $settings->first_day));
-                        }
-
-                        /*
-                         * Currency
-                         */
-                        $settings->currency = $DOPBSP->classes->prototypes->convertOldCurrency($settings->currency);
-                        
-                        if ($settings->currency != 'USD') { 
-                            $wpdb->insert($DOPBSP->tables->settings_calendar, array('calendar_id' => 1,
-                                                                                    'unique_key' => 'currency',
-                                                                                    'value' => $settings->currency));
-                        }
-
-                        /*
-                         * Date type
-                         */
-                        if ($settings->date_type != 1) { 
-                            $wpdb->insert($DOPBSP->tables->settings_calendar, array('calendar_id' => 1,
-                                                                                    'unique_key' => 'date_type',
-                                                                                    'value' => $settings->date_type));
-                        }
-
-                        /*
-                         * Template
-                         */
-                        if ($settings->template != 'default') { 
-                            $wpdb->insert($DOPBSP->tables->settings_calendar, array('calendar_id' => 1,
-                                                                                    'unique_key' => 'template',
-                                                                                    'value' => $settings->template));
-                        }
-
-                        /*
-                         * Number of items
-                         */
-                        if ($settings->no_items_enabled != 'true') { 
-                            $wpdb->insert($DOPBSP->tables->settings_calendar, array('calendar_id' => 1,
-                                                                                    'unique_key' => 'sidebar_no_items_enabled',
-                                                                                    'value' => $settings->no_items_enabled));
-                        }
-
-                        /*
-                         * View only
-                         */
-                        if ($settings->view_only != 'false') { 
-                            $wpdb->insert($DOPBSP->tables->settings_calendar, array('calendar_id' => 1,
-                                                                                    'unique_key' => 'view_only',
-                                                                                    'value' => $settings->view_only));
-                        }
-
-                        /*
-                         * Terms & Conditions
-                         */
-                        if ($settings->terms_and_conditions_enabled != 'false') { 
-                            $wpdb->insert($DOPBSP->tables->settings_calendar, array('calendar_id' => 1,
-                                                                                    'unique_key' => 'terms_and_conditions_enabled',
-                                                                                    'value' => $settings->terms_and_conditions_enabled)); 
-
-                            $wpdb->insert($DOPBSP->tables->settings_calendar, array('calendar_id' => 1,
-                                                                                    'unique_key' => 'terms_and_conditions_link',
-                                                                                    'value' => $settings->terms_and_conditions_link));
-                        }
-
-                        /*
-                         * Morning Checkout
-                         */
-                        if ($settings->morning_check_out != 'false') { 
-                            $wpdb->insert($DOPBSP->tables->settings_calendar, array('calendar_id' => 1,
-                                                                                    'unique_key' => 'days_morning_check_out',
-                                                                                    'value' => $settings->morning_check_out));
-                        }
-
-                        /*
-                         * Hours Enabled
-                         */
-                        if ($settings->hours_enabled != 'false') { 
-                            $wpdb->insert($DOPBSP->tables->settings_calendar, array('calendar_id' => 1,
-                                                                                    'unique_key' => 'hours_enabled',
-                                                                                    'value' => $settings->hours_enabled));
-                        }
-
-                        /*
-                         * Hours Definitions
-                         */
-                        if ($settings->hours_definitions != '[{"value": "00:00"}]') { 
-                            $wpdb->insert($DOPBSP->tables->settings_calendar, array('calendar_id' => 1,
-                                                                                    'unique_key' => 'hours_definitions',
-                                                                                    'value' => $settings->hours_definitions));
-                        }
-
-                        /*
-                         * Multiple hours select
-                         */
-                        if ($settings->multiple_hours_select != 'true') { 
-                            $wpdb->insert($DOPBSP->tables->settings_calendar, array('calendar_id' => 1,
-                                                                                    'unique_key' => 'hours_multiple_select',
-                                                                                    'value' => $settings->multiple_hours_select));
-                        }
-
-                        /*
-                         * Hours AMPM
-                         */
-                        if ($settings->hours_ampm != 'false') { 
-                            $wpdb->insert($DOPBSP->tables->settings_calendar, array('calendar_id' => 1,
-                                                                                    'unique_key' => 'hours_ampm',
-                                                                                    'value' => $settings->hours_ampm));
-                        }
-
-                        /*
-                         * Add last hour to Total Price
-                         */
-                        if ($settings->last_hour_to_total_price != 'true') { 
-                            $wpdb->insert($DOPBSP->tables->settings_calendar, array('calendar_id' => 1,
-                                                                                    'unique_key' => 'hours_add_last_hour_to_total_price',
-                                                                                    'value' => $settings->last_hour_to_total_price));
-                        }
-
-                        /*
-                         * Hours interval 
-                         */
-                        if ($settings->hours_interval_enabled != 'false') { 
-                            $wpdb->insert($DOPBSP->tables->settings_calendar, array('calendar_id' => 1,
-                                                                                    'unique_key' => 'hours_interval_enabled',
-                                                                                    'value' => $settings->hours_interval_enabled));
-                        }
-
-                        /*
-                         * Deposit
-                         */
-                        if ($settings->deposit != 0) { 
-                            $wpdb->insert($DOPBSP->tables->settings_calendar, array('calendar_id' => 1,
-                                                                                    'unique_key' => 'deposit',
-                                                                                    'value' => $settings->deposit));
-                        }
-
-                        /*
-                         * Notification Email
-                         */
-                        if ($settings->notifications_email != '') { 
-                            $wpdb->insert($DOPBSP->tables->settings_notifications, array('calendar_id' => 1,
-                                                                                         'unique_key' => 'email',
-                                                                                         'value' => $settings->notifications_email));
-                        }
-
-                        /*
-                         * Smtp Enabled 
-                         */
-                        if ($settings->smtp_enabled != 'false') { 
-                            /*
-                             * Smtp host name 
-                             */
-                            if ($settings->smtp_host_name != '') { 
-                                $wpdb->insert($DOPBSP->tables->settings_notifications, array('calendar_id' => 1,
-                                                                                             'unique_key' => 'smtp_host_name',
-                                                                                             'value' => $settings->smtp_host_name));
-                            }
-
-                            /*
-                             * Smtp host port 
-                             */
-                            if ($settings->smtp_host_port != '25') { 
-                                $wpdb->insert($DOPBSP->tables->settings_notifications, array('calendar_id' => 1,
-                                                                                             'unique_key' => 'smtp_host_port',
-                                                                                             'value' => $settings->smtp_host_port));
-                            }
-
-                            /*
-                             * Smtp SSL 
-                             */
-                            if ($settings->smtp_ssl != 'false') { 
-                                $wpdb->insert($DOPBSP->tables->settings_notifications, array('calendar_id' => 1,
-                                                                                             'unique_key' => 'smtp_ssl',
-                                                                                             'value' => $settings->smtp_ssl));
-                            }
-
-                            /*
-                             * Smtp User 
-                             */
-                            if ($settings->smtp_user != '') { 
-                                $wpdb->insert($DOPBSP->tables->settings_notifications, array('calendar_id' => 1,
-                                                                                             'unique_key' => 'smtp_user',
-                                                                                             'value' => $settings->smtp_user));
-                            }
-
-                            /*
-                             * Smtp Password 
-                             */
-                            if ($settings->smtp_password != '') { 
-                                $wpdb->insert($DOPBSP->tables->settings_notifications, array('calendar_id' => 1,
-                                                                                             'unique_key' => 'smtp_password',
-                                                                                             'value' => $settings->smtp_password));
-                            }
-                        }
-
-                        /*
-                         * Payment Arrival
-                         */
-                        if ($settings->payment_arrival_enabled != 'true') { 
-                            $wpdb->insert($DOPBSP->tables->settings_payment, array('calendar_id' => 1,
-                                                                                   'unique_key' => 'arrival_enabled',
-                                                                                   'value' => $settings->payment_arrival_enabled));
-                        }
-
-                        /*
-                         * Payment PayPal Enabled
-                         */
-                        if ($settings->payment_paypal_enabled != 'false') { 
-                            $wpdb->insert($DOPBSP->tables->settings_payment, array('calendar_id' => 1,
-                                                                                   'unique_key' => 'paypal_enabled',
-                                                                                   'value' => $settings->payment_paypal_enabled));
-                        } 
-
-                        $sanbox = '';
-
-                        if ($settings->payment_paypal_sandbox_enabled != 'false') {
-                            $sanbox = 'sandbox_';
-                            $wpdb->insert($DOPBSP->tables->settings_payment, array('calendar_id' => 1,
-                                                                                   'unique_key' => 'paypal_sandbox_enabled',
-                                                                                   'value' => $settings->payment_paypal_sandbox_enabled));
-                        }
-
-                        /*
-                         * Payment PayPal Username
-                         */
-                        if ($settings->payment_paypal_username != '') {
-                            $wpdb->insert($DOPBSP->tables->settings_payment, array('calendar_id' => 1,
-                                                                                   'unique_key' => 'paypal_'.$sanbox.'username',
-                                                                                   'value' => $settings->payment_paypal_username));
-                        }
-
-                        /*
-                         * Payment PayPal Password
-                         */
-                        if ($settings->payment_paypal_password != '') {
-                            $wpdb->insert($DOPBSP->tables->settings_payment, array('calendar_id' => 1,
-                                                                                   'unique_key' => 'paypal_'.$sanbox.'password',
-                                                                                   'value' => $settings->payment_paypal_password));
-                        }
-
-                        /*
-                         * Payment PayPal Signature
-                         */
-                        if ($settings->payment_paypal_signature != '') {
-                            $wpdb->insert($DOPBSP->tables->settings_payment, array('calendar_id' => 1,
-                                                                                   'unique_key' => 'paypal_'.$sanbox.'signature',
-                                                                                   'value' => $settings->payment_paypal_signature));
-                        }
-
-                        /*
-                         * Payment PayPal Credit Card
-                         */
-                        if ($settings->payment_paypal_credit_card != 'false') {
-                            $wpdb->insert($DOPBSP->tables->settings_payment, array('calendar_id' => 1,
-                                                                                   'unique_key' => 'paypal_credit_card',
-                                                                                   'value' => $settings->payment_paypal_credit_card));
-                        }
-                    }
-            }
-            
-            /*
              * Update translations tables from versions 2.x
              */
             function updateTranslations2x(){
@@ -1658,7 +1212,8 @@
                 $current_db_version = get_option('DOPBSP_db_version');
                 
                 if ($current_db_version != ''
-                        && $current_db_version < 2.36){
+                        && $current_db_version < 2.39){
+                    
                 
                     $languages = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->languages.' WHERE enabled="true"');
                     $languages_codes = array();
@@ -1666,6 +1221,7 @@
                     foreach($languages as $language) {
                         array_push($languages_codes, $language->code);
                     }
+                    
                     /*
                      * Translation tables.
                      */
@@ -1684,7 +1240,6 @@
                             
                         dbDelta($sql_translation);
                     }
-                    
                     
                     
                     /*
@@ -1717,8 +1272,8 @@
              * Rename tables names.
              */
             function updateRename(){
-                global $wpdb;
 		global $DOPBSP;
+                global $wpdb;
                 
                 $current_db_version = get_option('DOPBSP_db_version');
                 
@@ -1793,6 +1348,7 @@
 		    $DOT->models->availability->set($calendar->id);
 		}
 	    }
+	    
          
 // Configuration
             

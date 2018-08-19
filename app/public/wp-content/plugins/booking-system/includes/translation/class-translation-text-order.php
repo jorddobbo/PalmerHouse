@@ -1,11 +1,11 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.1
 * File                    : includes/translation/class-translation-text-order.php
 * File Version            : 1.0.5
-* Created / Last Modified : 26 August 2015
+* Created / Last Modified : 25 August 2015
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
 * Website                 : http://www.dotonpaper.net
@@ -39,7 +39,8 @@
             function order($text){
                 array_push($text, array('key' => 'PARENT_ORDER',
                                         'parent' => '',
-                                        'text' => 'Order'));
+                                        'text' => 'Order',
+                                        'location' => 'all'));
                 
                 array_push($text, array('key' => 'ORDER_TITLE',
                                         'parent' => 'PARENT_ORDER',
@@ -70,7 +71,8 @@
                                         'location' => 'all'));
                 array_push($text, array('key' => 'ORDER_PAYMENT_METHOD_ARRIVAL',
                                         'parent' => 'PARENT_RESERVATIONS_RESERVATION',
-                                        'text' => 'On arrival'));
+                                        'text' => 'On arrival',
+                                        'location' => 'all'));
                 array_push($text, array('key' => 'ORDER_PAYMENT_METHOD_WOOCOMMERCE',
                                         'parent' => 'PARENT_RESERVATIONS_RESERVATION',
                                         'text' => 'WooCommerce',
@@ -160,7 +162,8 @@
             function orderAddress($text){
                 array_push($text, array('key' => 'PARENT_ORDER_ADDRESS',
                                         'parent' => '',
-                                        'text' => 'Order - Billing/shipping address'));
+                                        'text' => 'Order - Billing/shipping address',
+                                        'location' => 'all'));
                 
                 array_push($text, array('key' => 'ORDER_ADDRESS_SELECT_PAYMENT_METHOD',
                                         'parent' => 'PARENT_ORDER_ADDRESS',

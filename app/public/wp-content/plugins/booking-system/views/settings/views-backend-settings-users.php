@@ -2,14 +2,14 @@
 
 /*
 * Title                   : Pinpoint Booking System WordPress Plugin (PRO)
-* Version                 : 2.1.8
+* Version                 : 2.1.2
 * File                    : views/settings/views-backend-settings-users.php
-* File Version            : 1.0
-* Created / Last Modified : 17 March 2016
+* File Version            : 1.0.6
+* Created / Last Modified : 11 October 2015
 * Author                  : Dot on Paper
-* Copyright               : © 2016 Dot on Paper
+* Copyright               : © 2012 Dot on Paper
 * Website                 : http://www.dotonpaper.net
-* Description             : Back end users settings views class. The file is different than PRO version.
+* Description             : Back end users settings views class.
 */
 
     if (!class_exists('DOPBSPViewsBackEndSettingsUsers')){
@@ -32,6 +32,11 @@
                  * Users roles for booking system permissions.
                  */
                 $this->templateDefault();
+                
+                /*
+                 * Users roles for custom posts permissions.
+                 */
+                $this->templateCustomPosts();
                 
                 /*
                  * Users
@@ -57,14 +62,43 @@
                 <div id="DOPBSP-inputs-users-permissions" class="dopbsp-inputs-wrapper dopbsp-hidden">
 <?php
                 while ($data = current($roles)){
-		    if (key($roles) != 'administrator'){
 ?>                      
                     <div class="dopbsp-input-wrapper">
                         <input type="checkbox" name="DOPBSP-settings-users-permissions-<?php echo key($roles); ?>" id="DOPBSP-settings-users-permissions-<?php echo key($roles); ?>" onclick="DOPBSPBackEndSettingsUsers.set(0, '<?php echo key($roles); ?>')" <?php echo get_option('DOPBSP_users_permissions_'.key($roles)) > 0 ? ' checked=checked':''; ?> />
                         <label class="dopbsp-for-checkbox" for="DOPBSP-settings-users-permissions-<?php echo key($roles); ?>"><?php printf(key($roles) == 'administrator' ? $DOPBSP->text('SETTINGS_USERS_PERMISSIONS_ADMINISTRATORS_LABEL'):$DOPBSP->text('SETTINGS_USERS_PERMISSIONS_LABEL'), '<strong>'.__(strtolower($data)).'</strong>'); ?></label>
                     </div>
 <?php                        
-		    }
+                    next($roles);                        
+                }
+?>
+                </div>
+<?php           
+            }
+            
+            /*
+             * Display users roles for custom posts permissions.
+             * 
+             * @return user roles HTML
+             */
+            function templateCustomPosts(){
+                global $wp_roles;
+                global $DOPBSP;
+                
+                $roles = $wp_roles->get_names();
+?>
+                <div class="dopbsp-inputs-header dopbsp-display">
+                    <h3><?php echo $DOPBSP->text('SETTINGS_USERS_PERMISSIONS_CUSTOM_POSTS'); ?></h3>
+                    <a href="javascript:DOPBSPBackEnd.toggleInputs('users-permissions-custom-posts')" id="DOPBSP-inputs-button-users-permissions-custom-posts" class="dopbsp-button"></a>
+                </div>
+                <div id="DOPBSP-inputs-users-permissions-custom-posts" class="dopbsp-inputs-wrapper dopbsp-hidden">
+<?php           
+                while ($data = current($roles)){
+?>                      
+                    <div class="dopbsp-input-wrapper">
+                        <input type="checkbox" name="DOPBSP-settings-users-permissions-custom_posts_<?php echo key($roles); ?>" id="DOPBSP-settings-users-permissions-custom_posts_<?php echo key($roles); ?>" onclick="DOPBSPBackEndSettingsUsers.set(0, 'custom_posts_<?php echo key($roles); ?>')" <?php echo get_option('DOPBSP_users_permissions_custom_posts_'.key($roles)) > 0 ? ' checked=checked':''; ?> />
+                        <label class="dopbsp-for-checkbox" for="DOPBSP-settings-users-permissions-custom_posts_<?php echo key($roles); ?>"><?php printf($DOPBSP->text('SETTINGS_USERS_PERMISSIONS_CUSTOM_POSTS_LABEL'), '<strong>'.__(strtolower($data)).'</strong>'); ?></label>
+                    </div>
+<?php                        
                     next($roles);                        
                 }
 ?>
@@ -171,6 +205,14 @@
                             <col class="dopbsp-column4" />
                             <col class="dopbsp-column5" />
                             <col class="dopbsp-column6" />
+<?php                            
+                if ($calendar_id == 0){
+?>
+                            <col class="dopbsp-column7" />
+                            <col class="dopbsp-column8" />
+<?php
+                }
+?>
                         </colgroup>
                         <thead>
                             <tr>
@@ -179,7 +221,20 @@
                                 <th><?php echo $DOPBSP->text('SETTINGS_USERS_PERMISSIONS_USERNAME'); ?></th>
                                 <th><?php echo $DOPBSP->text('SETTINGS_USERS_PERMISSIONS_EMAIL'); ?></th>
                                 <th><?php echo $DOPBSP->text('SETTINGS_USERS_PERMISSIONS_ROLE'); ?></th>
+<?php                            
+                if ($calendar_id == 0){
+?>
+                                <th><?php echo $DOPBSP->text('SETTINGS_USERS_PERMISSIONS_VIEW'); ?></th>
                                 <th><?php echo $DOPBSP->text('SETTINGS_USERS_PERMISSIONS_USE'); ?></th>
+                                <th><?php echo $DOPBSP->text('SETTINGS_USERS_PERMISSIONS_USE_CUSTOM_POSTS'); ?></th>
+<?php
+                }
+                else{
+?>
+                                <th><?php echo $DOPBSP->text('SETTINGS_USERS_PERMISSIONS_USE_CALENDAR'); ?></th>
+<?php                                
+                }
+?>
                             </tr>
                         </thead>
                         <tbody id="DOPBSP-users-list"></tbody>

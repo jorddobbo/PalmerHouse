@@ -86,7 +86,7 @@
                 $calendars_ids = array();
                 $query = array();
                 $values = array();
-                $api = $DOT->get('dopbsp_api') ? true:false;
+                $api = $DOT->get('dopbsp_api') == 'true' ? true:false;
                 
                 if (!$api){
                     $type = $DOT->post('type');
@@ -155,7 +155,7 @@
                     $order = $DOT->get('order') ? $DOT->get('order'):'ASC';
                     $order_by = $DOT->get('order_by') ? $DOT->get('order_by'):'check_in';
                     
-                    if (strtolower($type) == 'ics'){
+                    if(strtolower($type) == 'ics') {
                         $per_page = 1000000;
                     }
                 }

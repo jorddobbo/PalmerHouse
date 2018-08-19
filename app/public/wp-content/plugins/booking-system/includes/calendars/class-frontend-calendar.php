@@ -1,7 +1,7 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.2.1
 * File                    : includes/calendars/class-frontend-calendar.php
 * File Version            : 1.1.4

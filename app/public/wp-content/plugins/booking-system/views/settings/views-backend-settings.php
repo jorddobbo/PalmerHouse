@@ -1,11 +1,11 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
-* Version                 : 2.1.8
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
+* Version                 : 2.1.3
 * File                    : views/setttings/views-backend-settings.php
-* File Version            : 1.2.1
-* Created / Last Modified : 17 March 2016
+* File Version            : 1.1.9
+* Created / Last Modified : 14 December 2015
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
 * Website                 : http://www.dotonpaper.net
@@ -58,13 +58,13 @@
                             </div>
                             <div class="dopbsp-column-content">
                                 <ul>
-<?php
-                if (DOPBSP_DEVELOPMENT_MODE){
-?>
                                     <li class="dopbsp-settings-item dopbsp-settings" onclick="DOPBSPBackEndSettings.displaySettings(0)">
                                         <div class="dopbsp-icon"></div>
                                         <div class="dopbsp-title"><?php echo $DOPBSP->text('SETTINGS_GENERAL_TITLE'); ?></div>
                                     </li>
+<?php
+                if (DOPBSP_DEVELOPMENT_MODE){
+?>
                                     <li class="dopbsp-settings-item dopbsp-calendars" onclick="DOPBSPBackEndSettingsCalendar.display(0)">
                                         <div class="dopbsp-icon"></div>
                                         <div class="dopbsp-title"><?php echo $DOPBSP->text('SETTINGS_CALENDAR_TITLE'); ?></div>
@@ -328,6 +328,7 @@
 
                 array_push($html, ' <div class="dopbsp-input-wrapper '.$container_class.'">');
                 array_push($html, '     <label for="DOPBSP-settings-'.$id.'">'.$label.'</label>');
+                
                 if (strpos($container_class, 'dopbsp-disabled') !== false) {
                     array_push($html, '     <input type="'.($is_password ? 'password':'text').'" name="DOPBSP-settings-'.$id.'" id="DOPBSP-settings-'.$id.'" class="'.$input_class.'" value="'.$value.'" readonly="true" />');
                 } else {
@@ -399,7 +400,13 @@
                     array_push($result, $DOPBSP->text('SETTINGS_CALENDAR_COUPONS_NONE')); 
                 } 
                 
-                $coupons = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->coupons.' ORDER BY id ASC');
+                if ($DOPBSP->classes->backend_settings_users->permission(wp_get_current_user()->ID, 'view-all-calendars')){
+                    $coupons = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->coupons.' ORDER BY id ASC');
+                }
+                elseif ($DOPBSP->classes->backend_settings_users->permission(wp_get_current_user()->ID, 'use-booking-system')){
+                    $coupons = $wpdb->get_results($wpdb->prepare('SELECT * FROM '.$DOPBSP->tables->coupons.' WHERE user_id=%d OR user_id=0 ORDER BY id ASC',
+                                                                 wp_get_current_user()->ID));
+                }
                 
                 if ($wpdb->num_rows != 0){
                     foreach ($coupons as $coupon){
@@ -460,7 +467,13 @@
                     array_push($result, $DOPBSP->text('SETTINGS_CALENDAR_DISCOUNTS_NONE')); 
                 } 
                 
-                $discounts = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->discounts.' ORDER BY id ASC');
+                if ($DOPBSP->classes->backend_settings_users->permission(wp_get_current_user()->ID, 'view-all-calendars')){
+                    $discounts = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->discounts.' ORDER BY id ASC');
+                }
+                elseif ($DOPBSP->classes->backend_settings_users->permission(wp_get_current_user()->ID, 'use-booking-system')){
+                    $discounts = $wpdb->get_results($wpdb->prepare('SELECT * FROM '.$DOPBSP->tables->discounts.' WHERE user_id=%d OR user_id=0 ORDER BY id ASC',
+                                                                   wp_get_current_user()->ID));
+                }
                 
                 if ($wpdb->num_rows != 0){
                     foreach ($discounts as $discount){
@@ -489,7 +502,13 @@
                 
                 $result = array();
                 
-                $emails = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->emails.' ORDER BY id ASC');
+                if ($DOPBSP->classes->backend_settings_users->permission(wp_get_current_user()->ID, 'view-all-calendars')){
+                    $emails = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->emails.' ORDER BY id ASC');
+                }
+                elseif ($DOPBSP->classes->backend_settings_users->permission(wp_get_current_user()->ID, 'use-booking-system')){
+                    $emails = $wpdb->get_results($wpdb->prepare('SELECT * FROM '.$DOPBSP->tables->emails.' WHERE user_id=%d OR user_id=0 ORDER BY id ASC',
+                                                                wp_get_current_user()->ID));
+                }
                 
                 if ($wpdb->num_rows != 0){
                     foreach ($emails as $email){
@@ -527,7 +546,13 @@
                     array_push($result, $DOPBSP->text('SETTINGS_CALENDAR_EXTRAS_NONE')); 
                 }
                 
-                $extras = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->extras.' ORDER BY id ASC');
+                if ($DOPBSP->classes->backend_settings_users->permission(wp_get_current_user()->ID, 'view-all-calendars')){
+                    $extras = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->extras.' ORDER BY id ASC');
+                }
+                elseif ($DOPBSP->classes->backend_settings_users->permission(wp_get_current_user()->ID, 'use-booking-system')){
+                    $extras = $wpdb->get_results($wpdb->prepare('SELECT * FROM '.$DOPBSP->tables->extras.' WHERE user_id=%d OR user_id=0 ORDER BY id ASC',
+                                                                wp_get_current_user()->ID));
+                }
                 
                 if ($wpdb->num_rows != 0){
                     foreach ($extras as $extra){
@@ -558,7 +583,13 @@
                 
                 $result = array();
                 
-                $forms = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->forms.' ORDER BY id ASC');
+                if ($DOPBSP->classes->backend_settings_users->permission(wp_get_current_user()->ID, 'view-all-calendars')){
+                    $forms = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->forms.' ORDER BY id ASC');
+                }
+                elseif ($DOPBSP->classes->backend_settings_users->permission(wp_get_current_user()->ID, 'use-booking-system')){
+                    $forms = $wpdb->get_results($wpdb->prepare('SELECT * FROM '.$DOPBSP->tables->forms.' WHERE user_id=%d OR user_id=0 ORDER BY id ASC',
+                                                               wp_get_current_user()->ID));
+                }
                 
                 if ($wpdb->num_rows != 0){
                     foreach ($forms as $form){
@@ -594,7 +625,13 @@
                     array_push($result, $DOPBSP->text('SETTINGS_CALENDAR_RULES_NONE')); 
                 }
                 
-                $rules = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->rules.' ORDER BY id ASC');
+                if ($DOPBSP->classes->backend_settings_users->permission(wp_get_current_user()->ID, 'view-all-calendars')){
+                    $rules = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->rules.' ORDER BY id ASC');
+                }
+                elseif ($DOPBSP->classes->backend_settings_users->permission(wp_get_current_user()->ID, 'use-booking-system')){
+                    $rules = $wpdb->get_results($wpdb->prepare('SELECT * FROM '.$DOPBSP->tables->rules.' WHERE user_id=%d OR user_id=0 ORDER BY id ASC',
+                                                               wp_get_current_user()->ID));
+                }
                 
                 if ($wpdb->num_rows != 0){
                     foreach ($rules as $rule){
@@ -645,7 +682,6 @@
                 }
                 
                 // Load templates from current theme
-                
                 if(is_child_theme()){
                     $folder = get_stylesheet_directory().'/dopbsp-templates/';
                     $link = get_stylesheet_directory_uri().'/dopbsp-templates/';
@@ -708,7 +744,13 @@
                 $html = array();   
                 $html_checkboxes = array();   
                 
-                $fees = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->fees.' ORDER BY id ASC');
+                if ($DOPBSP->classes->backend_settings_users->permission(wp_get_current_user()->ID, 'view-all-calendars')){
+                    $fees = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->fees.' ORDER BY id ASC');
+                }
+                elseif ($DOPBSP->classes->backend_settings_users->permission(wp_get_current_user()->ID, 'use-booking-system')){
+                    $fees = $wpdb->get_results($wpdb->prepare('SELECT * FROM '.$DOPBSP->tables->fees.' WHERE user_id=%d OR user_id=0 ORDER BY id ASC',
+                                                              wp_get_current_user()->ID));
+                }
                 
                 if ($wpdb->num_rows != 0){
                 

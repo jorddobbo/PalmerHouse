@@ -1,7 +1,7 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.2
 * File                    : views/forms/views-backend-form-field.php
 * File Version            : 1.0.9
@@ -235,6 +235,14 @@
                                                     'value' => $field->is_email,
                                                     'form_field_id' => $field->id,
                                                     'help' => $DOPBSP->text('FORMS_FORM_FIELD_EMAIL_HELP')));
+                    /*
+                     * Is phone.
+                     */
+                    $this->displaySwitchInput(array('id' => 'is_phone',
+                                                    'label' => $DOPBSP->text('FORMS_FORM_FIELD_PHONE_LABEL'),
+                                                    'value' => $field->is_phone,
+                                                    'form_field_id' => $field->id,
+                                                    'help' => $DOPBSP->text('FORMS_FORM_FIELD_PHONE_HELP')));
                     /*
                      * Required
                      */

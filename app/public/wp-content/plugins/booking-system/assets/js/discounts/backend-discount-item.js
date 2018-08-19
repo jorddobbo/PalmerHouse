@@ -1,6 +1,6 @@
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.8
 * File                    : assets/js/discounts/backend-discount-item.js
 * File Version            : 1.0.6
@@ -78,7 +78,7 @@ var DOPBSPBackEndDiscountItem = new function(){
     /*
      * Edit discount item.
      * 
-     * @param id (Number): discount item ID
+     * @param id (Number): item ID
      * @param type (String): field type
      * @param field (String): field name
      * @param value (String): field value

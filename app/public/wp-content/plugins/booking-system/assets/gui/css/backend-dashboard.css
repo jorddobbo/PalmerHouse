@@ -1,9 +1,9 @@
 @charset "utf-8";
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.6
-* File                    : assets/gui/css/backend-dashboard.css
+* File                    : assets/gui/css/backend-coupons.css
 * File Version            : 1.1.1
 * Created / Last Modified : 19 February 2016
 * Author                  : Dot on Paper
@@ -307,7 +307,7 @@
     #DOPBSP-box-api .dopbsp-button.dopbsp-reset-api-key,
     #DOPBSP-server td .dopbsp-icon{
         background-image: url('../images/sprite-retina.png') !important;
-        background-size: 600px 500px !important;
+        background-size: 800px 500px !important;
     }
 }
 /*

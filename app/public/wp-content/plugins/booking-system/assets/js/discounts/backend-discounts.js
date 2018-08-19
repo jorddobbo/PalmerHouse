@@ -1,7 +1,7 @@
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
-* Version                 : 2.1.1
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
+* Version                 : 2.1.2
 * File                    : assets/js/discounts/backend-discounts.js
 * File Version            : 1.0.4
 * Created / Last Modified : 11 October 2015

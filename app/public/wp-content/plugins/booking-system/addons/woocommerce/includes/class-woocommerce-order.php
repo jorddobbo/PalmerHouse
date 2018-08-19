@@ -1,7 +1,7 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.8
 * File                    : addons/woocommerce/includes/class-woocommerce-cart.php
 * File Version            : 1.0.1
@@ -18,6 +18,10 @@
              * Constructor
              */
             function __construct(){
+                /*
+                 * Add order item meta before saving order.
+                 */
+                add_action('woocommerce_checkout_create_order', array(&$this, 'add'), 10, 3);
                 /*
                  * Add order item meta & save order item ID.
                  */
@@ -57,6 +61,79 @@
                  * Cancel reservations from booking system if order is refunded.
                  */
                 add_action('woocommerce_order_status_refunded', array(&$this, 'cancel'));
+            }
+            
+            function add($order, $data){           
+                global $wpdb;
+                global $DOPBSP;
+                global $DOPBSPWooCommerce;
+                $cart_items = WC()->cart->get_cart();
+                
+                foreach($cart_items as $cart_item_key => $values ) {
+              //      $_product = $values['data']->post;
+                    $_product = $values['data'];
+                    $item_id = $_product->get_id(); 
+                    
+                    if (isset($values['dopbsp_token'])){
+                        $wpdb->update($DOPBSPWooCommerce->tables->woocommerce, array('order_item_id' => $item_id),
+                                                                               array('cart_item_key' => $cart_item_key,
+                                                                                     'token' => $values['dopbsp_token'],
+                                                                                     'product_id' => $values['product_id']));
+                        $reservations_data = $wpdb->get_results($wpdb->prepare('SELECT * FROM '.$DOPBSPWooCommerce->tables->woocommerce.' WHERE cart_item_key="%s" AND token="%s" AND product_id=%d',
+                                                                               $cart_item_key, $values['dopbsp_token'], $values['product_id']));
+
+                        foreach ($reservations_data as $reservation_data){
+                            $reservation = json_decode($reservation_data->data);
+                            $reservation->currency = $reservation_data->currency;
+                            $reservation->order_item_id = $item_id;
+
+                            $settings_calendar = $DOPBSP->classes->backend_settings->values($reservation_data->calendar_id,  
+                                                                                            'calendar');
+
+                            $DOPBSP->classes->translation->set($reservation_data->language,
+                                                               false,
+                                                               array('frontend',
+                                                                     'calendar',
+                                                                     'woocommerce_frontend'));
+
+                            /*
+                             * Display details data.
+                             */
+                            wc_add_order_item_meta($item_id, 
+                                                   $DOPBSP->text('RESERVATIONS_RESERVATION_ID').' #'.$reservation_data->id,
+                                                   '');
+
+                            /*
+                             * Display reservation data.
+                             */
+                            wc_add_order_item_meta($item_id, 
+                                                   $DOPBSP->text('RESERVATIONS_RESERVATION_DETAILS_TITLE'), 
+                                                   $this->getDetails($reservation,
+                                                                     $settings_calendar));
+
+                            /*
+                             * Display extra data.
+                             */
+                            if ((int)$settings_calendar->extra != 0){
+                                wc_add_order_item_meta($item_id,
+                                                       $DOPBSP->text('EXTRAS_FRONT_END_TITLE'), 
+                                                       $this->getExtras($reservation,
+                                                                        $settings_calendar));
+                            }
+
+                            /*
+                             * Display discount data.
+                             */
+                            if ((int)$settings_calendar->discount != 0){
+                                wc_add_order_item_meta($item_id, 
+                                                       $DOPBSP->text('DISCOUNTS_FRONT_END_TITLE'), 
+                                                       $this->getDiscount($reservation,
+                                                                          $settings_calendar));
+                            }
+                        }
+                    }
+                    
+                }
             }
             
             /*
@@ -132,7 +209,7 @@
                     }
                 }
             }
-
+            
             /*
              * Add reservations to booking system.
              * 
@@ -182,7 +259,7 @@
                                                                             array("id" => 2, "is_email" => "false", "add_to_day_hour_info" => "false", "add_to_day_hour_body" => "false","translation" => $DOPBSP->text('FORMS_DEFAULT_LAST_NAME'), "value" => $billing_last_name),
                                                                             array("id" => 3, "is_email" => "true", "add_to_day_hour_info" => "false", "add_to_day_hour_body" => "false","translation" => $DOPBSP->text('FORMS_DEFAULT_EMAIL'), "value" => $billing_email),
                                                                             array("id" => 4, "is_email" => "false", "add_to_day_hour_info" => "false", "add_to_day_hour_body" => "false","translation" => $DOPBSP->text('FORMS_DEFAULT_PHONE'), "value" => $billing_phone),
-                                                                            array("id" => 5, "is_email" => "false", "add_to_day_hour_info" => "false", "add_to_day_hour_body" => "false","translation" => $DOPBSP->text('FORMS_DEFAULT_MESSAGE'), "value" => $order->get_customer_note())
+                                                                            array("id" => 5, "is_email" => "false", "add_to_day_hour_info" => "false", "add_to_day_hour_body" => "false","translation" => $DOPBSP->text('FORMS_DEFAULT_MESSAGE'), "value" => $order->get_customer_note() )
                                                                        ),
                                                                        '',
                                                                        '',
@@ -357,7 +434,7 @@
                                            'price'));
                     }
                 }
-               
+                
                 /*
                  * Reservation price total.
                  */

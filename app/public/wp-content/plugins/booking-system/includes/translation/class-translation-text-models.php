@@ -1,7 +1,7 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.8
 * File                    : includes/translation/class-translation-models.php
 * File Version            : 1.0
@@ -68,7 +68,7 @@
             function modelsModel($text){
                 array_push($text, array('key' => 'PARENT_MODELS_MODEL',
                                         'parent' => '',
-                                        'text' => 'Business models - Model'));
+                                        'text' => 'Business models - Business model'));
                 
                 array_push($text, array('key' => 'MODELS_MODEL_NAME',
                                         'parent' => 'PARENT_MODELS_MODEL',
@@ -198,10 +198,10 @@
                                         'text' => 'Enter business model label.'));
                 array_push($text, array('key' => 'MODELS_MODEL_MULTIPLE_CALENDARS_HELP',
                                         'parent' => 'PARENT_MODELS_HELP',
-                                        'text' => 'Enable this option to add more than one calendar to your business model.'));
+                                        'text' => 'Enable this option to add more than one calendar to your business model'));
                 array_push($text, array('key' => 'MODELS_MODEL_CALENDAR_LABEL_HELP',
                                         'parent' => 'PARENT_MODELS_HELP',
-                                        'text' => 'Set how the calendars should be called. Examples: Room, Staff, ...'));
+                                        'text' => 'Set how the calendars should be called. Examples: Rooms, Staff, ...'));
                 
                 return $text;
             }

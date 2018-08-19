@@ -1,10 +1,10 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.2
 * File                    : views/discounts/views-backend-discount.php
-* File Version            : 1.0.9
+* File Version            : 1.0.8
 * Created / Last Modified : 11 October 2015
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
@@ -106,11 +106,13 @@
                 $container_class = isset($args['container_class']) ? $args['container_class']:'';
                     
                 $html = array();
+
                 array_push($html, ' <div class="dopbsp-input-wrapper '.$container_class.'">');
                 array_push($html, '     <label for="DOPBSP-discount-'.$id.'">'.$label.'</label>');
                 array_push($html, '     <input type="text" name="DOPBSP-discount-'.$id.'" id="DOPBSP-discount-'.$id.'" value="'.$value.'" onkeyup="if ((event.keyCode||event.which) !== 9){DOPBSPBackEndDiscount.edit('.$discount_id.', \'text\', \''.$id.'\', this.value);}" onpaste="DOPBSPBackEndDiscount.edit('.$discount_id.', \'text\', \''.$id.'\', this.value)" onblur="DOPBSPBackEndDiscount.edit('.$discount_id.', \'text\', \''.$id.'\', this.value, true)" />');
                 array_push($html, '     <a href="'.DOPBSP_CONFIG_HELP_DOCUMENTATION_URL.'" target="_blank" class="dopbsp-button dopbsp-help"><span class="dopbsp-info dopbsp-help">'.$help.'<br /><br />'.$DOPBSP->text('HELP_VIEW_DOCUMENTATION').'</span></a>');                        
                 array_push($html, ' </div>');
+
                 echo implode('', $html);
             }
             
@@ -139,6 +141,7 @@
                 $container_class = isset($args['container_class']) ? $args['container_class']:'';
                     
                 $html = array();
+
                 array_push($html, ' <div class="dopbsp-input-wrapper '.$container_class.'">');
                 array_push($html, '     <label class="dopbsp-for-switch">'.$label.'</label>');
                 array_push($html, '     <div class="dopbsp-switch">');

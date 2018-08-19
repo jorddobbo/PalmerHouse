@@ -1,11 +1,11 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.1
 * File                    : includes/translation/class-translation-text-fees.php
 * File Version            : 1.0.3
-* Created / Last Modified : 26 August 2015
+* Created / Last Modified : 25 August 2015
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
 * Website                 : http://www.dotonpaper.net
@@ -42,14 +42,17 @@
             function fees($text){
                 array_push($text, array('key' => 'PARENT_FEES',
                                         'parent' => '',
-                                        'text' => 'Taxes & fees'));
+                                        'text' => 'Taxes & fees',
+                                        'location' => 'all'));
                 
                 array_push($text, array('key' => 'FEES_TITLE',
                                         'parent' => 'PARENT_FEES',
-                                        'text' => 'Taxes & fees'));
+                                        'text' => 'Taxes & fees',
+                                        'location' => 'all'));
                 array_push($text, array('key' => 'FEES_CREATED_BY',
                                         'parent' => 'PARENT_FEES',
-                                        'text' => 'Created by'));
+                                        'text' => 'Created by',
+                                        'location' => 'all'));
                 array_push($text, array('key' => 'FEES_LOAD_SUCCESS',
                                         'parent' => 'PARENT_FEES',
                                         'text' => 'Taxes & fees list loaded.'));

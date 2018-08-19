@@ -14,7 +14,7 @@
 	    /*
 	     * Private variables.
 	     */
-	    private $default; // Calendar default schedule.
+	    private $default; // Calendar default schedule. 
 	    private $id; // Calendar ID.
 	    private $schedule; // Calendar schedule.
 	    private $settings; // Calendar settings.
@@ -248,7 +248,7 @@
 	     *	    "true" if the day is available, "false" otherwise
 	     * 
 	     * @return_details
-	     *	    Rules pririty:
+	     *	    Rules priority:
 	     *		1. Schedule
 	     *		2. Availability rules
 	     *		3. Default availability

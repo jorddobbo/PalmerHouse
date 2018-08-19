@@ -1,11 +1,11 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
-* Version                 : 2.1.6
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
+* Version                 : 2.1.2
 * File                    : includes/calendars/class-backend-calendars.php
 * File Version            : 1.1.2
-* Created / Last Modified : 19 February 2016
+* Created / Last Modified : 14 November 2015
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
 * Website                 : http://www.dotonpaper.net
@@ -43,15 +43,67 @@
                 global $wpdb;
                 global $DOPBSP;
                 
+                $user_id = isset($args['user_id']) ? $args['user_id']:wp_get_current_user()->ID;
+                
                 $calendars = array();
+                $calendars_assigned = array();
+                $calendars_assigned_raw = array();
                 $calendars_available = array();
                 
-                $calendars = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->calendars);
+                /*
+                 * If curent user is an administrator and can view all calendars get all calendars.
+                 */
+                if ($DOPBSP->classes->backend_settings_users->permission($user_id, 'view-all-calendars')){
+                    $calendars = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->calendars.' ORDER BY id DESC');
+                }
+                else{
+                    /*
+                     * If current user can use the booking system get the calendars he created.
+                     */
+                    if ($DOPBSP->classes->backend_settings_users->permission($user_id, 'use-booking-system')){
+                        $calendars = $wpdb->get_results($wpdb->prepare('SELECT * FROM '.$DOPBSP->tables->calendars.' WHERE user_id=%d ORDER BY id DESC',
+                                                                       $user_id));
+                    }
+
+                    /*
+                     * If current user has been allowed to use only some calendars.
+                     */
+                    if ($DOPBSP->classes->backend_settings_users->permission($user_id, 'use-calendars')){
+                        $calendars_ids = explode(',', get_user_meta($user_id, 'DOPBSP_permissions_calendars', true));
+                        $calendars_found = array();
+
+                        foreach ($calendars_ids as $calendar_id){
+                            if ($calendar_id != ''){
+                                array_push($calendars_found, $calendar_id);
+                            }
+                        }
+
+                        if (count($calendars_found) > 0){
+                           $calendars_assigned_raw = $wpdb->get_results($wpdb->prepare('SELECT * FROM '.$DOPBSP->tables->calendars.' WHERE id IN ('.implode(', ', array_fill(0, count($calendars_found), '%s')).') ORDER BY id DESC', $calendars_found));   
+                        }
+                    }
+                    
+                    $calendars_assigned_raw = array_merge($calendars_assigned_raw, $calendars);
+                    $calendars_assigned_unique = ',';
+                    
+                    for ($i=0; $i<count($calendars_assigned_raw); $i++){
+                        if (strpos($calendars_assigned_unique, ','.$calendars_assigned_raw[$i]->id.',') === false){
+                            $calendars_assigned_unique .= $calendars_assigned_raw[$i]->id.',';
+                            $calendars_assigned[$calendars_assigned_raw[$i]->id] = $calendars_assigned_raw[$i];
+                        }
+                    }
+                    arsort($calendars_assigned);
+                }
                 
                 /* 
                  * Create available calendars list.
                  */
-                if (count($calendars) > 0){
+                if (count($calendars_assigned) > 0){
+                    foreach ($calendars_assigned as $calendar) {
+                        array_push($calendars_available, $calendar);
+                    }
+                }
+                elseif (count($calendars) > 0){
                     foreach ($calendars as $calendar){
                         array_push($calendars_available, $calendar);
                     }
@@ -137,7 +189,6 @@
                             break;
                     }
                 }
-                
                 array_push($html, '<li class="dopbsp-item" id="DOPBSP-calendar-ID-'.$calendar->id.'" onclick="DOPBSPBackEndCalendar.init('.$calendar->id.', '.$calendar->user_id.'); return false;">');
                 array_push($html, ' <div class="dopbsp-header">');
                 

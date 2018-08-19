@@ -209,7 +209,7 @@
 		    $data = new stdClass;
 		    
 		    $data->availability = $DOT->models->availability->get($calendar_id); 
-			    
+                    
 		    echo json_encode($data);
 		}
 		else{

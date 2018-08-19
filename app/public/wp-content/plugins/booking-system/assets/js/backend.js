@@ -1,9 +1,9 @@
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.8
 * File                    : assets/js/backend.js
-* File Version            : 1.1.5
+* File Version            : 1.1.4
 * Created / Last Modified : 15 March 2016
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
@@ -67,9 +67,6 @@ var DOPBSPBackEnd = new function(){
                     case 'Models':
                         DOPBSPBackEndModels.display();
                         break;
-                    case 'PRO':
-                        DOPBSPBackEndPRO.display();
-                        break;
                     case 'Reservations':
                         DOPBSPBackEndReservations.display();
                         break;
@@ -78,6 +75,9 @@ var DOPBSPBackEnd = new function(){
                         break;
                     case 'Rules':
                         DOPBSPBackEndRules.display();
+                        break;
+                    case 'Search':
+                        DOPBSPBackEndSearches.display();
                         break;
                     case 'Settings':
                         break;

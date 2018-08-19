@@ -1,10 +1,10 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.2.3
 * File                    : addons/paypal/dopbsp-paypal.php
-* File Version            : 1.1.3
+* File Version            : 1.1.4
 * Created / Last Modified : 21 April 2016
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
@@ -599,7 +599,7 @@
                 $curl_version = curl_version();
                 
                 if ((float)$curl_version['version'] >= 7.34){
-                    curl_setopt($ch, CURLOPT_SSLVERSION, 6);
+		    curl_setopt($ch, CURLOPT_SSLVERSION, 6);
                     curl_setopt($ch, CURLOPT_SSL_CIPHER_LIST, 'TLSv1');
                     curl_setopt($ch, CURLOPT_USERAGENT, 'PayPal-PHP-SDK');
                 }

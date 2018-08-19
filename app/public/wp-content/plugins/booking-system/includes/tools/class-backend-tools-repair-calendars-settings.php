@@ -77,8 +77,8 @@
                 global $wpdb;
                 global $DOPBSP;
                 
-                $id = $DOT->post('id', 'int');
-                $no = $DOT->post('no', 'int');
+                $id = $DOT->post('id', 'int') ? $DOT->post('id', 'int'):0;
+                $no = $DOT->post('no', 'int') ? $DOT->post('no', 'int'):0;
                 
                 $html = array();
                 

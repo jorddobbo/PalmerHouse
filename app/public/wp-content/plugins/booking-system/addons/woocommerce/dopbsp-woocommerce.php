@@ -1,11 +1,11 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.2
 * File                    : addons/woocommerce/dopbsp-woocommerce.php
 * File Version            : 1.0
-* Created / Last Modified : 04 December 2015
+* Created / Last Modified : 24 November 2015
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
 * Website                 : http://www.dotonpaper.net
@@ -49,7 +49,7 @@
              * Constructor
              */
             function __construct(){
-		global $DOT;
+//		global $DOT;
 		
                 $this->classes = new stdClass;
                 $this->tables = new stdClass;

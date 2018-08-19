@@ -1,11 +1,11 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.2
 * File                    : includes/coupons/class-frontend-coupons.php
 * File Version            : 1.0.3
-* Created / Last Modified : 11 November 2015
+* Created / Last Modified : 10 November 2015
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
 * Website                 : http://www.dotonpaper.net
@@ -37,6 +37,7 @@
                                                         $id));
                 
                 if ($id != 0){
+                    
                     if($coupon->translation != '') {
                         $coupon->translation = $DOPBSP->classes->translation->decodeJSON($coupon->translation,
                                                                                          $language);
@@ -117,7 +118,7 @@
                         && ($coupon->no_coupons == ''
                                     || (int)$coupon->no_coupons > 0)
                         && (int)$coupon->price > 0){
-                        
+                    
                     if($coupon->translation != '') {
                         $coupon->translation = $DOPBSP->classes->translation->decodeJSON($coupon->translation,
                                                                                          $language);

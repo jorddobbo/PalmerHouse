@@ -23,6 +23,21 @@
             }
             
             /*
+             * Add a location.
+             */
+            function add(){
+                global $wpdb;
+                global $DOPBSP;
+                
+                $wpdb->insert($DOPBSP->tables->locations, array('user_id' => wp_get_current_user()->ID,
+                                                                'name' => $DOPBSP->text('LOCATIONS_ADD_LOCATION_NAME'))); 
+                
+                echo $DOPBSP->classes->backend_locations->display();
+
+            	die();
+            }
+            
+            /*
              * Prints out the location.
              * 
              * @post id (integer): location ID
@@ -121,7 +136,7 @@
              */
             function delete(){
 		global $DOT;
-                global $wpdb;
+		global $wpdb;
                 global $DOPBSP;
                 
                 $id = $DOT->post('id', 'int');
@@ -184,35 +199,19 @@
 					    'businesses_other' => $location->businesses_other,
 					    'languages' => $location->languages,
 					    'email' => $location->email);
-//
-//		    $ch = curl_init();
-//
-//		    curl_setopt($ch, CURLOPT_URL, 'https://pinpoint.world/api/');
-//		    curl_setopt($ch, CURLOPT_POST, 1);
-//		    curl_setopt($ch, CURLOPT_POSTFIELDS, $post_variables);
-//		    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//
-//		    $server_output = curl_exec($ch);
-//
-//		    curl_close ($ch);
-//		    
-//		    echo $server_output == 'true' ? 'success':$DOPBSP->text('LOCATIONS_LOCATION_SHARE_SUBMIT_ERROR_DUPLICATE');
-		    
-		    $response = wp_remote_post('https://pinpoint.world/api/', array('method' => 'POST',
-										    'timeout' => 45,
-										    'redirection' => 5,
-										    'httpversion' => '1.0',
-										    'blocking' => true,
-										    'headers' => array(),
-										    'body' => $post_variables,
-										    'cookies' => array()));
 
-		    if (is_wp_error($response)){
-			echo $DOPBSP->text('LOCATIONS_LOCATION_SHARE_SUBMIT_ERROR');
-		    }
-		    else{
-		       echo $response['body'] == 'true' ? 'success':$DOPBSP->text('LOCATIONS_LOCATION_SHARE_SUBMIT_ERROR_DUPLICATE');
-		    }
+		    $ch = curl_init();
+
+		    curl_setopt($ch, CURLOPT_URL, 'https://pinpoint.world/api/');
+		    curl_setopt($ch, CURLOPT_POST, 1);
+		    curl_setopt($ch, CURLOPT_POSTFIELDS, $post_variables);
+		    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+		    $server_output = curl_exec($ch);
+
+		    curl_close ($ch);
+		    
+		    echo $server_output == 'true' ? 'success':$DOPBSP->text('LOCATIONS_LOCATION_SHARE_SUBMIT_ERROR_DUPLICATE');
 		}
 		else{
 		    echo $DOPBSP->text('LOCATIONS_LOCATION_SHARE_SUBMIT_ERROR');

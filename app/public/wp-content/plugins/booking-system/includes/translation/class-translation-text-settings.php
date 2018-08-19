@@ -1,10 +1,10 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.2.4
 * File                    : includes/translation/class-translation-text-settings.php
-* File Version            : 1.2.1
+* File Version            : 1.2.2
 * Created / Last Modified : 07 May 2016
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
@@ -70,6 +70,14 @@
                                         'parent' => 'PARENT_SETTINGS',
                                         'text' => 'General settings'));
                 
+                array_push($text, array('key' => 'SETTINGS_GENERAL_TITLE',
+                                        'parent' => 'PARENT_SETTINGS',
+                                        'text' => 'General settings'));
+                
+                array_push($text, array('key' => 'SETTINGS_GENERAL_GOOGLE_MAP_API_KEY',
+                                        'parent' => 'PARENT_SETTINGS',
+                                        'text' => 'Google Map API key'));
+                
                 return $text;
             }
             
@@ -88,6 +96,10 @@
                 array_push($text, array('key' => 'SETTINGS_HELP',
                                         'parent' => 'PARENT_SETTINGS_HELP',
                                         'text' => 'Edit booking system settings.'));
+                
+                array_push($text, array('key' => 'SETTINGS_GENERAL_GOOGLE_MAP_API_KEY_HELP',
+                                        'parent' => 'PARENT_SETTINGS_HELP',
+                                        'text' => 'Enter Google Map API key.'));
                 
                 return $text;
             }
@@ -599,7 +611,6 @@
                 array_push($text, array('key' => 'SETTINGS_CALENDAR_ORDER_TERMS_AND_CONDITIONS_LINK_HELP',
                                         'parent' => 'PARENT_SETTINGS_CALENDAR_HELP',
                                         'text' => 'Enter the link to Terms & Conditions page.'));
-                
                 /*
                  * Google Calendar Sync settings.
                  */
@@ -834,6 +845,7 @@
                 array_push($text, array('key' => 'SETTINGS_NOTIFICATIONS_SMS_CLICKATELL_ADMIN_PHONE',
                                         'parent' => 'PARENT_SETTINGS_NOTIFICATIONS',
                                         'text' => 'Notifications phone'));
+                
                 
                 
                 return $text;
@@ -1790,7 +1802,7 @@
                 array_push($text, array('key' => 'SETTINGS_LICENCES_STATUS_TIMEOUT_ERROR',
                                         'parent' => 'PARENT_SETTINGS_LICENCES',
                                         'text' => 'The connection to the server timed out. Please try again later.'));
-                
+		
                 array_push($text, array('key' => 'SETTINGS_LICENCES_KEY',
                                         'parent' => 'PARENT_SETTINGS_LICENCES',
                                         'text' => 'Licence key'));

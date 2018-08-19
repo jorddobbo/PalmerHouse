@@ -1,7 +1,7 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.1
 * File                    : includes/reservations/class-backend-reservations-list.php
 * File Version            : 1.0.8
@@ -84,6 +84,9 @@
                     $per_page = $DOT->post('per_page', 'int');
                     $order = $DOT->post('order');
                     $order_by = $DOT->post('order_by');
+                    
+                    // Sync with iCal
+                    $DOPBSP->classes->backend_calendar_schedule->sync($calendar_id);
                 }
                 else{
                     if ($DOT->get('calendar_id') !== false
@@ -169,7 +172,6 @@
                     array_push($query, ' AND check_in <= %s');
                     array_push($values, $end_date);
                 }
-               
                
                 /*
                  * Hours query.
@@ -465,7 +467,6 @@
                     array_push($query, ' AND check_in <= %s');
                     array_push($values, $end_date);
                 }
-               
                
                 /*
                  * Hours query.

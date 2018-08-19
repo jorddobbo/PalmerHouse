@@ -46,35 +46,35 @@
 	<div class="booking-tabs">
 		<div class="booking-tabs__container container">
 			<div class="booking-tabs__list">
-				<div class="booking-tabs__item booking-tabs__room-1 active">
+				<div data-form="form_room-1" class="booking-tabs__item booking-tabs__room-1 active">
 					<div class="booking-tabs__image" style="background-image: url('<?= get_template_directory_uri(); ?>/assets/img/home/room-1.jpg');"></div>
 					<h3 class="booking-tabs__title">Room .01</h3>
 				</div>
-				<div class="booking-tabs__item booking-tabs__room-2">
+				<div data-form="form_room-2" class="booking-tabs__item booking-tabs__room-2">
 					<div class="booking-tabs__image" style="background-image: url('<?= get_template_directory_uri(); ?>/assets/img/home/room-2.jpg');"></div>
 					<h3 class="booking-tabs__title">Room .02</h3>
 				</div>
-				<div class="booking-tabs__item booking-tabs__room-3">
+				<div data-form="form_room-3" class="booking-tabs__item booking-tabs__room-3">
 					<div class="booking-tabs__image" style="background-image: url('<?= get_template_directory_uri(); ?>/assets/img/home/room-3.jpg');"></div>
 					<h3 class="booking-tabs__title">Room .03</h3>
 				</div>
-				<div class="booking-tabs__item booking-tabs__room-4">
+				<div data-form="form_room-4" class="booking-tabs__item booking-tabs__room-4">
 					<div class="booking-tabs__image" style="background-image: url('<?= get_template_directory_uri(); ?>/assets/img/home/room-4.jpg');"></div>
 					<h3 class="booking-tabs__title">Room .04</h3>
 				</div>
-				<div class="booking-tabs__item booking-tabs__room-5">
+				<div data-form="form_room-5" class="booking-tabs__item booking-tabs__room-5">
 					<div class="booking-tabs__image" style="background-image: url('<?= get_template_directory_uri(); ?>/assets/img/home/room-5.jpg');"></div>
 					<h3 class="booking-tabs__title">Room .05</h3>
 				</div>
-				<div class="booking-tabs__item booking-tabs__room-6">
+				<div data-form="form_room-6" class="booking-tabs__item booking-tabs__room-6">
 					<div class="booking-tabs__image" style="background-image: url('<?= get_template_directory_uri(); ?>/assets/img/home/room-6.jpg');"></div>
 					<h3 class="booking-tabs__title">Room .06</h3>
 				</div>
-				<div class="booking-tabs__item booking-tabs__room-7">
+				<div data-form="form_room-7" class="booking-tabs__item booking-tabs__room-7">
 					<div class="booking-tabs__image" style="background-image: url('<?= get_template_directory_uri(); ?>/assets/img/home/room-7.jpg');"></div>
 					<h3 class="booking-tabs__title">Room .07</h3>
 				</div>
-				<div class="booking-tabs__item booking-tabs__room-8">
+				<div data-form="form_room-8" class="booking-tabs__item booking-tabs__room-8">
 					<div class="booking-tabs__image" style="background-image: url('<?= get_template_directory_uri(); ?>/assets/img/home/room-8.jpg');"></div>
 					<h3 class="booking-tabs__title">Room .08</h3>
 				</div>

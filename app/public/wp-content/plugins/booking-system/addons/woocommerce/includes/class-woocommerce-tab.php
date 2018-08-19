@@ -1,11 +1,11 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.2
 * File                    : addons/woocommerce/includes/class-woocommerce-tab.php
 * File Version            : 1.0
-* Created / Last Modified : 04 December 2015
+* Created / Last Modified : 25 November 2015
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
 * Website                 : http://www.dotonpaper.net
@@ -104,7 +104,7 @@
             function set($post_id){
 		global $DOT;
 		
-                update_post_meta($post_id, 'dopbsp_woocommerce_calendar', $DOT->post('dopbsp_woocommerce_calendar', 'int'));
+                update_post_meta($post_id, 'dopbsp_woocommerce_calendar', $DOT->post('dopbsp_woocommerce_calendar'));
                 update_post_meta($post_id, 'dopbsp_woocommerce_language', $DOT->post('dopbsp_woocommerce_language'));
                 update_post_meta($post_id, 'dopbsp_woocommerce_position', $DOT->post('dopbsp_woocommerce_position'));
                 update_post_meta($post_id, 'dopbsp_woocommerce_add_to_cart', $DOT->post('dopbsp_woocommerce_add_to_cart'));

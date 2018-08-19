@@ -1,7 +1,7 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.1
 * File                    : includes/translation/class-backend-translation.php
 * File Version            : 1.0.4
@@ -50,7 +50,7 @@
                 $DOPBSP->views->backend_translation->text(array('language' => $language,
                                                                 'translation' => $translation));
                 
-            	die();                
+            	die();
             }
             
             /*
@@ -162,7 +162,7 @@
                      * Delete duplicated keys.
                      */
                     $wpdb->query('DELETE t1 FROM '.$DOPBSP->tables->translation.'_'.$languages_codes[$l].' t1, '.$DOPBSP->tables->translation.'_'.$languages_codes[$l].' t2 WHERE t1.id > t2.id AND t1.key_data = t2.key_data');
-
+                    
                     /*
                      * Delete old translation.
                      */

@@ -59,9 +59,7 @@ var DOPBSPBackEndLocation = new function(){
         $.post(ajaxurl, {action: 'dopbsp_location_display', 
                          id: id,
                          language: language}, function(data){
-	    if (DOPBSP_view_pro){
-		HTML.push('<a href="?page=dopbsp-pro" class="dopbsp-button dopbsp-delete"><span class="dopbsp-info dopbsp-pro">'+DOPBSPBackEnd.text('LOCATIONS_DELETE_LOCATION_SUBMIT')+' - '+DOPBSPBackEnd.text('MESSAGES_PRO_TEXT')+'</span></a>');
-	    }
+            HTML.push('<a href="javascript:DOPBSPBackEnd.confirmation(\'LOCATIONS_DELETE_LOCATION_CONFIRMATION\', \'DOPBSPBackEndLocation.delete('+id+')\')" class="dopbsp-button dopbsp-delete"><span class="dopbsp-info">'+DOPBSPBackEnd.text('LOCATIONS_DELETE_LOCATION_SUBMIT')+'</span></a>');
             HTML.push('<a href="'+DOPBSP_CONFIG_HELP_DOCUMENTATION_URL+'" target="_blank" class="dopbsp-button dopbsp-help">');
             HTML.push(' <span class="dopbsp-info dopbsp-help">');
             HTML.push(DOPBSPBackEnd.text('LOCATIONS_LOCATION_HELP')+'<br /><br />');
@@ -94,6 +92,21 @@ var DOPBSPBackEndLocation = new function(){
         else{
             DOPBSPBackEnd.toggleMessages('error', DOPBSPBackEnd.text('LOCATIONS_LOCATION_NO_GOOGLE_MAPS'));
         }
+    };
+
+    /*
+     * Add location.
+     */
+    this.add = function(){
+        DOPBSPBackEnd.clearColumns(2);
+        DOPBSPBackEnd.toggleMessages('active', DOPBSPBackEnd.text('LOCATIONS_ADD_LOCATION_ADDING'));
+
+        $.post(ajaxurl, {action: 'dopbsp_location_add'}, function(data){
+            $('#DOPBSP-column1 .dopbsp-column-content').html(data);
+            DOPBSPBackEnd.toggleMessages('success', DOPBSPBackEnd.text('LOCATIONS_ADD_LOCATION_SUCCESS'));
+        }).fail(function(data){
+            DOPBSPBackEnd.toggleMessages('error', data.status+': '+data.statusText);
+        });
     };
 
     /*
@@ -198,6 +211,33 @@ var DOPBSPBackEndLocation = new function(){
                 });
             }, 600);
         }
+    };
+
+    /*
+     * Delete location.
+     * 
+     * @param id (Number): location ID
+     */
+    this.delete = function(id){
+        DOPBSPBackEnd.toggleMessages('active', DOPBSPBackEnd.text('LOCATIONS_DELETE_LOCATION_DELETING'));
+
+        $.post(ajaxurl, {action: 'dopbsp_location_delete', 
+                         id: id}, function(data){
+            DOPBSPBackEnd.clearColumns(2);
+
+            $('#DOPBSP-location-ID-'+id).stop(true, true)
+                                   .animate({'opacity':0}, 
+                                   600, function(){
+                $(this).remove();
+
+                if (data === '0'){
+                    $('#DOPBSP-column1 .dopbsp-column-content').html('<ul><li class="dopbsp-no-data">'+DOPBSPBackEnd.text('LOCATIONS_NO_LOCATIONS')+'</li></ul>');
+                }
+                DOPBSPBackEnd.toggleMessages('success', DOPBSPBackEnd.text('LOCATIONS_DELETE_LOCATION_SUCCESS'));
+            });
+        }).fail(function(data){
+            DOPBSPBackEnd.toggleMessages('error', data.status+': '+data.statusText);
+        });
     };
 
     /*

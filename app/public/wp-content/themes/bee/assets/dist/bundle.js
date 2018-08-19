@@ -12756,6 +12756,24 @@ exports.default = function () {
 				}
 			}]
 		});
+
+		function bookingForms() {
+
+			var btn = $('.booking-tabs__item');
+
+			btn.on('click', function () {
+
+				var form = $(this).data('form');
+
+				btn.removeClass('active');
+				$(this).addClass('active');
+
+				$('.booking-forms__item').removeClass('active');
+				$('#' + form).addClass('active');
+
+				console.log(btn, form);
+			});
+		}bookingForms();
 	});
 };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))

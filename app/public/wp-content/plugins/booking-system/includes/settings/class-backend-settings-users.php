@@ -1,15 +1,15 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.8
 * File                    : includes/settings/class-backend-settings-users.php
-* File Version            : 1.0.7
+* File Version            : 1.0.8
 * Created / Last Modified : 17 March 2016
 * Author                  : Dot on Paper
-* Copyright               : © 2016 Dot on Paper
+* Copyright               : © 2012 Dot on Paper
 * Website                 : http://www.dotonpaper.net
-* Description             : Back end settings PHP class. The file is different than PRO version.
+* Description             : Back end settings PHP class.
 */
 
     if (!class_exists('DOPBSPBackEndSettingsUsers')){
@@ -97,7 +97,6 @@
             function get(){
 		global $DOT;
                 global $wp_roles;
-		
                 $HTML = array();
                 
                 $calendar_id = $DOT->post('calendar_id', 'int');
@@ -111,6 +110,10 @@
                 
                 foreach ($users as $user){
                     $roles = array();
+                    $checkbox_view = array();
+                    $checkbox_use = array();
+                    $checkbox_use_calendar = array();
+                    $checkbox_use_custom_posts = array();
                     
                     foreach ($user->roles as $role){
                         array_push($roles, $wp_roles->roles[$role]['name']);
@@ -118,18 +121,50 @@
                     
                     if ($calendar_id == 0){
 			/*
+			 * View all calendars setting.
+			 */
+			array_push($checkbox_view, '<div class="dopbsp-input-wrapper">');
+			array_push($checkbox_view, '    <input type="checkbox" name="DOPBSP-settings-users-permissions-view-'.$user->ID.'" id="DOPBSP-settings-users-permissions-view-'.$user->ID.'" onclick="DOPBSPBackEndSettingsUsers.set('.$user->ID.', \'view\')" '.($this->permission($user->ID, 'view-all-calendars', 0) ? 'checked="checked"':'').($user->roles[0] == 'administrator' ? '':' disabled="disabled"').' />');
+			array_push($checkbox_view, '</div>');
+
+			/*
 			 * Use booking system setting.
 			 */
+			array_push($checkbox_use, '<div class="dopbsp-input-wrapper">');
+			array_push($checkbox_use, '     <input type="checkbox" name="DOPBSP-settings-users-permissions-use-'.$user->ID.'" id="DOPBSP-settings-users-permissions-use-'.$user->ID.'" onclick="DOPBSPBackEndSettingsUsers.set('.$user->ID.', \'use\')" '.($this->permission($user->ID, 'use-booking-system', 0) ? 'checked="checked"':'').($user->roles[0] == 'administrator' ? ' disabled="disabled"':'').' />');
+			array_push($checkbox_use, '</div>');
+			
+			/*
+			 * Use custom posts setting.
+			 */
+                        array_push($checkbox_use_custom_posts, '<div class="dopbsp-input-wrapper">');
+                        array_push($checkbox_use_custom_posts, '    <input type="checkbox" name="DOPBSP-settings-users-permissions-custom_posts-'.$user->ID.'" id="DOPBSP-settings-users-permissions-custom_posts-'.$user->ID.'" onclick="DOPBSPBackEndSettingsUsers.set('.$user->ID.', \'custom_posts\')" '.($this->permission($user->ID, 'use-custom-posts', 0) ? 'checked="checked"':'').' />');
+                        array_push($checkbox_use_custom_posts, '</div>');
+                    }
+                    else{
+                        if ($user->roles[0] != 'administrator'){
+                            array_push($checkbox_use_calendar, '<div class="dopbsp-input-wrapper">');
+                            array_push($checkbox_use_calendar, '     <input type="checkbox" name="DOPBSP-settings-users-permissions-use-calendar-'.$user->ID.'" id="DOPBSP-settings-users-permissions-use-calendar-'.$user->ID.'" onclick="DOPBSPBackEndSettingsUsers.set('.$user->ID.', \'use-calendar\', '.$calendar_id.')" '.($this->permission($user->ID, 'use-calendar', $calendar_id) ? 'checked="checked"':'').' />');
+                            array_push($checkbox_use_calendar, '</div>');
+                        }
+                    }
+                    
+                    if ($calendar_id == 0
+                            || $user->roles[0] != 'administrator'){
                         array_push($HTML, '<tr>');
                         array_push($HTML, ' <td>'.$user->ID.'</td>');
                         array_push($HTML, ' <td>'.get_avatar($user->ID, 18, '', $user->first_name.' '.$user->last_name).$user->user_login.'<br />'.$user->first_name.' '.$user->last_name.'</td>');
                         array_push($HTML, ' <td>'.$user->user_email.'</td>');
                         array_push($HTML, ' <td>'.implode('<br />', $roles).'</td>');
-                        array_push($HTML, ' <td>');
-			array_push($HTML, '	<div class="dopbsp-input-wrapper">');
-			array_push($HTML, '	    <input type="checkbox" name="DOPBSP-settings-users-permissions-use-'.$user->ID.'" id="DOPBSP-settings-users-permissions-use-'.$user->ID.'" onclick="DOPBSPBackEndSettingsUsers.set('.$user->ID.', \'use\')" '.($this->permission($user->ID, 'use-booking-system', 0) ? 'checked="checked"':'').($user->roles[0] == 'administrator' ? ' disabled="disabled"':'').' />');
-			array_push($HTML, '	</div>');
-                        array_push($HTML, ' </td>');
+
+                        if ($calendar_id == 0){
+                            array_push($HTML, ' <td>'.implode('', $checkbox_view).'</td>');
+                            array_push($HTML, ' <td>'.implode('', $checkbox_use).'</td>');
+                            array_push($HTML, ' <td>'.implode('', $checkbox_use_custom_posts).'</td>');
+                        }
+                        else{
+                            array_push($HTML, ' <td>'.implode('', $checkbox_use_calendar).'</td>');
+                        }
                         array_push($HTML, '</tr>');
                     }
                 }
@@ -159,10 +194,10 @@
                                        'value' => 0)){
 		global $DOT;
 		
-                $id = $DOT->post('id', 'int') != 0 ? $DOT->post('id', 'int'):$args['id'];
+                $id = $DOT->post('id', 'int') ? $DOT->post('id', 'int'):$args['id'];
                 $slug = $DOT->post('slug') ? $DOT->post('slug'):$args['slug'];
-                $value = $DOT->post('value', 'int') != 0 ? $DOT->post('value', 'int'):(int)$args['value'];
-                $calendar_id = $DOT->post('calendar_id', 'int') != 0 ? $DOT->post('calendar_id', 'int'):(int)$args['calendar_id'];
+                $value = $DOT->post('value', 'int') ? $DOT->post('value', 'int'):(int)$args['value'];
+                $calendar_id = $DOT->post('calendar_id', 'int') ? $DOT->post('calendar_id', 'int'):(int)$args['calendar_id'];
                 
                 if ($id == 0){
                     update_option('DOPBSP_users_permissions_'.$slug, $value);

@@ -1,11 +1,11 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
-* Version                 : 2.1.6
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
+* Version                 : 2.1.1
 * File                    : includes/translation/class-translation-text-search.php
-* File Version            : 1.1.2
-* Created / Last Modified : 15 February 2016
+* File Version            : 1.1.1
+* Created / Last Modified : 25 August 2015
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
 * Website                 : http://www.dotonpaper.net
@@ -32,6 +32,7 @@
                 add_filter('dopbsp_filter_translation_text', array(&$this, 'searchesHelp'));
                 
                 add_filter('dopbsp_filter_translation_text', array(&$this, 'searchesFrontEnd'));
+                add_filter('dopbsp_filter_translation_text', array(&$this, 'searchesWidget'));
             }
 
             /*
@@ -212,6 +213,23 @@
                                         'parent' => 'PARENT_SEARCHES_HELP',
                                         'text' => 'Change search name.'));
                 
+                return $text;
+            }
+            
+             /*
+             * Search - Search widget text.
+             * 
+             * @param lang (array): current translation
+             * 
+             * @return array with updated translation
+             */
+            function searchesWidget($text){
+                array_push($text, array('key' => 'PARENT_SEARCHES_WIDGET',
+                                        'parent' => '',
+                                        'text' => 'Search - Widget'));
+                array_push($text, array('key' => 'SEARCHES_WIDGET',
+                                        'parent' => 'PARENT_SEARCHES_WIDGET',
+                                        'text' => 'Check Availability'));
                 return $text;
             }
             

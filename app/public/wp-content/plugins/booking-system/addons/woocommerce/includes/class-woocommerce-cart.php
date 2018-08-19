@@ -1,10 +1,10 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.2.2
 * File                    : addons/woocommerce/includes/class-woocommerce-cart.php
-* File Version            : 1.0.3
+* File Version            : 1.0.2
 * Created / Last Modified : 16 April 2016
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
@@ -83,12 +83,11 @@
                                                    array('frontend',
                                                          'calendar',
                                                          'woocommerce_frontend'));
-                
                 /*
                  * Verify reservations availability.
                  */
                 $reservation = $cart_data[0];
-                
+		
                 if (!$this->validateAvailability($calendar_id, $reservation)){
                     echo 'unavailable;;;;;'.$DOPBSP->text('WOOCOMMERCE_UNAVAILABLE').' <a href="'.wc_get_cart_url().'">'.$DOPBSP->text('WOOCOMMERCE_VIEW_CART').'</a>';
                     die();
@@ -143,7 +142,7 @@
                 $wpdb->insert($DOPBSPWooCommerce->tables->woocommerce, $reservation_data);
 		
 		wp_cache_flush();
-
+		
                 echo 'success;;;;;'.$DOPBSP->text('WOOCOMMERCE_SUCCESS').' <a href="'.wc_get_cart_url().'">'.$DOPBSP->text('WOOCOMMERCE_VIEW_CART').'</a>';
                 
                 die();
@@ -277,8 +276,8 @@
                         $DOPBSP->classes->translation->set(DOPBSP_CONFIG_TRANSLATION_DEFAULT_LANGUAGE,
                                                            false,
                                                            array('frontend',
-                                                                 'calendar',
                                                                  'woocommerce_frontend'));
+                        
                         wc_add_notice($DOPBSP->text('WOOCOMMERCE_DELETED'), 'success');
                     }
                 }
@@ -303,9 +302,8 @@
                          */
                         $DOPBSP->classes->translation->set(DOPBSP_CONFIG_TRANSLATION_DEFAULT_LANGUAGE,
                                                            false,
-                                                           array('frontend',
-                                                                 'calendar',
-                                                                 'woocommerce_frontend'));
+                                                   array('frontend',
+                                                         'woocommerce_frontend'));
                         wc_add_notice($DOPBSP->text('WOOCOMMERCE_DELETED'), 'success');
                     }
                 }
@@ -347,7 +345,7 @@
                  * Get reservations that are in this cart and from same calendar.
                  */
                 $cart = $woocommerce->cart->get_cart();
-                
+		
                 foreach ($cart as $cart_item_key => $cart_item){
                     if (isset($cart_item['dopbsp_token'])){
                         $reservations = $wpdb->get_results($wpdb->prepare('SELECT * FROM '.$DOPBSPWooCommerce->tables->woocommerce.' WHERE cart_item_key="%s" AND token="%s" ORDER BY date_created', 
@@ -413,7 +411,7 @@
                 global $wpdb;
                 global $DOPBSP;
                 global $DOPBSPWooCommerce;
-                
+		
                 $reservation = $reservation == '' ? $reservation:(object)$reservation;
                 
                 /*
@@ -423,7 +421,7 @@
                 
                 $reservations_data = $wpdb->get_results($wpdb->prepare('SELECT * FROM '.$DOPBSPWooCommerce->tables->woocommerce.' WHERE cart_item_key="%s" AND token="%s" AND product_id=%d ORDER BY date_created',
                                                                        $cart_item_key, $token, $product_id));
-                
+		
                 /*
                  * Verify reservations.
                  */
@@ -444,6 +442,6 @@
                 }
                 
                 return true;
-            } 
+            }
         }
     }

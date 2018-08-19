@@ -82,7 +82,7 @@
                      */
                     $status = $status != '' ? $status:
                                               ((($payment_method == 'none' || $payment_method == 'default') && $settings_payment->arrival_with_approval_enabled == 'false') || ($payment_method != 'none' && $payment_method != 'default' && $payment_method != 'woocommerce') ? 'pending':'approved');
-		
+		    
                     $wpdb->insert($DOPBSP->tables->reservations, array('calendar_id' => $calendar_id,
                                                                        'language' => $language,
                                                                        'currency' => $currency,
@@ -105,9 +105,9 @@
                                                                        'deposit' => isset($reservation['deposit']) ? json_encode($reservation['deposit']):'',
                                                                        'deposit_price' => $reservation['deposit_price'],
                                                                        'days_hours_history' => json_encode($days_history),
-                                                                       'form' => isset($form) && $form != '' ? json_encode($form):'',
-                                                                       'address_billing' => isset($address_billing) && $address_billing != '' ? json_encode($address_billing):'',
-                                                                       'address_shipping' => isset($address_shipping) && $address_shipping != '' ? ($address_shipping == 'billing_address' ? $address_shipping:json_encode($address_shipping)):'',
+                                                                       'form' => isset($form) && $form != '' ? json_encode($DOT->sanitize($form)):'',
+                                                                       'address_billing' => isset($address_billing) && $address_billing != '' ? json_encode($DOT->sanitize($address_billing)):'',
+                                                                       'address_shipping' => isset($address_shipping) && $address_shipping != '' ? ($address_shipping == 'billing_address' ? $address_shipping:json_encode($DOT->sanitize($address_shipping))):'',
                                                                        'email' => isset($form) && $form != '' ? $this->getEmail($form):'',
                                                                        'phone' => isset($form) && $form != '' ? $this->getPhone($form):'',
                                                                        'status' => $status,
@@ -116,7 +116,8 @@
                                                                        'ip' => '', //isset($reservation['ip']) ? $reservation['ip']:'',
                                                                        'transaction_id' => $transaction_id != '' ? $transaction_id:'',
                                                                        'reservation_from' => $source,
-                                                                       'uid' => isset($reservation['uid']) ? $reservation['uid']: ''));
+                                                                       'uid' => isset($reservation['uid']) ? $reservation['uid']:''));
+                    
                     $reservation_id = $wpdb->insert_id;
                     $reservation['uid'] = isset($reservation['uid']) ? $reservation['uid'] : $reservation_id.'@'.str_ireplace(array('http://', 'https://'), '', home_url());
                     if($source == 'pinpoint'){
@@ -212,7 +213,7 @@
 //                                    $price_min = $day_data->promo == '' ? ($day_data->price == '' ? 0:(float)$day_data->price):(float)$day_data->promo;
 //                                    $price_max = $price_min;
 //                                }
-//
+
 //                                $wpdb->update($DOPBSP->tables->days, array('data' => json_encode($day_data),
 //                                                                           'price_min' => $price_min,
 //                                                                           'price_max' => $price_max), 
@@ -471,7 +472,7 @@
                 global $wpdb;
                 global $DOPBSP;
                 
-                $reservation_id = $DOT->post('reservation_id', 'int') != 0 ? $DOT->post('reservation_id', 'int'):$reservation_id;
+                $reservation_id = $DOT->post('reservation_id', 'int') ? $DOT->post('reservation_id', 'int'):$reservation_id;
                 
                 $reservation = $wpdb->get_row($wpdb->prepare('SELECT * FROM '.$DOPBSP->tables->reservations.' WHERE id=%d',
                                                              $reservation_id));
@@ -528,7 +529,7 @@
                 global $wpdb;
                 global $DOPBSP;
                 
-                $reservation_id = $DOT->post('reservation_id', 'int') != 0 ? $DOT->post('reservation_id', 'int'):$reservation_id;
+                $reservation_id = $DOT->post('reservation_id', 'int') ? $DOT->post('reservation_id', 'int'):$reservation_id;
                 
                 $wpdb->delete($DOPBSP->tables->reservations, array('id' => $reservation_id));
                 
@@ -546,7 +547,7 @@
                 global $wpdb;
                 global $DOPBSP;
                 
-                $reservation_id = $DOT->post('reservation_id', 'int') != 0 ? $DOT->post('reservation_id', 'int'):$reservation_id;
+                $reservation_id = $DOT->post('reservation_id', 'int') ? $DOT->post('reservation_id', 'int'):$reservation_id;
                 
                 $reservation = $wpdb->get_row($wpdb->prepare('SELECT * FROM '.$DOPBSP->tables->reservations.' WHERE id=%d',
                                                              $reservation_id));

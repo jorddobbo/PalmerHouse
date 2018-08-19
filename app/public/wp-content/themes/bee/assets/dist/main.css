@@ -6108,9 +6108,14 @@ body#tinymce {
       -ms-flex: 0 1 auto;
           flex: 0 1 auto;
   width: calc(25% - 15px);
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  cursor: pointer; }
 .booking-tabs__item.active .booking-tabs__image {
     opacity: 1; }
+.booking-tabs__item.active:hover .booking-tabs__image {
+    opacity: 1; }
+.booking-tabs__item:hover .booking-tabs__image {
+    opacity: 0.5; }
 @media screen and (min-width: 1000px) {
     .booking-tabs__item {
       width: calc(12.5% - 15px); } }
@@ -6143,6 +6148,10 @@ body#tinymce {
   margin: 0;
   font-size: 16px;
   line-height: 20px; }
+.booking-forms__item {
+  display: none; }
+.booking-forms__item.active {
+    display: block !important; }
 /* Dropdown control */
 .selectBox-dropdown {
   width: auto !important;

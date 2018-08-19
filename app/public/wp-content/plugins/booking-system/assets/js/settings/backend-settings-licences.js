@@ -1,14 +1,14 @@
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.2
-* File                    : assets/js/settings/backend-settings-licenses.js
+* File                    : assets/js/settings/backend-settings-licences.js
 * File Version            : 1.0
-* Created / Last Modified : 11 October 2015
+* Created / Last Modified : 06 December 2015
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
 * Website                 : http://www.dotonpaper.net
-* Description             : Back end licenses settings JavaScript class.
+* Description             : Back end licences settings JavaScript class.
 */
 
 var DOPBSPBackEndSettingsLicences = new function(){

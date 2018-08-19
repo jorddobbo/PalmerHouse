@@ -1,11 +1,11 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
-* Version                 : 2.1.6
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
+* Version                 : 2.1.2
 * File                    : views/extras/views-backend-extras.php
-* File Version            : 1.0.7
-* Created / Last Modified : 19 February 2016
+* File Version            : 1.0.6
+* Created / Last Modified : 11 October 2015
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
 * Website                 : http://www.dotonpaper.net
@@ -54,8 +54,22 @@
                     <tr>
                         <td class="dopbsp-column" id="DOPBSP-column1">
                             <div class="dopbsp-column-header">
+<?php 
+		global $DOT;
+		
+                if ($DOT->get('page') 
+                        && $DOPBSP->classes->backend_settings_users->permission(wp_get_current_user()->ID, 'use-booking-system')){ 
+?>                  
                                 <a href="javascript:DOPBSPBackEndExtra.add()" class="dopbsp-button dopbsp-add"><span class="dopbsp-info"><?php echo $DOPBSP->text('EXTRAS_ADD_EXTRA_SUBMIT'); ?></span></a>
-				<a href="<?php echo DOPBSP_CONFIG_HELP_DOCUMENTATION_URL; ?>" target="_blank" class="dopbsp-button dopbsp-help"><span class="dopbsp-info dopbsp-help"><?php echo $DOPBSP->text('EXTRAS_HELP').'<br /><br />'.$DOPBSP->text('EXTRAS_ADD_EXTRA_HELP').'<br /><br />'.$DOPBSP->text('HELP_VIEW_DOCUMENTATION'); ?></span></a>
+                                <a href="<?php echo DOPBSP_CONFIG_HELP_DOCUMENTATION_URL; ?>" target="_blank" class="dopbsp-button dopbsp-help"><span class="dopbsp-info dopbsp-help"><?php echo $DOPBSP->text('EXTRAS_HELP').'<br /><br />'.$DOPBSP->text('EXTRAS_ADD_EXTRA_HELP').'<br /><br />'.$DOPBSP->text('HELP_VIEW_DOCUMENTATION'); ?></span></a>
+<?php
+                }
+                else{
+?>           
+                                <a href="<?php echo DOPBSP_CONFIG_HELP_DOCUMENTATION_URL; ?>" target="_blank" class="dopbsp-button dopbsp-help"><span class="dopbsp-info dopbsp-help"><?php echo $DOPBSP->text('EXTRAS_HELP').'<br /><br />'.$DOPBSP->text('HELP_VIEW_DOCUMENTATION'); ?></span></a>
+<?php
+                }
+?>                           
                                 <br class="dopbsp-clear" />
                             </div>
                             <div class="dopbsp-column-content">&nbsp;</div>

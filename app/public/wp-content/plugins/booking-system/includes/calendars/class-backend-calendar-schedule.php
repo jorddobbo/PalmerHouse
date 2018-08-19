@@ -133,8 +133,8 @@
 
                                     if(strlen($check_in) > 8
                                        && $settings_calendar->hours_enabled == 'true') {
-
-                                        // set hours to google timezone
+                          
+                                            // set hours to google timezone
                                             if($settings_calendar->timezone !== ''){
                                                 $start_hour_data = new DateTime($event['DTSTART'], new DateTimeZone('UTC'));
                                                 $start_hour_data->setTimeZone(new DateTimeZone($settings_calendar->timezone));
@@ -175,7 +175,7 @@
                                                          'price' => 0,
                                                          'price_total' => 0,
                                                          'extras_price' => 0,
-                                                         'discount_price' => 0,
+                                                         'discount_price' => 0, 
                                                          'coupon_price' => 0,
                                                          'fees_price' => 0,
                                                          'deposit_price' => 0,
@@ -230,15 +230,15 @@
 //
 //                                            $end_hour_data = new DateTime($event['DTEND'], new DateTimeZone('UTC'));
 //                                            $end_hour_data->setTimeZone(new DateTimeZone($ical->cal['VCALENDAR']['X-WR-TIMEZONE']));
-                                        // set hours to google timezone
+                                            
                                             if($settings_calendar->timezone !== ''){
                                                 $start_hour_data = new DateTime($event['DTSTART'], new DateTimeZone('UTC'));
                                                 $start_hour_data->setTimeZone(new DateTimeZone($settings_calendar->timezone));
                                                 $start_hour =  $start_hour_data->format('H:i');
-                                                                                                
+                                                
                                                 $end_hour_data = new DateTime($event['DTEND'], new DateTimeZone('UTC'));
                                                 $end_hour_data->setTimeZone(new DateTimeZone($settings_calendar->timezone));
-   
+                                              
                                             if($settings_calendar->hours_interval_enabled == 'false') {
                                                 $end_hour_data->modify('-1 hour');
                                                 $end_hour =  $end_hour_data->format('H:i');
@@ -254,16 +254,17 @@
                                         $check_out = '';
                                     }
                                     
+                                    // check if the reservation from Google suffered any changes since last synced
                                     if($event['UID'] == $reservation->uid
-                                      && $check_in == $reservation->check_in
-                                      && $check_out == $reservation->check_out
-                                      && $start_hour == $reservation->start_hour
-                                      && $end_hour == $reservation->end_hour){
+                                        && $check_in == $reservation->check_in
+                                        && $check_out == $reservation->check_out
+                                        && $start_hour == $reservation->start_hour
+                                        && $end_hour == $reservation->end_hour){
                                         $found = true;
                                         break;
                                     }
                                 }
-                                
+
                                 if(!$found) {
                                     $DOPBSP->classes->backend_calendar_schedule->setCanceled($reservation->id);
                                     $wpdb->delete($DOPBSP->tables->reservations, array('id' => $reservation->id));
@@ -998,7 +999,6 @@
 		$DOT->models->availability->set($reservation->calendar_id);
             }
             
-           
             /*
              * Change schedule when reservation is canceled.
              * 
@@ -1276,8 +1276,8 @@
 		global $DOT;
                 global $wpdb;
                 global $DOPBSP;
-		
-		$id = $DOT->post('id', 'int');
+
+                $id = $DOT->post('id', 'int');
                 $schedule = json_decode(stripslashes($DOT->post('schedule')));
                 
                 $days = array();
@@ -1346,13 +1346,14 @@
                 for ($i=0; $i<count($selected_days)-($settings_calendar->days_morning_check_out == 'true' ? 1:0); $i++){
                     $day = $wpdb->get_row($wpdb->prepare('SELECT * FROM '.$DOPBSP->tables->days.' WHERE calendar_id=%d AND day="%s"',
                                                          $calendar_id, $selected_days[$i]));
-                    
+
                     if($wpdb->num_rows < 1) {
-                        $day = $default_availability;
-                        $day->data = json_encode($default_availability);
+                        $day_data = $default_availability;
+//                        $day->data = json_encode($default_availability);
                     }
-                    
-                    $day_data = json_decode($day->data);
+                    else{
+                        $day_data = json_decode($day->data);
+                    }
                     
                     if ($day_data->status != 'available'
                             && $day_data->status != 'special'
@@ -1384,7 +1385,7 @@
                 $settings_calendar = $DOPBSP->classes->backend_settings->values($calendar_id,  
                                                                                 'calendar');
 		$default_schedule = json_encode($DOT->models->calendar_schedule_default->get($calendar_id));
-
+                
                 for ($i=0; $i<count($reservations); $i++){
                     $check_in = $reservations[$i]->check_in;
                     $check_out = $reservations[$i]->check_out == '' ? $reservations[$i]->check_in:$reservations[$i]->check_out;
@@ -1450,16 +1451,15 @@
                 
                 $settings_calendar = $DOPBSP->classes->backend_settings->values($calendar_id,  
                                                                                 'calendar');
-                
                 // Default Availability
                 $calendar = $wpdb->get_row($wpdb->prepare('SELECT * FROM '.$DOPBSP->tables->calendars.' WHERE id=%d',
                                                              $calendar_id));
-
+                                           
                 $default_availability = json_decode($calendar->default_availability);
-                
+                //Custom Availability
                 $day = $wpdb->get_row($wpdb->prepare('SELECT * FROM '.$DOPBSP->tables->days.' WHERE calendar_id=%d AND day="%s"',
                                                      $calendar_id, $day));
-                
+               
                 if($wpdb->num_rows < 1) {
                     $day = $default_availability;
                     $day->data = json_encode($default_availability);

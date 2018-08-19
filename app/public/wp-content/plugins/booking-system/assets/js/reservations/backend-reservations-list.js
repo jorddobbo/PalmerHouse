@@ -1,6 +1,6 @@
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.2.4
 * File                    : assets/js/reservations/backend-reservations-list.js
 * File Version            : 1.1.2
@@ -155,7 +155,7 @@ var DOPBSPBackEndReservationsList = new function(){
          */
         startDate = $('#DOPBSP-reservations-start-date'); 
 	minDate = startDate.val() === '' ? 0:(DOPPrototypes.getToday() > startDate.val() ? -1:1)*DOPPrototypes.getDatesDifference(DOPPrototypes.getToday(), startDate.val(), 'days', 'integer');
-            
+	    
         $('#DOPBSP-reservations-end-date').datepicker('destroy');                      
         $('#DOPBSP-reservations-end-date').datepicker({beforeShow: function(input, inst){
                                                             $('#ui-datepicker-div').removeClass('DOPBSP-admin-datepicker')

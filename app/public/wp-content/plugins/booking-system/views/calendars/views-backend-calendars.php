@@ -1,11 +1,11 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.6
 * File                    : views/calendars/views-backend-calendars.php
-* File Version            : 1.0.5
-* Created / Last Modified : 20 February 2016
+* File Version            : 1.0.4
+* Created / Last Modified : 16 February 2016
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
 * Website                 : http://www.dotonpaper.net
@@ -26,6 +26,7 @@
              * @return calendars HTML page
              */
             function template(){
+		global $DOT;
                 global $DOPBSP;
                 
                 $this->getTranslation();
@@ -53,14 +54,21 @@
                     <tr>
                         <td id="DOPBSP-column1" class="dopbsp-column">
                             <div class="dopbsp-column-header">
+<?php 
+                if ($DOT->get('page') 
+                        && $DOPBSP->classes->backend_settings_users->permission(wp_get_current_user()->ID, 'use-booking-system')){ 
+?>                  
+                                <a href="javascript:DOPBSPBackEndCalendar.add()" class="dopbsp-button dopbsp-add"><span class="dopbsp-info"><?php echo $DOPBSP->text('CALENDARS_ADD_CALENDAR_SUBMIT'); ?></span></a>
+                                <a href="javascript:DOPBSPBackEndCalendar.duplicate()" class="dopbsp-button dopbsp-duplicate dopbsp-disabled"><span class="dopbsp-info"><?php echo $DOPBSP->text('CALENDARS_DUPLICATE_CALENDAR_SUBMIT'); ?></span></a>
+                                <a href="<?php echo DOPBSP_CONFIG_HELP_DOCUMENTATION_URL; ?>" target="_blank" class="dopbsp-button dopbsp-help"><span class="dopbsp-info dopbsp-help"><?php echo $DOPBSP->text('CALENDARS_HELP').'<br /><br />'.$DOPBSP->text('CALENDARS_ADD_CALENDAR_HELP').'<br /><br />'.$DOPBSP->text('HELP_VIEW_DOCUMENTATION'); ?></span></a>
 <?php
-    if ($DOPBSP->vars->view_pro){
-?>
-				<a href="<?php echo admin_url('admin.php?page=dopbsp-pro'); ?>" class="dopbsp-button dopbsp-add"><span class="dopbsp-info dopbsp-pro"><?php echo $DOPBSP->text('CALENDARS_ADD_CALENDAR_SUBMIT').' - '.$DOPBSP->text('MESSAGES_PRO_TEXT'); ?> </span></a>
+                }
+                else{
+?>           
+				<a href="<?php echo DOPBSP_CONFIG_HELP_DOCUMENTATION_URL; ?>" target="_blank" class="dopbsp-button dopbsp-help"><span class="dopbsp-info dopbsp-help"><?php echo $DOPBSP->text('CALENDARS_HELP').'<br /><br />'.$DOPBSP->text('HELP_VIEW_DOCUMENTATION'); ?></span></a>
 <?php
-    }
-?>
-                                <a href="<?php echo DOPBSP_CONFIG_HELP_DOCUMENTATION_URL; ?>" target="_blank" class="dopbsp-button dopbsp-help"><span class="dopbsp-info dopbsp-help"><?php echo $DOPBSP->text('CALENDARS_HELP').'<br /><br />'.($DOPBSP->vars->view_pro ? $DOPBSP->text('CALENDARS_ADD_CALENDAR_HELP').'<br /><br />':'').$DOPBSP->text('HELP_VIEW_DOCUMENTATION'); ?></span></a>
+                }
+?>                           
                                 <br class="dopbsp-clear" />
                             </div>
                             <div class="dopbsp-column-content">&nbsp;</div>

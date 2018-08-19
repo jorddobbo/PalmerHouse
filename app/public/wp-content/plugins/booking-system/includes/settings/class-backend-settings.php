@@ -74,7 +74,7 @@
                 global $wpdb;
                 global $DOPBSP;
                 
-                if (!isset($args['key'])){
+                if ( !isset($args['key'])){
                     $args = array('id' => '',
                                   'is_ajax' => true,
                                   'key' => '',

@@ -1,11 +1,11 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.1
 * File                    : includes/addons/class-backend-addons.php
 * File Version            : 1.0.2
-* Created / Last Modified : 26 August 2015
+* Created / Last Modified : 25 August 2015
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
 * Website                 : http://www.dotonpaper.net
@@ -58,8 +58,6 @@
             }
         
             function file_get_contents_curl($url){
-		// NOT USED. REMOVE AT A LATER DATE.
-		
                 curl_setopt($ch=curl_init(), CURLOPT_URL, $url);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
                 $response = curl_exec($ch);

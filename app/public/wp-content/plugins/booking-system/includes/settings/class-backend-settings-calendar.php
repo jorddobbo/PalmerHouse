@@ -1,11 +1,11 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
-* Version                 : 2.1.6
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
+* Version                 : 2.1.3
 * File                    : includes/settings/class-backend-settings-calendar.php
-* File Version            : 1.0.6
-* Created / Last Modified : 15 February 2016
+* File Version            : 1.0.4
+* Created / Last Modified : 14 December 2015
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
 * Website                 : http://www.dotonpaper.net
@@ -22,7 +22,7 @@
             }
             
             /*
-             * Display calendar settings
+             * Display calendar settings.
              * 
              * @post id (integer): calendar ID
              * 
@@ -69,6 +69,8 @@
                                           'days_first' => '1',
                                           'days_first_displayed' => '',
                                           'days_morning_check_out' => 'false',
+                                          'days_morning_check_out_check_in_time' => '14:00',
+                                          'days_morning_check_out_check_out_time' => '12:00',
                                           'days_multiple_select' => 'true',
 
                                           'hours_add_last_hour_to_total_price' => 'true',

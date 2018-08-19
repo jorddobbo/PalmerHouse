@@ -34,7 +34,7 @@ var DOPBSPBackEndLocations = new function(){
             var script = document.createElement('script');
 
             script.type = 'text/JavaScript';
-            script.src = 'https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&callback=DOPBSPBackEndLocations.display';
+            script.src = 'https://maps.googleapis.com/maps/api/js?key='+dopbspGoogleAPIkey+'&v=3.exp&libraries=places&callback=DOPBSPBackEndLocations.display';
 
             $('body').append(script);
         }

@@ -1,11 +1,11 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.1
 * File                    : includes/class-currencies.php
-* File Version            : 1.0.2
-* Created / Last Modified : 02 January 2015
+* File Version            : 1.0.3
+* Created / Last Modified : 25 August 2015
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
 * Website                 : http://www.dotonpaper.net
@@ -234,7 +234,7 @@
                                               'sign' => '&#163;'));
                 array_push($currencies, array('code' => 'KZT',
                                               'name' => 'Kazakhstan Tenge',
-                                              'sign' => '&#1083;&#1074;'));
+                                              'sign' => '&#8376;')); 
                 array_push($currencies, array('code' => 'KES',
                                               'name' => 'Kenya Shilling',
                                               'sign' => 'KSh'));
@@ -282,7 +282,7 @@
                                               'sign' => '&#77;&#84;'));
                 array_push($currencies, array('code' => 'NAD',
                                               'name' => 'Namibia Dollar',
-                                              'sign' => '&#36;'));
+                                              'sign' => 'N&#36;'));
                 array_push($currencies, array('code' => 'NPR',
                                               'name' => 'Nepal Rupee',
                                               'sign' => '&#8360;'));

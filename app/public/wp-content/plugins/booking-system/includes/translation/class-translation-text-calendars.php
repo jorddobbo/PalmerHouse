@@ -1,11 +1,11 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
-* Version                 : 2.1.6
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
+* Version                 : 2.1.1
 * File                    : includes/translation/class-translation-text-calendars.php
-* File Version            : 1.0.5
-* Created / Last Modified : 15 February 2016
+* File Version            : 1.0.4
+* Created / Last Modified : 25 August 2015
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
 * Website                 : http://www.dotonpaper.net
@@ -98,7 +98,7 @@
                                         'nl' => 'Voeg extra maand toe',
                                         'fr' => 'Ajouter la vue du mois suivant',
                                         'pl' => 'Dodaj widok miesiąca',
-                                        'location' => 'all'));
+                                        'location' => 'calendar'));
                 array_push($text, array('key' => 'CALENDARS_CALENDAR_REMOVE_MONTH_VIEW',
                                         'parent' => 'PARENT_CALENDARS_CALENDAR',
                                         'text' => 'Remove month view',
@@ -106,7 +106,7 @@
                                         'nl' => 'Verwijder extra maand',
                                         'fr' => 'Supprimer la vue du mois suivant',
                                         'pl' => 'Usuń widok miesiąca',
-                                        'location' => 'all'));
+                                        'location' => 'calendar'));
                 array_push($text, array('key' => 'CALENDARS_CALENDAR_PREVIOUS_MONTH',
                                         'parent' => 'PARENT_CALENDARS_CALENDAR',
                                         'text' => 'Previous month',
@@ -114,7 +114,7 @@
                                         'nl' => 'Vorige maand',
                                         'fr' => 'Mois précédent',
                                         'pl' => 'Poprzedni miesiąc',
-                                        'location' => 'all'));
+                                        'location' => 'calendar'));
                 array_push($text, array('key' => 'CALENDARS_CALENDAR_NEXT_MONTH',
                                         'parent' => 'PARENT_CALENDARS_CALENDAR',
                                         'text' => 'Next month',
@@ -122,7 +122,7 @@
                                         'nl' => 'Volgende maand',
                                         'fr' => 'Mois suivant',
                                         'pl' => 'Następny miesiąc',
-                                        'location' => 'all'));
+                                        'location' => 'calendar'));
                 array_push($text, array('key' => 'CALENDARS_CALENDAR_AVAILABLE_ONE_TEXT',
                                         'parent' => 'PARENT_CALENDARS_CALENDAR',
                                         'text' => 'available',
@@ -130,7 +130,7 @@
                                         'nl' => 'beschikbaar',
                                         'fr' => 'disponible',
                                         'pl' => 'dostępne',
-                                        'location' => 'all'));
+                                        'location' => 'calendar'));
                 array_push($text, array('key' => 'CALENDARS_CALENDAR_AVAILABLE_TEXT',
                                         'parent' => 'PARENT_CALENDARS_CALENDAR',
                                         'text' => 'available',
@@ -138,7 +138,7 @@
                                         'nl' => 'beschikbaar',
                                         'fr' => 'disponible',
                                         'pl' => 'dostępne',
-                                        'location' => 'all'));
+                                        'location' => 'calendar'));
                 array_push($text, array('key' => 'CALENDARS_CALENDAR_BOOKED_TEXT',
                                         'parent' => 'PARENT_CALENDARS_CALENDAR',
                                         'text' => 'booked',
@@ -146,7 +146,7 @@
                                         'nl' => 'bezet',
                                         'fr' => 'réservé',
                                         'pl' => 'zajęte',
-                                        'location' => 'all'));
+                                        'location' => 'calendar'));
                 array_push($text, array('key' => 'CALENDARS_CALENDAR_UNAVAILABLE_TEXT',
                                         'parent' => 'PARENT_CALENDARS_CALENDAR',
                                         'text' => 'unavailable',
@@ -154,7 +154,7 @@
                                         'nl' => 'niet beschikbaar',
                                         'fr' => 'indisponible',
                                         'pl' => 'zajęte',
-                                        'location' => 'all'));
+                                        'location' => 'calendar'));
                 
                 return $text;
             }

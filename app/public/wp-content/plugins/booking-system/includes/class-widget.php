@@ -1,10 +1,10 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.2.3
 * File                    : includes/class-widget.php
-* File Version            : 1.0.7
+* File Version            : 1.0.6
 * Created / Last Modified : 21 April 2016
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
@@ -83,7 +83,13 @@
                 <label for="<?php echo $this->get_field_id('id')?>"><?php echo $DOPBSP->text('WIDGET_ID_LABEL'); ?></label>
                 <select class="widefat" id="<?php echo $this->get_field_id('id')?>" name="<?php echo $this->get_field_name('id')?>">
 <?php
-	    $calendars = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->calendars.' ORDER BY id DESC');
+            if ($DOPBSP->classes->backend_settings_users->permission(wp_get_current_user()->ID, 'use-booking-system')){ 
+                $calendars = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->calendars.' ORDER BY id DESC');
+            }
+            else{
+                $calendars = $wpdb->get_results($wpdb->prepare('SELECT * FROM '.$DOPBSP->tables->calendars.' WHERE user_id=%d ORDER BY id DESC',
+                                                               wp_get_current_user()->ID));
+            }
 
             if ($wpdb->num_rows != 0){
                 foreach ($calendars as $calendar) {

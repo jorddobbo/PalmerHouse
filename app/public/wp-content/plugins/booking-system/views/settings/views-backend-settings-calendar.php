@@ -1,10 +1,10 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.2
 * File                    : views/settings/views-backend-settings-calendar.php
-* File Version            : 1.1.8
+* File Version            : 1.1.7
 * Created / Last Modified : 11 October 2015
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
@@ -705,7 +705,7 @@
                 <div id="DOPBSP-inputs-calendar-coupons-settings" class="dopbsp-inputs-wrapper">
 <?php           
                 /*
-                 * Copons multiple list.
+                 * Coupons multiple list.
                  */
                 
                 echo $this->multipleCoupons(array('label' => $DOPBSP->text('SETTINGS_CALENDAR_COUPONS'),
@@ -823,7 +823,7 @@
                     <h3><?php echo $DOPBSP->text('SETTINGS_CALENDAR_ORDER_SETTINGS'); ?></h3>
                     <a href="javascript:DOPBSPBackEnd.toggleInputs('calendar-order-settings')" id="DOPBSP-inputs-button-calendar-order-settings" class="dopbsp-button"></a>
                 </div>
-                <div id="DOPBSP-inputs-calendar-order-settings" class="dopbsp-inputs-wrapper dopbsp-last dopbsp-displayed">
+                <div id="DOPBSP-inputs-calendar-order-settings" class="dopbsp-inputs-wrapper dopbsp-displayed">
 <?php                
                 /*
                  * Enable terms & conditions.
@@ -842,8 +842,7 @@
                                               'value' => $settings_calendar->terms_and_conditions_link,
                                               'settings_id' => $id,
                                               'settings_type' => 'calendar',
-                                              'help' => $DOPBSP->text('SETTINGS_CALENDAR_ORDER_TERMS_AND_CONDITIONS_LINK_HELP'),
-                                              'container_class' => 'dopbsp-last'));
+                                              'help' => $DOPBSP->text('SETTINGS_CALENDAR_ORDER_TERMS_AND_CONDITIONS_LINK_HELP')));
 ?>
                 </div>
 <?php       

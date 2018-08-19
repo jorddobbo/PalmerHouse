@@ -1,11 +1,11 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
-* Version                 : 2.3.3
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
+* Version                 : 2.1.1
 * File                    : views/reservations/views-backend-reservation-form.php
-* File Version            : 1.0
-* Created / Last Modified : 12 October 2016
+* File Version            : 1.0.4
+* Created / Last Modified : 25 August 2015
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
 * Website                 : http://www.dotonpaper.net
@@ -38,12 +38,12 @@
                     <div class="dopbsp-data-body"> 
 <?php
                 if ($reservation->form != ''){
-                    $reservation->form = str_replace("<<single-quote>>", "'", $reservation->form);
-                    $reservation->form = str_replace('<<double-quote>>', "''", $reservation->form);
                     $reservation->form = utf8_decode($reservation->form);
 ?>
                         <input type="hidden" id="dopbsp-reservation-form-<?php echo $reservation->id; ?>-data" value='<?php echo $reservation->form; ?>'/>
 <?php 
+                    $reservation->form = str_replace("<<single-quote>>", "'", $reservation->form);
+                    $reservation->form = str_replace('<<double-quote>>', "''", $reservation->form);
                     $form = json_decode($reservation->form);
 
                     for ($i=0; $i<count($form); $i++){

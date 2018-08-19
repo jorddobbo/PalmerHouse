@@ -1,7 +1,7 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.1
 * File                    : includes/translation/class-translation-text-forms.php
 * File Version            : 1.0.4
@@ -278,6 +278,9 @@
                 array_push($text, array('key' => 'FORMS_FORM_FIELD_EMAIL_LABEL',
                                         'parent' => 'PARENT_FORMS_FORM_FIELD',
                                         'text' => 'Is email'));
+                array_push($text, array('key' => 'FORMS_FORM_FIELD_PHONE_LABEL',
+                                        'parent' => 'PARENT_FORMS_FORM_FIELD',
+                                        'text' => 'Is phone'));
                 array_push($text, array('key' => 'FORMS_FORM_FIELD_REQUIRED_LABEL',
                                         'parent' => 'PARENT_FORMS_FORM_FIELD',
                                         'text' => 'Required'));
@@ -506,6 +509,9 @@
                 array_push($text, array('key' => 'FORMS_FORM_FIELD_EMAIL_HELP',
                                         'parent' => 'PARENT_FORMS_HELP',
                                         'text' => 'Enable it if you want this field to be verified if an email has been added or not.'));
+                array_push($text, array('key' => 'FORMS_FORM_FIELD_PHONE_HELP',
+                                        'parent' => 'PARENT_FORMS_HELP',
+                                        'text' => 'Enable it if you want this field to be verified if a phone number has been added or not.'));
                 array_push($text, array('key' => 'FORMS_FORM_FIELD_REQUIRED_HELP',
                                         'parent' => 'PARENT_FORMS_HELP',
                                         'text' => 'Enable it if you want the field to be mandatory.'));

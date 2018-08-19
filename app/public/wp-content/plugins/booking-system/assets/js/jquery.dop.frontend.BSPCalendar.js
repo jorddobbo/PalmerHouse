@@ -349,7 +349,8 @@
                  */
                 methods_months.init();
 		
-		//DOT.methods.calendar.get(ID);
+//		DOT.methods.calendar.get(ID);
+                methods_search.verify();
                 
                 /*
                  * Load schedule.
@@ -374,7 +375,7 @@
 // 2. Schedule
 
         methods_schedule = {
-            
+    
             get: function (id) {
                 var post = new Array();
 
@@ -565,8 +566,12 @@
                             $('#DOPBSPCalendar-end-hour'+ID).val(DOPPrototypes.$_GET('end_hour') !== undefined ? DOPPrototypes.$_GET('end_hour'):'');
                             methods_hours.vars.selectionInit = false;
                             methods_hours.vars.selectionStart = DOPPrototypes.$_GET('start_hour') !== undefined ? ID+'_'+DOPPrototypes.$_GET('start_hour'):'';
-                            methods_hours.vars.selectionEnd = DOPPrototypes.$_GET('end_hour') !== undefined ? ID+'_'+DOPPrototypes.$_GET('end_hour'):'';
-                            
+                            if(methods_hours.data['multipleSelect']){
+                                methods_hours.vars.selectionEnd = DOPPrototypes.$_GET('end_hour') !== undefined ? ID+'_'+DOPPrototypes.$_GET('end_hour'):'';
+                            }
+                            else{
+                                methods_hours.vars.selectionEnd = methods_hours.vars.selectionStart;
+                            }
                             methods_calendar.vars.startDate = new Date(new Date().getTime()+methods_calendar.data['bookingStop']*60*1000);
                             methods_calendar.vars.currMonth = methods_calendar.vars.startDate.getMonth()+1;
                             methods_calendar.vars.currYear = methods_calendar.vars.startDate.getFullYear();
@@ -1161,7 +1166,7 @@
                                                           day['price'], 
                                                           day['promo'], 
                                                           day['status']));
-                        }
+                        }     
                 }
 
                 /*
@@ -1352,6 +1357,7 @@
                 $('.DOPBSPCalendar-day', Container).removeClass('dopbsp-selected')
                                                    .removeClass('dopbsp-first')
                                                    .removeClass('dopbsp-last'); 
+                $('#DOPBSPCalendar-submit'+ID).css('display', 'none');
             },
             
             getSelected:function(ciDay,
@@ -1445,7 +1451,6 @@
                     maxNoDays = DOPBSPFrontEndRules.getMaxTimeLapse(ID);
                     minNoDays = DOPBSPFrontEndRules.getMinTimeLapse(ID);
                     noDays = DOPPrototypes.getNoDays(ciDay, coDay)-(DOT.methods.calendar_days.settings[ID]['morningCheckOut'] ? 1:0);
-                    
                     if (noDays < minNoDays){
                         methods_info.toggleMessages(DOPBSPFrontEnd.text(ID, 'rules', 'minTimeLapseDaysWarning').replace(/%d/gi, minNoDays));
 			
@@ -1476,7 +1481,8 @@
                     
                     /*
                      * Check if first and last day are not in the middle of a group.
-                     */      
+                     */    
+
 		    if (schedule[ciDay] !== undefined
 				    && (schedule[ciDay]['bind'] === 2
 					    || schedule[ciDay]['bind'] === 3)
@@ -1498,7 +1504,7 @@
 			methods_info.toggleMessages(DOPBSPFrontEnd.text(ID, 'search', 'noServices'));
 			
 			return false;
-		    }		
+		    }
                 }
                 else{
 		    return false;
@@ -2078,11 +2084,12 @@
                             if (methods_days.vars.selectionInit){
                                 methods_days.displaySelection(day.attr('id'));
                             }
-
+                            
                             if (methods_hours.data['enabled'] 
                                     && methods_hours.data['info'] 
                                     && !day.hasClass('dopbsp-past-day')
-                                    && !day.hasClass('dopbsp-selected') 
+                                    && !day.hasClass('dopbsp-selected')
+                                    && !day.hasClass('dopbsp-unavailable')
                                     && !day.hasClass('dopbsp-mask')){
                                 methods_tooltip.set($(this).attr('id').split('_')[1], 
                                                     '', 
@@ -2165,7 +2172,8 @@
                         var day = $(this);
                         
                         if (!day.hasClass('dopbsp-mask') 
-                                && !day.hasClass('dopbsp-past-day')){
+                                && !day.hasClass('dopbsp-past-day')
+                                && !day.hasClass('dopbsp-unavailable')){
                             methods_hours.display(day.attr('id'));
                         }
                     });
@@ -2352,7 +2360,9 @@
                 date = id.split('_')[1],
                 year = date.split('-')[0],
                 month = date.split('-')[1],
-                day = date.split('-')[2];
+                day = date.split('-')[2],
+                weekday = DOT.methods.calendar_day.get(ID,
+                                                        year+'-'+month+'-'+day);
 
                 methods_days.vars.selectionInit = false;
                 methods_days.vars.selectionStart = id;
@@ -2374,14 +2384,25 @@
                 methods_search.set();
                 
                 /*
+                 * Check if the weekday is unavailable (from the calendar settings)
+                 */
+
+                if(weekday['status'] == 'unavailable'){
+                    methods_info.toggleMessages(DOPBSPFrontEnd.text(ID, 'search', 'noServices'));
+			
+			             return false;
+                }
+                                
+                /*
                  * Generate hours list.
                  */
+                
                 if (DOT.methods.calendar_schedule.data[ID][date] !== undefined){
                     hoursDef = DOT.methods.calendar_schedule.data[ID][date]['hours_definitions'];
                 } else if(DOT.methods.calendar_schedule.default[ID] !== undefined){
                     hoursDef = DOT.methods.calendar_schedule.default[ID]['hours_definitions'];
                 }                       
-
+                
                 for (i=0; i<hoursDef.length-(methods_hours.data['interval'] ? 1:0); i++){
                     if (DOT.methods.calendar_schedule.data[ID][date] !== undefined 
                             && DOT.methods.calendar_schedule.data[ID][date]['hours'][hoursDef[i]['value']] !== undefined){
@@ -2456,7 +2477,7 @@
                 methods_hour.events.init();
                 methods_search.hours.set();
                 
-                // DOPPrototypes.scrollToY($('#DOPBSPCalendar'+ID+' .DOPBSPCalendar-hours').offset().top-40);
+                DOPPrototypes.scrollToY($('#DOPBSPCalendar'+ID+' .DOPBSPCalendar-hours').offset().top-40);
             },
             displayInfo:function(id){
             /*
@@ -2481,7 +2502,7 @@
                 if (DOT.methods.calendar_schedule.data[ID][date] !== undefined){
                     hoursDef = DOT.methods.calendar_schedule.data[ID][date]['hours_definitions'];
                 }   
-                
+
                 for (i=0; i<hoursDef.length-(methods_hours.data['interval'] ? 1:0); i++){
                     if (DOT.methods.calendar_schedule.data[ID][date] !== undefined 
                             && DOT.methods.calendar_schedule.data[ID][date]['hours'][hoursDef[i]['value']] !== undefined){
@@ -2581,7 +2602,7 @@
                 
                 methods_days.clearSelection();
                 $('.DOPBSPCalendar-hours', Container).css('display', 'none')
-                                                     .html('');
+                                                     .html('');                           
                 methods_search.set();
             },
             
@@ -2633,7 +2654,7 @@
                 lastHour,
                 hours_definitions,
                 schedule = DOT.methods.calendar_schedule.data[ID];
-        
+                
                 hours_definitions = schedule[day] !== undefined ? (schedule[day]['hours_definitions'] !== undefined ? schedule[day]['hours_definitions']:DOT.methods.calendar_schedule.default[ID]['hours_definitions']):DOT.methods.calendar_schedule.default[ID]['hours_definitions'];
 
                 /*
@@ -2661,34 +2682,34 @@
                         methods_info.toggleMessages(DOPBSPFrontEnd.text(ID, 'rules', 'maxTimeLapseHoursWarning').replace(/%d/gi, maxNoMinutes/60));
                         return false;
                     }
-                                      
+                                                            
                     /*
                      * Check if first and last hour are not in the middle of a group.
                      */ 
                     lastHour = schedule[day] === undefined ? endHour:methods_hour.getPrev(endHour, hours_definitions); // endHour has bind=0 when using hour intervals(it's the start of the next interval) so we verify the one before it
 
-                    if (schedule[day] !== undefined 
-				&& (schedule[day]['hours'][startHour]['bind'] === 2 
+                    if (schedule[day] !== undefined && (schedule[day]['hours'][startHour]['bind'] === 2 
 					|| schedule[day]['hours'][startHour]['bind'] === 3
 				|| schedule[day]['hours'][methods_hours.data['interval'] === true ? lastHour:endHour]['bind'] === 1 
 					|| schedule[day]['hours'][methods_hours.data['interval'] === true ? lastHour:endHour]['bind'] === 2)){
                         methods_info.toggleMessages(DOPBSPFrontEnd.text(ID, 'search', 'noServicesSplitGroup'));
-			
-                        return false;
+                                  
+                        return false;  
                     }
                     
                     /*
                      * Check if selected hours are available.
                      */	
+
                     endHour = methods_hours.data['interval'] ? endHour : methods_hour.getNext(endHour,hours_definitions);  //acts like an hour interval when intervals are not enabled for verification purposes
-		  
-                    if (DOT.methods.calendar_availability.verify(ID, day, day, startHour, endHour)){
-			return true;
-		    }
-		    else{
-			methods_info.toggleMessages(DOPBSPFrontEnd.text(ID, 'search', 'noServices'));
-			return false;
-		    }
+
+                     if (DOT.methods.calendar_availability.verify(ID, day, day, startHour, endHour)){
+                        return true;
+                    }
+                     else{
+                        methods_info.toggleMessages(DOPBSPFrontEnd.text(ID, 'search', 'noServices'));
+                        return false;
+                     }      
                 }
                 else{
 		    return false;
@@ -3614,7 +3635,31 @@
                 }
                 methods_reservation.set();
             },
-            
+            verify:function(){
+              /*
+                 * Set first month to be displayed when you get redirected from the search page.
+                 * 
+                 * @return the first day of the month to be displayed
+                 */
+                    var HTML = new Array(),
+                        check_in = DOPPrototypes.$_GET('check_in') !== undefined ? DOPPrototypes.$_GET('check_in').split('-')[2]+'-'+DOPPrototypes.$_GET('check_in').split('-')[1]+'-'+DOPPrototypes.$_GET('check_in').split('-')[0]:'',
+                        check_in_view = DOPBSPFrontEnd.text(ID, 'search', 'checkIn'),
+                        check_out = DOPPrototypes.$_GET('check_out') !== undefined ? DOPPrototypes.$_GET('check_out').split('-')[2]+'-'+DOPPrototypes.$_GET('check_out').split('-')[1]+'-'+DOPPrototypes.$_GET('check_out').split('-')[0]:'',
+                        check_out_view = DOPBSPFrontEnd.text(ID, 'search', 'checkOut');
+                    
+                    if(check_in !== '') {
+                        var sDay = parseInt(check_in.split('-')[0]),
+                            sMonth = parseInt(check_in.split('-')[1]),
+                            sYear = parseInt(check_in.split('-')[2]),
+                    
+                        sMonth = sMonth < 10 ? '0'+sMonth:sMonth;
+                        sDay = sDay < 10 ? '0'+sDay:sDay;
+                        check_in = sYear+'-'+sMonth+'-'+sDay;
+                        var firstday = sYear+'-'+sMonth+'-01';
+
+                    DOT.methods.calendar_days.settings[ID]['firstDisplayed'] = firstday;
+                    }  
+            },
             days: {
                 display:function(){
                 /*
@@ -3639,10 +3684,6 @@
                         sMonth = sMonth < 10 ? '0'+sMonth:sMonth;
                         sDay = sDay < 10 ? '0'+sDay:sDay;
                         check_in = sYear+'-'+sMonth+'-'+sDay;
-                        
-                        methods_calendar.vars.startYear = sYear;
-                        methods_calendar.vars.startMonth = sMonth;
-                        methods_calendar.vars.startDay = sDay;
                         methods_days.vars.selectionStart = ID+'_'+check_in;
                     }
                     
@@ -3661,7 +3702,12 @@
                         methods_calendar.vars.endYear = eYear;
                         methods_calendar.vars.endMonth = eMonth;
                         methods_calendar.vars.endDay = eDay;
-                        methods_days.vars.selectionEnd = ID+'_'+check_out;
+                        if(DOT.methods.calendar_days.settings[ID]['multipleSelect']) {
+                            methods_days.vars.selectionEnd = ID+'_'+check_out;
+                        }
+                        else {
+                            methods_days.vars.selectionEnd = ID+'_'+check_in;
+                        }
                         methods_days.vars.selectionInit = false;
                     }
 
@@ -3729,7 +3775,7 @@
                                       monthNames: DOPBSPFrontEnd.text(ID, 'months', 'names'),
                                       monthNamesMin: DOPBSPFrontEnd.text(ID, 'months', 'shortNames'),
                                       nextText: DOPBSPFrontEnd.text(ID, 'calendar', 'nextMonth'),
-                                      prevText: DOPBSPFrontEnd.text(ID, 'calendar', 'previousMonth')});
+                                      prevText: DOPBSPFrontEnd.text(ID, 'calendar', 'previousMonth')});              
                     $('.ui-datepicker').removeClass('notranslate').addClass('notranslate');
                 },
                 validate:function(day){
@@ -3790,8 +3836,8 @@
                                     /*
                                      * Initialize single day select events.
                                      */
-                                    methods_search.days.events.selectSingle();
-                                }
+                                    methods_search.days.events.selectSingle(); 
+                               }
                             }
                         }
                     },
@@ -3815,22 +3861,22 @@
                         $('#DOPBSPCalendar-check-in-view'+ID).unbind('blur');
                         $('#DOPBSPCalendar-check-in-view'+ID).bind('blur', function(){  
                             var $this = $(this);
-
+                            
                             if ($this.val() === ''){
                                 $this.val(DOPBSPFrontEnd.text(ID, 'search', 'checkIn'));
                             }
                         });
-
+                            
                         /*
                          * Check in change event.
                          */
                         $('#DOPBSPCalendar-check-in-view'+ID).unbind('change');
                         $('#DOPBSPCalendar-check-in-view'+ID).bind('change', function(){
                             var ciDay = $('#DOPBSPCalendar-check-in'+ID).val();
-
+                            
                             if (methods_search.days.validate(ciDay)){
                                 methods_calendar.init(parseInt(ciDay.split('-')[0], 10), 
-                                                      parseInt(ciDay.split('-')[1], 10));
+                                                      parseInt(ciDay.split('-')[1], 10));                                
                                 methods_hours.display(ID+'_'+ciDay);
                             }
                             else{
@@ -3878,7 +3924,6 @@
                         $('#DOPBSPCalendar-check-in-view'+ID).bind('change', function(){
                             var ciDay = $('#DOPBSPCalendar-check-in'+ID).val(),
                             minDateValue;
-                            
                             if (methods_search.days.validate(ciDay)){
                                 minDateValue = DOPPrototypes.getNoDays(DOPPrototypes.getToday(), ciDay)-(DOT.methods.calendar_days.settings[ID]['morningCheckOut'] ? 0:1);
                                 methods_days.vars.selectionInit = true;
@@ -4002,7 +4047,7 @@
                          * Check in change event.
                          */
                         $('#DOPBSPCalendar-check-in-view'+ID).unbind('change');
-                        $('#DOPBSPCalendar-check-in-view'+ID).bind('change', function(){
+                        $('#DOPBSPCalendar-check-in-view'+ID).bind('change', function(){ 
                             var ciDay = $('#DOPBSPCalendar-check-in'+ID).val();
 
                             if (methods_search.days.validate(ciDay)){
@@ -4309,7 +4354,6 @@
                         $('#DOPBSPCalendar-start-hour'+ID).unbind('change');
                         $('#DOPBSPCalendar-start-hour'+ID).bind('change', function(){
                             var startHour = $(this).val();
-
                             methods_hours.vars.selectionStart = ID+'_'+startHour;
                             methods_hours.vars.selectionEnd = ID+'_'+startHour;
 
@@ -4345,11 +4389,11 @@
                  * Set sidebar search number of items.
                  */
                     var HTML = new Array(),
-                    i,
+                    i,    
                     minSwap = methods_calendar.data['minimumNoAvailable'],   //temporary saving the minimumNoAvailable set in the calendar in case you change the day/hour selection
                     noAvailable = methods_hours.data['enabled'] ? methods_hours.getNoAvailable():methods_days.getNoAvailable();
                     selected = selected === undefined ? 1:parseInt(selected);
-
+                    
                     HTML.push('<select name="DOPBSPCalendar-no-items'+ID+'" id="DOPBSPCalendar-no-items'+ID+'" class="dopbsp-small">');
                     
                     if(noAvailable < methods_calendar.data['minimumNoAvailable']
@@ -4360,7 +4404,7 @@
                     if(noAvailable < methods_calendar.data['minimumNoAvailable']
                       && (methods_hours.data['enabled'] && !methods_calendar.data['hours_multiple_select']) && $('#DOPBSPCalendar-start-hour'+ID).val() !== '') {
                         methods_calendar.data['minimumNoAvailable'] = noAvailable;
-                    }          
+                    }
                     for (i=methods_calendar.data['minimumNoAvailable']; i<=noAvailable; i++){
                         HTML.push(' <option value="'+i+'" '+(selected === i ? 'selected="selected"':'')+'>'+i+'</option>');
                     }
@@ -4368,9 +4412,8 @@
 
                     $('#DOPSelect-DOPBSPCalendar-no-items'+ID).replaceWith(HTML.join(''));
                     $('#DOPBSPCalendar-no-items'+ID).DOPSelect();
-
                     methods_search.no_items.events();
-                    methods_calendar.data['minimumNoAvailable'] = minSwap; 
+                    methods_calendar.data['minimumNoAvailable'] = minSwap;
                 },
                 events:function(){
                 /*
@@ -5245,7 +5288,7 @@
                 HTML = new Array(),
                 noItems = parseInt($('#DOPBSPCalendar-no-items'+ID).val()),
                 startHour = $('#DOPBSPCalendar-start-hour'+ID).val() !== undefined ? $('#DOPBSPCalendar-start-hour'+ID).val():'';
-                
+        
                 if (!methods_hours.data['enabled']
                         && !methods_days.getAvailability(ciDay, coDay)){
                     methods_reservation.toggleMessages(DOPBSPFrontEnd.text(ID, 'reservation', 'selectDays'), '');
@@ -5263,14 +5306,14 @@
                     
                     return false;
                 }
-                   
+                 
                 /*
                  * Set reservation data.
                  */
                 methods_reservation.reservation['check_in'] = ciDay;
                 methods_reservation.reservation['check_out'] = coDay;
                 methods_reservation.reservation['start_hour'] = startHour;
-                methods_reservation.reservation['end_hour'] = endHour;
+                methods_reservation.reservation['end_hour'] = methods_hours.data['multipleSelect'] ? endHour:'';
                 methods_reservation.reservation['no_items'] = noItems;
                 methods_reservation.reservation['price'] = noItems*(methods_hours.data['enabled'] ? methods_hours.getPrice(methods_reservation.reservation['check_in'],
                                                                                                                            methods_reservation.reservation['start_hour'],
@@ -6036,7 +6079,7 @@
                                 formData[i]['value'] = $('#DOPBSPCalendar-form-field'+ID+'_'+formField['id']+'-phone_code').val();
                             }
                             formData[i]['value'] = formData[i]['value'] +$('#DOPBSPCalendar-form-field'+ID+'_'+formField['id']).val();
-                    }
+                           }
                 }
                 
                 return formData;

@@ -1,10 +1,10 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.2
 * File                    : includes/class-frontend.php
-* File Version            : 1.1
+* File Version            : 1.1.1
 * Created / Last Modified : 08 November 2015
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
@@ -21,7 +21,6 @@
                 add_action('wp_enqueue_scripts', array(&$this, 'addStyles'));
                 add_action('wp_enqueue_scripts', array(&$this, 'addScripts'));
                 
-                add_shortcode('dopbs', array(&$this, 'shortcode'));
                 add_shortcode('dopbsp', array(&$this, 'shortcode'));
             }
             
@@ -59,9 +58,11 @@
                 wp_register_script('DOP-js-jquery-dopselect', $DOPBSP->paths->url.'libraries/js/jquery.dop.Select.js', array('jquery'), false, true);
                 
                 /*
-                 * Calendar
+                 * Calendar & search
                  */
                 wp_register_script('DOPBSP-js-frontend-calendar', $DOPBSP->paths->url.'assets/js/jquery.dop.frontend.BSPCalendar.js', array('jquery'), false, true);
+                wp_register_script('DOPBSP-js-frontend-search', $DOPBSP->paths->url.'assets/js/jquery.dop.frontend.BSPSearch.js', array('jquery'), false, true);
+                wp_register_script('DOPBSP-js-frontend-search-widget', $DOPBSP->paths->url.'assets/js/jquery.dop.frontend.BSPSearchWidget.js', array('jquery'), false, false);
                 
                 /*
                  * Front end.
@@ -97,7 +98,7 @@
                 wp_register_script('dot-js-calendar-days', $DOPBSP->paths->url.'application/assets/js/calendars/calendar-days.js', array('jquery'), false, true);
                 wp_register_script('dot-js-calendar-day', $DOPBSP->paths->url.'application/assets/js/calendars/calendar-day.js', array('jquery'), false, true);
                 wp_register_script('dot-js-calendar-schedule', $DOPBSP->paths->url.'application/assets/js/calendars/calendar-schedule.js', array('jquery'), false, true);
-                
+		
                 /*
                  *  Enqueue JavaScript.
                  */
@@ -121,9 +122,11 @@
                 wp_enqueue_script('DOP-js-jquery-dopselect');
                 
                 /*
-                 * Calendar
+                 * Calendar & search
                  */
                 wp_enqueue_script('DOPBSP-js-frontend-calendar');
+                wp_enqueue_script('DOPBSP-js-frontend-search');
+                wp_enqueue_script('DOPBSP-js-frontend-search-widget');
                 
                 /*
                  * Front end.
@@ -171,60 +174,59 @@
                 global $post;
                 
                 extract(shortcode_atts(array('class' => 'dopbsp'), $atts));
-                        
-                if(isset($atts)) {
-                    
-                    if (is_array($atts)) {
-                        
-                        if (!array_key_exists('lang', $atts)){
-                            $atts['lang'] = DOPBSP_CONFIG_TRANSLATION_DEFAULT_LANGUAGE;
-                        }
-                        
-                        if(defined('ICL_LANGUAGE_CODE')) {
-                            $atts['lang'] = ICL_LANGUAGE_CODE;
-                            $atts['lang'] = str_replace('pt-br', 'pt', $atts['lang']);
-                            $atts['lang'] = str_replace('pt-pt', 'pt', $atts['lang']);
-                            $atts['lang'] = str_replace('nb', 'no', $atts['lang']);
-                            $atts['lang'] = str_replace('zh-hans', 'zh', $atts['lang']);
-                        }
                                 
-                        if (!array_key_exists('id', $atts)){
-                            $atts['id'] = 1;
-                        } 
+                if (!array_key_exists('item', $atts)){
+                    $atts['item'] = 'calendar';
+                }
                                 
-                        if (!array_key_exists('view', $atts)){
-                            $atts['view'] = 'false';
-                        } 
-
-                        if (!array_key_exists('woocommerce', $atts)){
-                            $atts['woocommerce'] = 'false';
-                        }
-
-                        if (!array_key_exists('woocommerce_add_to_cart', $atts)){
-                            $atts['woocommerce_add_to_cart'] = 'false';
-                        }
-
-                        if (!array_key_exists('woocommerce_position', $atts)){
-                            $atts['woocommerce_position'] = 'summary';
-                        }
-
-                        if (!array_key_exists('woocommerce_product_id', $atts)){
-                            $atts['woocommerce_product_id'] = 0;
-                        }
-                    } else {
-                        $atts['lang'] = DOPBSP_CONFIG_TRANSLATION_DEFAULT_LANGUAGE;
-                        $atts['id'] = 1;
-                        $atts['view'] = 'false';
-                    }
-                
-                } else {
-                    $atts['lang'] = DOPBSP_CONFIG_TRANSLATION_DEFAULT_LANGUAGE;        
+                if (!array_key_exists('id', $atts)){
                     $atts['id'] = 1;
+                }
+                                
+                if (!array_key_exists('view', $atts)){
                     $atts['view'] = 'false';
+                }  
+                                
+                if (!array_key_exists('lang', $atts)){
+                    $atts['lang'] = DOPBSP_CONFIG_TRANSLATION_DEFAULT_LANGUAGE;
                 }
                 
-                $atts['lang'] = get_post_meta($post->ID, 'dopbsp_woocommerce_language', true) == '' ? $atts['lang']:get_post_meta($post->ID, 'dopbsp_woocommerce_language', true);
-                $content = $DOPBSP->classes->frontend_calendar->display($atts);
+                if(defined('ICL_LANGUAGE_CODE')) {
+                    $atts['lang'] = ICL_LANGUAGE_CODE;
+                    $atts['lang'] = str_replace('pt-br', 'pt', $atts['lang']);
+                    $atts['lang'] = str_replace('pt-pt', 'pt', $atts['lang']);
+                    $atts['lang'] = str_replace('nb', 'no', $atts['lang']);
+                    $atts['lang'] = str_replace('zh-hans', 'zh', $atts['lang']);
+                }
+                                
+                if (!array_key_exists('woocommerce', $atts)){
+                    $atts['woocommerce'] = 'false';
+                }
+                                
+                if (!array_key_exists('woocommerce_add_to_cart', $atts)){
+                    $atts['woocommerce_add_to_cart'] = 'false';
+                }
+                                
+                if (!array_key_exists('woocommerce_position', $atts)){
+                    $atts['woocommerce_position'] = 'summary';
+                }
+                                
+                if (!array_key_exists('woocommerce_product_id', $atts)){
+                    $atts['woocommerce_product_id'] = 0;
+                }
+                
+                switch ($atts['item']){
+                    case 'search':
+                        $content = $DOPBSP->classes->frontend_search->display($atts);
+                        break;
+                    case 'search-widget':
+                        $content = $DOPBSP->classes->frontend_search->displayWidget($atts);
+                        break;
+                    default:
+                        $atts['lang'] = get_post_meta($post->ID, 'dopbsp_woocommerce_language', true) == '' ? $atts['lang']:get_post_meta($post->ID, 'dopbsp_woocommerce_language', true);
+                        $content = $DOPBSP->classes->frontend_calendar->display($atts);
+                        break;
+                }
                 
                 return $content;
             }

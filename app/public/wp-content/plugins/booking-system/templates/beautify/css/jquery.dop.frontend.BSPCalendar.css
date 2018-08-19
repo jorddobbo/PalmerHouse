@@ -1,16 +1,18 @@
 @charset "utf-8";
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.3
 * File                    : templates/beautify/css/jquery.dop.frontend.BSPCalendar.css
 * File Version            : 1.0
-* Created / Last Modified : 17 December 2015
+* Created / Last Modified : 14 December 2015
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
 * Website                 : http://www.dotonpaper.net
 * Description             : Front end calendar jQuery plugin stylesheet for Beautify theme.
 */
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800);
 
 .DOPBSPCalendar-wrapper{
      -webkit-box-sizing: content-box; 
@@ -35,6 +37,7 @@
     -webkit-box-shadow: 0 0 10px 2px rgba(3, 3, 3, 0.1);
     box-shadow: 0 0 10px 2px rgba(3, 3, 3, 0.1);
     float: left;
+    font-family: 'Open Sans', sans-serif !important;
     font-size: 13px;
     line-height: 20px;
     margin: 0;
@@ -207,6 +210,7 @@
 .DOPBSPCalendar-navigation .dopbsp-week .dopbsp-day{
     color: #666666;
     display: block;
+    font-family: 'Open Sans', sans-serif !important;
     font-size: 12px;
     line-height: 20px;
     float: left;
@@ -296,6 +300,7 @@
 .DOPBSPCalendar-day .dopbsp-bind-right .dopbsp-body{
     background-color: #ffffff !important;
     border-bottom: 1px solid #ffffff !important;
+    font-family: 'Open Sans', sans-serif !important;
     font-size: 12px !important;
     font-weight: 300 !important;
     line-height: 15px !important;
@@ -348,6 +353,7 @@
 .DOPBSPCalendar-day .dopbsp-bind-middle .dopbsp-head .dopbsp-day{
     color: #252525;
     float: left;
+    font-family: 'Open Sans', sans-serif !important;
     font-size: 12px !important;
     font-weight: bold !important;
     line-height: 15px !important;
@@ -453,6 +459,7 @@
     color: #666666 !important;
     display: block;
     float: none !important;
+    font-family: 'Open Sans', sans-serif !important;
     font-size: 12px !important;
     font-weight: 300 !important;
     line-height: 15px !important;
@@ -531,6 +538,7 @@
 .DOPBSPCalendar-day .dopbsp-bind-middle .dopbsp-body .dopbsp-old-price{
     color: #666666;
     float: left;
+    font-family: 'Open Sans', sans-serif !important;
     font-size: 12px !important;
     font-weight: 300;
     line-height: 15px !important;
@@ -542,6 +550,7 @@
 .DOPBSPCalendar-day .dopbsp-bind-middle .dopbsp-body .dopbsp-price{
     color: #666666;
     float: left;
+    font-family: 'Open Sans', sans-serif !important;
     font-size: 12px !important;
     line-height: 15px !important;
     margin: 0 !important;
@@ -550,6 +559,7 @@
 
 .DOPBSPCalendar-day .dopbsp-bind-middle .dopbsp-body .dopbsp-available{
     color: #666666;
+    font-family: 'Open Sans', sans-serif !important;
     font-size: 12px !important;
     font-weight: 300;
     line-height: 15px !important;
@@ -559,6 +569,7 @@
 
 .DOPBSPCalendar-day .dopbsp-bind-middle .dopbsp-body .dopbsp-info-body{
     color: #666666;
+    font-family: 'Open Sans', sans-serif !important;
     font-size: 12px !important;
     font-style: italic;
     font-weight: 300;
@@ -627,7 +638,7 @@
 .DOPBSPCalendar-day .dopbsp-head .dopbsp-ci.dopbsp-available,
 .DOPBSPCalendar-day .dopbsp-bind-left.dopbsp-extended.dopbsp-available .dopbsp-head{
     background-color: #ffffff !important;
-    border-color: #9FB17D !important; /* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Change to your AVAILABLE color. */
+    border-color: #81c990 !important; /* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Change to your AVAILABLE color. */
 }
 
 .DOPBSPCalendar-day.dopbsp-available .dopbsp-body,
@@ -737,7 +748,7 @@
 .DOPBSPCalendar-day.dopbsp-selected.dopbsp-first .dopbsp-bind-left.dopbsp-available.dopbsp-extended .dopbsp-head,
 .DOPBSPCalendar-day.dopbsp-available.dopbsp-selected.dopbsp-last .dopbsp-bind-right .dopbsp-head{
     background-color: #ffffff !important; /* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Change to your AVAILABLE color. */
-    border-color: #9FB17D !important; /* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Change to your AVAILABLE color. */
+    border-color: #81c990 !important; /* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Change to your AVAILABLE color. */
 }
 
 .DOPBSPCalendar-day.dopbsp-selected.dopbsp-first .dopbsp-body .dopbsp-co.dopbsp-available,
@@ -915,6 +926,7 @@
     background-color: #ffffff;
     color: #252525;
     float: left;
+    font-family: 'Open Sans', sans-serif !important;
     font-size: 12px !important;
     font-weight: bold !important;
     line-height: 18px !important;
@@ -925,6 +937,7 @@
 .DOPBSPCalendar-hour .dopbsp-bind-middle .dopbsp-price-promo{
     color: #666666;
     float: left;
+    font-family: 'Open Sans', sans-serif !important;
     font-size: 12px !important;
     line-height: 18px !important;
     padding: 0 0 0 10px !important;
@@ -933,6 +946,7 @@
 .DOPBSPCalendar-hour .dopbsp-bind-middle .dopbsp-old-price{
     color: #666666;
     float: left;
+    font-family: 'Open Sans', sans-serif !important;
     font-size: 12px !important;
     line-height: 18px !important;
     padding: 0 0 0 5px !important;
@@ -942,6 +956,7 @@
 .DOPBSPCalendar-hour .dopbsp-bind-middle .dopbsp-available{
     color: #666666;
     float: left;
+    font-family: 'Open Sans', sans-serif !important;
     font-size: 12px !important;
     line-height: 18px !important;
     padding: 0 10px !important;
@@ -950,6 +965,7 @@
 .DOPBSPCalendar-hour .dopbsp-bind-middle .dopbsp-info-body{
     color: #acacac;
     float: left;
+    font-family: 'Open Sans', sans-serif !important;
     font-size: 11px !important;
     font-style: italic;
     font-weight: 300;
@@ -1003,11 +1019,11 @@
  * Available hour.
  */
 .DOPBSPCalendar-hour.dopbsp-available .dopbsp-bind-middle{    
-    border-color: #9FB17D; /* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Change to your AVAILABLE color. */
+    border-color: #81c990; /* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Change to your AVAILABLE color. */
 }
 
 .DOPBSPCalendar-hour.dopbsp-available .dopbsp-bind-top{    
-    border-color: #9FB17D; /* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Change to your AVAILABLE color. */
+    border-color: #81c990; /* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Change to your AVAILABLE color. */
 }
 
 .DOPBSPCalendar-hour.dopbsp-available .dopbsp-bind-top .dopbsp-hour{    
@@ -1015,7 +1031,7 @@
 }
 
 .DOPBSPCalendar-hour.dopbsp-available .dopbsp-bind-bottom{    
-    border-color: #9FB17D; /* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Change to your AVAILABLE color. */
+    border-color: #81c990; /* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Change to your AVAILABLE color. */
 }
 
 .DOPBSPCalendar-hour.dopbsp-available .dopbsp-bind-bottom .dopbsp-hour{    
@@ -1181,6 +1197,7 @@
  */
 .DOPBSPCalendar-sidebar,
 .DOPBSPCalendar-outer-sidebar{
+    font-family: 'Open Sans', sans-serif !important;
     overflow: hidden;
     padding: 0;
 }
@@ -1455,6 +1472,7 @@
 .DOPBSPCalendar-outer-sidebar .dopbsp-module h4{
     color: #474747 !important;
     display: block !important;
+    font-family: 'Open Sans', sans-serif !important;
     font-size: 16px !important;
     font-weight: 600 !important;
     line-height: 20px !important;
@@ -1910,6 +1928,7 @@
 .DOPBSPCalendar-sidebar .DOPSelect .dopselect-select .dopselect-selection,
 .DOPBSPCalendar-outer-sidebar .DOPSelect .dopselect-select .dopselect-selection{
     color: #666666 !important;
+    font-family: 'Open Sans', sans-serif !important;
     font-size: 14px !important;
     font-weight: normal !important;
     height: 28px !important;
@@ -1945,6 +1964,7 @@
 .DOPBSPCalendar-outer-sidebar .DOPSelect.dopselect-single ul li{
     background: #ffffff !important;
     color: #666666 !important;
+    font-family: 'Open Sans', sans-serif !important;
     font-size: 14px !important;
     font-weight: normal !important;
     height: 30px !important;
@@ -2302,6 +2322,7 @@
 .DOPBSPCalendar-datepicker.ui-datepicker .ui-datepicker-header .ui-datepicker-month,
 .DOPBSPCalendar-datepicker.ui-datepicker .ui-datepicker-header .ui-datepicker-year{
     color: #ffffff !important;
+    font-family: 'Open Sans', sans-serif !important;
     font-size: 18px !important;
     font-weight: normal !important;
     line-height: 38px !important;
@@ -2328,6 +2349,7 @@
     border: 1px solid #e5ddff !important;
     border-top: none !important;
     color: #474747 !important;
+    font-family: 'Open Sans', sans-serif !important;
     font-size: 13px !important;
     font-weight: normal !important;
     line-height: 18px !important;
@@ -2351,6 +2373,7 @@
     border: 0 !important;
     color: #acacac !important;
     display: block !important;
+    font-family: 'Open Sans', sans-serif !important;
     font-size: 13px !important;
     font-weight: 300 !important;
     line-height: 19px !important;

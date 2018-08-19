@@ -1,11 +1,11 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.8
 * File                    : views/dashboard/views-backend-dashboard-start.php
-* File Version            : 1.2.0
-* Created / Last Modified : 15 March 2016
+* File Version            : 1.0.9
+* Created / Last Modified : 15 March 2015
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
 * Website                 : http://www.dotonpaper.net
@@ -38,34 +38,17 @@
                     <h4><?php echo $DOPBSP->text('DASHBOARD_GET_STARTED'); ?></h4>
                     <ul>
                         <li>
-                            <a href="<?php echo admin_url('admin.php?page=dopbsp-pro'); ?>">
+                            <a href="<?php echo admin_url('admin.php?page=dopbsp-calendars'); ?>">
                                 <span class="dopbsp-icon dopbsp-calendars"></span>
-<?php
-    if ($DOPBSP->vars->view_pro){
-	echo $DOPBSP->text('DASHBOARD_GET_STARTED_CALENDARS');
-?>
-                                <span class="dopbsp-pro"><?php echo $DOPBSP->text('MESSAGES_PRO_TITLE'); ?></span>
-<?php
-    }
-    else{
-	echo $DOPBSP->text('DASHBOARD_GET_STARTED_CALENDARS_VIEW'); 
-    }
-?>
-                            </a>    
-                        </li>
-<?php
-    if ($DOPBSP->vars->view_pro){
-?>
-                        <li>
-                            <a href="<?php echo admin_url('admin.php?page=dopbsp-pro'); ?>">
-                                <span class="dopbsp-icon dopbsp-locations"></span>
-                                <?php echo $DOPBSP->text('DASHBOARD_GET_STARTED_LOCATIONS'); ?>
-                                <span class="dopbsp-pro"><?php echo $DOPBSP->text('MESSAGES_PRO_TITLE'); ?></span>
+                                <?php echo $DOPBSP->text('DASHBOARD_GET_STARTED_CALENDARS'); ?>
                             </a>
                         </li>
-<?php
-    }
-?>
+                        <li>
+                            <a href="<?php echo admin_url('admin.php?page=dopbsp-locations'); ?>">
+                                <span class="dopbsp-icon dopbsp-locations"></span>
+                                <?php echo $DOPBSP->text('DASHBOARD_GET_STARTED_LOCATIONS'); ?>
+                            </a>
+                        </li>
                         <li>
                             <a href="<?php echo admin_url('admin.php?page=dopbsp-reservations'); ?>">
                                 <span class="dopbsp-icon dopbsp-reservations"></span>
@@ -94,7 +77,7 @@
                             <a href="<?php echo admin_url('admin.php?page=dopbsp-coupons'); ?>">
                                 <span class="dopbsp-icon dopbsp-coupons"></span>
                                 <?php echo $DOPBSP->text('DASHBOARD_MORE_ACTIONS_COUPONS'); ?>
-			    </a>
+                            </a>
                         </li>
                         <li>
                             <a href="<?php echo admin_url('admin.php?page=dopbsp-discounts'); ?>">
@@ -126,19 +109,12 @@
                                 <?php echo $DOPBSP->text('DASHBOARD_MORE_ACTIONS_RULES'); ?>
                             </a>
                         </li>
-<?php
-    if ($DOPBSP->vars->view_pro){
-?>
                         <li>
-                            <a href="<?php echo admin_url('admin.php?page=dopbsp-pro'); ?>">
+                            <a href="<?php echo admin_url('admin.php?page=dopbsp-search'); ?>">
                                 <span class="dopbsp-icon dopbsp-search"></span>
                                 <?php echo $DOPBSP->text('DASHBOARD_MORE_ACTIONS_SEARCH'); ?>
-                                <span class="dopbsp-pro"><?php echo $DOPBSP->text('MESSAGES_PRO_INFO'); ?></span>
                             </a>
                         </li>
-<?php
-    }
-?>
                         <li>
                             <a href="<?php echo admin_url('admin.php?page=dopbsp-fees'); ?>">
                                 <span class="dopbsp-icon dopbsp-fees"></span>

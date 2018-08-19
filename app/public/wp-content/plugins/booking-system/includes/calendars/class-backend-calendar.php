@@ -112,6 +112,208 @@
 
                 die();
             }
+        
+            /*
+             * Add calendar.
+             * 
+             * @param $post_id (integer): post ID
+             * @param $name (string): calednar name
+             */
+            function add($post_id = 0,
+                         $name = ''){
+                global $wpdb;
+                global $DOPBSP;
+                
+                $name = $name == '' ?  $DOPBSP->text('CALENDARS_ADD_CALENDAR_NAME'):$name;
+                
+                /*
+                 * Add calendar.
+                 */
+                $wpdb->insert($DOPBSP->tables->calendars, array('user_id' => wp_get_current_user()->ID,
+                                                                'name' => $name,
+                                                                'post_id' => $post_id));
+                
+                /*
+                 * Display new calendars list.
+                 */
+                if ($post_id == 0){
+                    $this->display();
+                    die();
+                }
+            }
+            
+            /*
+             * Duplicate calendar.
+             * 
+             * @param $calendar_id (integer): calendar ID
+             */
+            function duplicate(){
+		global $DOT;
+                global $wpdb;
+                global $DOPBSP;
+                
+                $calendar_id = $DOT->post('id', 'int');
+                
+                /*
+                 * Get calendar settings.
+                 */
+                
+                $calendar   = $wpdb->get_row($wpdb->prepare('SELECT * FROM '.$DOPBSP->tables->calendars.' WHERE id=%d',
+                                                            $calendar_id));
+                
+                /*
+                 * Add calendar.
+                 */
+                
+                $wpdb->insert($DOPBSP->tables->calendars, array('user_id' => wp_get_current_user()->ID,
+                                                                'name' => $calendar->name,
+                                                                'post_id' => $calendar->post_id,
+                                                                'max_year' => $calendar->max_year,
+                                                                'hours_enabled' => $calendar->hours_enabled,
+                                                                'hours_interval_enabled' => $calendar->hours_interval_enabled,
+                                                                'price_min' => $calendar->price_min,
+                                                                'price_max' => $calendar->price_max,
+                                                                'rating' => $calendar->rating,
+                                                                'address' => $calendar->address,
+                                                                'address_en' => $calendar->address_en,
+                                                                'address_alt' => $calendar->address_alt,
+                                                                'address_alt_en' => $calendar->address_alt_en,
+                                                                'coordinates' => $calendar->coordinates,
+								'default_availability' => $calendar->default_availability));
+                $calendar_new_id = $wpdb->insert_id;
+                
+                /*
+                 * Get calendar settings.
+                 */
+                $settings_calendars      = $wpdb->get_results($wpdb->prepare('SELECT * FROM '.$DOPBSP->tables->settings_calendar.' WHERE calendar_id=%d',
+                                                              $calendar_id));
+                /*
+                 * Get notifications settings.
+                 */
+                $settings_notifications  = $wpdb->get_results($wpdb->prepare('SELECT * FROM '.$DOPBSP->tables->settings_notifications.' WHERE calendar_id=%d',
+                                                              $calendar_id));
+                /*
+                 * Get payment settings.
+                 */
+                $settings_payments       = $wpdb->get_results($wpdb->prepare('SELECT * FROM '.$DOPBSP->tables->settings_payment.' WHERE calendar_id=%d',
+                                                         $calendar_id));
+                
+                
+                
+                /*
+                 * Add calendar settings.
+                 */
+                foreach($settings_calendars as $settings_calendar) {
+                        $wpdb->insert($DOPBSP->tables->settings_calendar, array('calendar_id' => $calendar_new_id,
+                                                                                'name' => $settings_calendar->name,
+                                                                                'value' => $settings_calendar->value));
+                }
+                
+                /*
+                 * Add calendar notifications settings.
+                 */
+                foreach($settings_notifications as $settings_notification) {
+                        $wpdb->insert($DOPBSP->tables->settings_notifications, array('calendar_id' => $calendar_new_id,
+                                                                                'name' => $settings_notification->name,
+                                                                                'value' => $settings_notification->value));
+                }
+                
+                /*
+                 * Add calendar payment settings.
+                 */
+                foreach($settings_payments as $settings_payment) {
+                        $wpdb->insert($DOPBSP->tables->settings_payment, array('calendar_id' => $calendar_new_id,
+                                                                                'name' => $settings_payment->name,
+                                                                                'value' => $settings_payment->value));
+                }
+                
+                /*
+                 * Add calendar availability.
+                 */
+                $schedule = array();
+                
+                $days = $wpdb->get_results($wpdb->prepare('SELECT * FROM '.$DOPBSP->tables->days.' WHERE calendar_id=%d',
+                                                          $calendar_id));
+
+                foreach ($days as $day):
+                    $schedule[$day->day] = $day->data;
+                endforeach;
+                
+                $schedule = json_encode($schedule);
+                $schedule = json_decode($schedule);
+
+                if (count($schedule) > 0){
+                    
+                    $settings_calendar = $DOPBSP->classes->backend_settings->values($calendar_id,  
+                                                                                    'calendar');
+                    $hours_enabled = $settings_calendar->hours_enabled;
+
+                    $days = array();
+                    $query_insert_values = array();
+
+                    /*
+                     * Set days data.
+                     */
+                    while ($data = current($schedule)){
+                        $price_min  = 1000000000;
+                        $price_max  = 0;
+
+                        $day = key($schedule);
+                        array_push($days, $day);
+                        $day_items = explode('-', $day);
+
+                        $control_data = $wpdb->get_results($wpdb->prepare('SELECT * FROM '.$DOPBSP->tables->days.' WHERE calendar_id=%d AND day="%s"',
+                                                                          $calendar_new_id, $day));
+                        $data = str_replace('"\"', '',$data);
+                        $data = str_replace('\"', '"',$data);
+                        $data = str_replace('\\', '',$data);
+                        $data = str_replace('}""', '}',$data);
+                        $data = stripslashes($data);
+                        $data = json_decode($data);
+                        
+                        if ($hours_enabled == 'true'){
+                            foreach ($data->hours as $hour):
+                                $price = $hour->promo == '' ? ($hour->price == '' ? 0:(float)$hour->price):(float)$hour->promo;
+
+                                if ($hour->price != '0'){
+                                    $price_min = $price < $price_min ? $price:$price_min;
+                                    $price_max = $price > $price_max ? $price:$price_max;
+                                }
+                            endforeach;
+                        }
+                        else{
+                            $price_min = $data->promo == '' ? ($data->price == '' ? 0:(float)$data->price):(float)$data->promo;
+                            $price_max = $price_min;
+                        }
+
+                        if ($wpdb->num_rows != 0){
+                            $wpdb->update($DOPBSP->tables->days, array('data' => json_encode($data),
+                                                                       'price_min' => $price_min,
+                                                                       'price_max' => $price_max), 
+                                                                 array('calendar_id' => $calendar_new_id,
+                                                                       'day' => $day));
+                        }
+                        else{
+                            array_push($query_insert_values, '(\''.$calendar_new_id.'_'.$day.'\', \''.$calendar_new_id.'\', \''.$day.'\', \''.$day_items[0].'\', \''.json_encode($data).'\', \''.$price_min.'\', \''.$price_max.'\')');
+                        }
+                        next($schedule);                        
+                    }
+
+                    if (count($query_insert_values) > 0){
+                        $wpdb->query('INSERT INTO '.$DOPBSP->tables->days.' (unique_key, calendar_id, day, year, data, price_min, price_max) VALUES '.implode(', ', $query_insert_values));
+                    }
+
+                    $DOPBSP->classes->backend_calendar_schedule->clean();
+		    $DOT->models->availability->set($calendar_new_id);
+                }
+                
+                /*
+                 * Display new calendars list.
+                 */
+                $this->display();
+
+            	die();
+            }
             
             /*
              * Edit calendar.

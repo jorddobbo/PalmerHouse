@@ -557,7 +557,7 @@
                     cday = DOPPrototypes.getLeadingZero(d.getDate());
                     day = DOT.methods.calendar_day.get(ID,
 						       cyear+'-'+cmonth+'-'+cday);
-					
+						       
                         
                         if (StartYear === year 
                                 && StartMonth === month 
@@ -585,7 +585,6 @@
                                                                day['promo'], 
                                                                day['status']));
                         }
-
                 }
 
                 /*
@@ -598,7 +597,6 @@
                     cday = DOPPrototypes.getLeadingZero(d.getDate());
                     day = DOT.methods.calendar_day.get(ID,
 						       cyear+'-'+cmonth+'-'+cday);
-
 
                         monthHTML.push(methods_day.display('next-month'+(position<noMonths ?  ' hide':''), 
                                                            position<noMonths ? ID+'_'+cyear+'-'+cmonth+'-'+cday+'_next':ID+'_'+cyear+'-'+cmonth+'-'+cday, 

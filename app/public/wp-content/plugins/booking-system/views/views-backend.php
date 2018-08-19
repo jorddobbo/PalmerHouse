@@ -1,10 +1,10 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.8
 * File                    : views/views-backend.php
-* File Version            : 1.2.2
+* File Version            : 1.2.0
 * Created / Last Modified : 15 March 2016
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
@@ -35,21 +35,6 @@
                 $complete_title = ($title != '' ? '<span class="dopbsp-phone-hidden">'.$title:'').
                                   ($subtitle != '' ? ' - </span>'.$subtitle:'</span>').
                                   ($status != '' ? '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$status:'');
-                
-                if ($DOPBSP->vars->view_pro){
-?>
-                <!--
-                    PRO tips box.
-                -->
-		<div id="DOPBSP-pro-remove" class="updated notice dopbsp-notice is-dismissible">
-		    <p>
-			<?php echo $DOPBSP->text('MESSAGES_PRO_REMOVE_TEXT1'); ?>
-			<br />
-			<?php printf($DOPBSP->text('MESSAGES_PRO_REMOVE_TEXT2'), '<strong>DOPBSP_CONFIG_VIEW_PRO</strong>', '<strong>false</strong>', '<em>dopbsp-config.php</em>'); ?>
-		    </p>
-                </div>
-<?php  
-                }
 ?>
                 <h2></h2>
                 <div class="dopbsp-header">
@@ -76,7 +61,7 @@
              */
             function displayBoxes(){
                 global $DOPBSP;
-?>
+?>                
                 <div id="DOPBSP-messages-background"></div>
                 
                 <!--
@@ -151,17 +136,17 @@
                         case 'dopbsp-models':
                             $DOPBSP_curr_page = 'Models';
                             break;
-                        case 'dopbsp-pro':
-                            $DOPBSP_curr_page = 'PRO';
-                            break;
                         case 'dopbsp-reservations':
                             $DOPBSP_curr_page = 'Reservations';
                             break;
-                        case 'dopbsp-reviews':
+                        case 'dopbsp-reservations':
                             $DOPBSP_curr_page = 'Reviews';
                             break;
                         case 'dopbsp-rules':
                             $DOPBSP_curr_page = 'Rules';
+                            break;
+                        case 'dopbsp-search':
+                            $DOPBSP_curr_page = 'Search';
                             break;
                         case 'dopbsp-settings':
                             $DOPBSP_curr_page = 'Settings';
@@ -199,16 +184,19 @@
                 else{
                     $DOPBSP_user_role = 'administrator';
                 }
+                
+                $settings_general = $DOPBSP->classes->backend_settings->values(0,  
+                                                                               'general');
 ?>          
             <script type="text/JavaScript">
                 var DOPBSP_DEVELOPMENT_MODE = <?php echo DOPBSP_DEVELOPMENT_MODE ? 'true':'false'; ?>,
+                dopbspGoogleAPIkey = '<?php echo $settings_general->google_map_api_key; ?>',
                 DOPBSP_CONFIG_HELP_DOCUMENTATION_URL = '<?php echo DOPBSP_CONFIG_HELP_DOCUMENTATION_URL; ?>',
                 DOPBSP_curr_page = '<?php echo $DOPBSP_curr_page; ?>',
                 DOPBSP_user_ID = <?php echo wp_get_current_user()->ID; ?>,
                 DOPBSP_user_role = '<?php echo $DOPBSP_user_role; ?>',
                 DOPBSP_plugin_url = '<?php echo $DOPBSP->paths->url; ?>',
-                DOPBSP_translation_text = new Array(),
-		DOPBSP_view_pro = <?php echo $DOPBSP->vars->view_pro ? 'true':'false'; ?>;
+                DOPBSP_translation_text = new Array();
                 
 <?php
                 $language = $DOPBSP->classes->backend_language->get();

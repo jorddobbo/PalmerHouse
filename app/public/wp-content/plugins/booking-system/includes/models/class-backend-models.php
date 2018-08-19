@@ -1,11 +1,11 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.8
 * File                    : includes/models/class-backend-models.php
 * File Version            : 1.0
-* Created / Last Modified : 14 March 2016
+* Created / Last Modified : 14 March 2015
 * Author                  : Dot on Paper
 * Copyright               : © 2016 Dot on Paper
 * Website                 : http://www.dotonpaper.net

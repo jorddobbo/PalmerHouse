@@ -1,11 +1,11 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.1
 * File                    : includes/discounts/class-backend-discount-item-rule.php
 * File Version            : 1.0.4
-* Created / Last Modified : 26 August 2015
+* Created / Last Modified : 25 August 2015
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
 * Website                 : http://www.dotonpaper.net
@@ -34,8 +34,8 @@
                 global $wpdb;
                 global $DOPBSP;
                 
-                $item_id = $DOT->post('item_id');
-                $position = $DOT->post('position');
+                $item_id = $DOT->post('item_id', 'int');
+                $position = $DOT->post('position', 'int');
                 $language = $DOT->post('language');
                 
                 $wpdb->insert($DOPBSP->tables->discounts_items_rules, array('discount_item_id' => $item_id,

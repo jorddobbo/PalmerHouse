@@ -69,7 +69,7 @@
 	     *	    -
 	     * 
              * @params
-	     *	    -
+	     *	    id (integer): calendar ID
 	     * 
 	     * @post
 	     *	    -
@@ -115,10 +115,11 @@
 	     * @tests
 	     *	    -
              */
-	    function get(){
+	    function get($id){
 		global $DOT;
 		
-		return $DOT->db->row('SELECT * FROM '.$DOT->tables->calendars.' WHERE id=1');
+		return $DOT->db->row($DOT->db->safe('SELECT * FROM '.$DOT->tables->calendars.' WHERE id=%d',
+						    array($id)));
 	    }
 	    
             /*

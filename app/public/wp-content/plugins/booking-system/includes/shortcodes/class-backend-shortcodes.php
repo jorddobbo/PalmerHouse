@@ -1,11 +1,11 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.1.1
 * File                    : includes/class-backend-shortcodes.php
 * File Version            : 1.0.3
-* Created / Last Modified : 26 August 2015
+* Created / Last Modified : 25 August 2015
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
 * Website                 : http://www.dotonpaper.net
@@ -47,10 +47,12 @@
                 global $DOPBSP;
                 
                 $calendars_list = array();
+                $searches_list = array(); 
                 $languages_list = array();
 
                 $calendars = $wpdb->get_results($wpdb->prepare('SELECT * FROM '.$DOPBSP->tables->calendars.' WHERE user_id=%d ORDER BY id',
                                                                wp_get_current_user()->ID));
+                $searches = $wpdb->get_results('SELECT * FROM '.$DOPBSP->tables->searches.' ORDER BY id'); 
                 $languages = $DOPBSP->classes->languages->languages;
                 $selected_language = '';
                 $selected_language = $selected_language == '' ? $DOPBSP->classes->backend_language->get():$selected_language;
@@ -59,7 +61,11 @@
                 foreach ($calendars as $calendar){
                     array_push($calendars_list, $calendar->id.';;'.$calendar->name);
                 }
-
+                
+                foreach ($searches as $search){
+                    array_push($searches_list, $search->id.';;'.$search->name);
+                } 
+                
                 foreach ($enabled_languages as $enabled_language){
                     array_push($languages_list, $enabled_language->code.';;'.$enabled_language->name);
                 }
@@ -68,11 +74,11 @@
                 $dopbsp_path = str_replace('includes/shortcodes/', '', $dopbsp_path);
                 
                 echo '<script type="text/JavaScript">'.
-                     '    var DOPBSP_tinyMCE_data = "'.$DOPBSP->text('TINYMCE_ADD').';;;;;'.implode(';;;', $calendars_list).';;;;;'.$DOPBSP->text('TINYMCE_CALENDAR').';;;;;'.$DOPBSP->text('TINYMCE_SELECT_CALENDAR').';;;;;'.$DOPBSP->text('TINYMCE_LANGUAGE').';;;;;'.$DOPBSP->text('TINYMCE_SELECT_LANGUAGE').';;;;;'.implode(';;;', $languages_list).'",'.
+                     '    var DOPBSP_tinyMCE_data = "'.$DOPBSP->text('TINYMCE_ADD').';;;;;'.implode(';;;', $calendars_list).';;;;;'.$DOPBSP->text('TINYMCE_CALENDAR').';;;;;'.$DOPBSP->text('TINYMCE_SELECT_CALENDAR').';;;;;'.$DOPBSP->text('TINYMCE_LANGUAGE').';;;;;'.$DOPBSP->text('TINYMCE_SELECT_LANGUAGE').';;;;;'.implode(';;;', $languages_list).';;;;;'.implode(';;;', $searches_list).'",'.
                      '        DOPBSP_PATH = "'.$dopbsp_path.'",'.
                      '        DOPBSP_language = "'.$selected_language.'",'.
                      '        WP_version = "'.get_bloginfo("version").'";'. 
-                     '</script>';
+                     '</script>'; 
             }
 
             /*

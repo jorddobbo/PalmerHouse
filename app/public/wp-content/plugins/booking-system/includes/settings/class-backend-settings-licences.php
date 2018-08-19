@@ -1,7 +1,7 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
 * Version                 : 2.2.4
 * File                    : includes/settings/class-backend-settings-licences.php
 * File Version            : 1.0.5
@@ -55,7 +55,7 @@
                 }
                 else{
                     $item = 'DOPBSP_'.$id;
-                    global $$item;
+                    global ${$item};
                 }
                 
                 /*
@@ -158,7 +158,7 @@
                 }
                 else{
                     $item = 'DOPBSP_'.$id;
-                    global $$item;
+                    global ${$item};
                 }
                 
                 /*
@@ -186,6 +186,7 @@
 		$request = wp_remote_get($request_url,
                                          array('sslverify' => DOPBSP_CONFIG_SHOP_SSL_VERIFY));
                 
+		
 		if (wp_remote_retrieve_response_code($request) != 200){
                     echo 'error_with_message;;;;;'.$DOPBSP->text('SETTINGS_LICENCES_STATUS_TIMEOUT_ERROR');
 		}
@@ -234,7 +235,7 @@
                 }
                 else{
                     $item = 'DOPBSP_'.$id;
-                    global $$item;
+                    global ${$item};
                 }
                 
                 /*

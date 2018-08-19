@@ -37,10 +37,23 @@
 	flex: 0 1 auto;
 	width: calc(25% - 15px);
 	box-sizing: border-box;
+	cursor: pointer;
 
 	&.active {
 		.booking-tabs__image {
 			opacity: 1;
+		}
+
+		&:hover {
+			.booking-tabs__image {
+				opacity: 1;
+			}
+		}
+	}
+
+	&:hover {
+		.booking-tabs__image {
+			opacity: 0.5;
 		}
 	}
 
@@ -82,4 +95,16 @@
 	margin: 0;
 	font-size: 16px;
 	line-height: 20px;
+}
+
+.booking-forms {
+
+}
+
+.booking-forms__item {
+	display: none;
+
+	&.active {
+		display: block !important;
+	}
 }

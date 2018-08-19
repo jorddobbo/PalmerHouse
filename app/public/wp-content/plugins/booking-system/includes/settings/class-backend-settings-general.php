@@ -1,11 +1,11 @@
 <?php
 
 /*
-* Title                   : Pinpoint Booking System WordPress Plugin
-* Version                 : 2.1.1
+* Title                   : Pinpoint Booking System WordPress Plugin (PRO)
+* Version                 : 2.1.2
 * File                    : includes/settings/class-backend-settings-general.php
-* File Version            : 1.0.2
-* Created / Last Modified : 26 August 2015
+* File Version            : 1.0.3
+* Created / Last Modified : 06 December 2015
 * Author                  : Dot on Paper
 * Copyright               : © 2012 Dot on Paper
 * Website                 : http://www.dotonpaper.net
@@ -44,7 +44,11 @@
              * @return default general settings array
              */
             function defaults($default_general){
-                $default_general = array();
+                $default_general = array('dopbsp_licence_email' => '',
+                                         'dopbsp_licence_instance' => '',
+                                         'dopbsp_licence_key' => '',
+                                         'dopbsp_licence_status' => 'deactivated',
+                                         'google_map_api_key' => '');
                 
                 return $default_general;
             }

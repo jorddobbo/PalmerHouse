@@ -351,6 +351,7 @@
 // 2. Schedule
 
         methods_schedule = {
+            
             get:function(id) {
                 
                 var post = new Array();
@@ -370,6 +371,7 @@
                     // console.log(data.status+': '+data.statusText);
                 });
             },
+            
             parse:function(year){
             /*
              * Parse calendar schedule.
@@ -1265,6 +1267,7 @@
                 noDays,
                 schedule = DOT.methods.calendar_schedule.data[ID];
 
+                
                 /*
                  * Verify days.
                  */
@@ -2403,7 +2406,7 @@
                      * Check if first and last hour are not in the middle of a group.
                      */ 
                     lastHour = schedule[day] === undefined ? endHour:methods_hour.getPrev(endHour, hours_definitions); //// endHour has bind=0 when using hour intervals(it's the start of the next interval) so we verify the one before it
-
+                    
                     if (schedule[day] !== undefined 
 				&& ((schedule[day]['hours'][startHour]['bind'] === 2 
 					|| schedule[day]['hours'][startHour]['bind'] === 3)
