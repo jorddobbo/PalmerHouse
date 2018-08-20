@@ -4720,6 +4720,7 @@ html {
   height: 100%;
   overflow-x: hidden; }
 body {
+  height: 100%;
   background: #fff;
   color: #8E8E8A;
   font: 137.5%/35px "Col", sans-serif;
@@ -5075,6 +5076,7 @@ select {
   @extend .sr-only-focusable;
 }*/
 .header {
+  position: relative;
   z-index: 9;
   background: #fff; }
 .header__inner {
