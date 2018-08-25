@@ -25,6 +25,7 @@
 
 	@media screen and (min-width: $lap-start) {
 		display: flex;
+		justify-content: space-between;
 		margin: 0 -20px;
 	}
 }
@@ -35,7 +36,7 @@
 	padding: 0 0 40px 0;
 
 	@media screen and (min-width: $lap-start) {
-		width: 33.333%;
+		width: auto;
 		padding: 0 20px;
 	}
 }
@@ -84,7 +85,7 @@
 	font-size: 24px;
     margin: 0 10px;
 
-    @media screen and (min-width: $lap-start) {
+	@media screen and (min-width: $desk-start) {
 		font-size: 30px;
 	}
 }

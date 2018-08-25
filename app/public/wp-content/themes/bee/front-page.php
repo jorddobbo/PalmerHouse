@@ -33,7 +33,7 @@
 			<p class="home-detail__paragraph">
 				<span class="home-detail__highlight">We have six counselling rooms suitable for individual/couple counselling and two larger rooms for training/ supervision. The largest room can fit up to thirty people</span>
 
-				As well as providing therapy rooms our aim is to nurture a ‘community of counsellors’ where you can feel welcomed, supported and meet other like-minded practitioners.  So, we also have a common room where you can eat your lunch or (even write that assignment) with tea/coffee on tap. In the future we hope to provide a range of affordable CPD days for therapists.
+				As well as providing therapy rooms our aim is to nurture a ‘community of counsellors’ where you can feel welcomed, supported and meet other like-minded practitioners.  So, we also have a common room where you can eat your lunch (or even write that assignment) with tea/coffee on tap. In the future we hope to provide a range of affordable CPD days for therapists.
 			</p>
 		</div>
 		<div class="home-detail__col-right">
@@ -56,7 +56,7 @@
 			<div class="home-rates__hourly">
 				<div class="home-rates__info-indicator">1</div>
 				<p class="home-rates__info-sub-title">Hourly</p>
-				<h2 class="home-rates__info-title">£12.50</h2>
+				<h2 class="home-rates__info-title">£12.00</h2>
 			</div>
 			<div class="home-rates__daily">
 				<div class="home-rates__info-indicator">2</div>
@@ -168,9 +168,9 @@
 		<div class="home-location__col-left">
 			<div class="home-location__info">
 				<h2 class="home-location__info-title">The Location</h2>
-				<p class="home-location__info-paragraph">We are situated at 2 Pelham Court, Pelham Road, just off Mansfield Road close to the Forest Recreation ground.<br><br>
+				<p class="home-location__info-paragraph">We are situated at <strong>2 Pelham Court, Pelham Road, Nottingham, NG5 1AP</strong> just off Mansfield Road close to the Forest Recreation ground.<br><br>
 				There are a small number of parking spaces at Pelham Court but there is plenty of street parking locally.</p>
-				<a href="" class="button button--outline home-location__button">View on map</a>
+				<a target="_blank" href="https://www.google.co.uk/maps/place/pelham+court,+2+Pelham+Rd,+Nottingham+NG5+1AP/data=!4m2!3m1!1s0x4879c19e9bd584e1:0x3cf5c548f95871e2?sa=X&ved=2ahUKEwi3-ePNh4ndAhUlKsAKHZ0uDpcQ8gEwAHoECAUQAQ" class="button button--outline home-location__button">View on map <span>&rarr;</span></a>
 			</div>
 		</div>
 		<div class="home-location__col-right">

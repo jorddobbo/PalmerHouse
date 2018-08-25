@@ -1,6 +1,7 @@
 .btn,
 button,
 a.button {
+    font-weight: bold;
     display: inline-block;
     border: 0;
     padding: 12px 22px;
@@ -15,11 +16,20 @@ a.button {
     -webkit-font-smoothing: antialiased;
     transition: all ease $base-transition;
 
+    span {
+        margin-left: 10px;
+        display: inline-block;
+        vertical-align: middle;
+        position: relative;
+        top: 1px;
+    }
+
     &:hover,
     &:focus {
         outline: none;
         color: #fff;
-        background-color: darken($darker, 10%);
+        background-color: $darker;
+        border-color: $darker;
     }
 
     &:active {

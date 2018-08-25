@@ -545,7 +545,7 @@
 	@media screen and (min-width: $desk-start) {
 		font-size: 46px;
 		line-height: 54px;
-		padding: 40px 0 20px 0;
+		padding: 30px 0 20px 0;
 	}
 }
 
@@ -621,6 +621,10 @@
 
 .home-location__info-paragraph {
 	margin: 0 0 20px 0;
+
+	strong {
+		color: $darker;
+	}
 
 	@media screen and (min-width: $lap-start) {
 		margin: 0 0 20px 0;

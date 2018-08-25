@@ -3,14 +3,14 @@
 		<div class="footer__row">
 			<div class="footer__column">
 				<h3 class="footer__sub-title">Get in touch</h3>
-				<h2 class="footer__title">07734883890</h2>
+				<a href="tel:07939043959"><h2 class="footer__title">07939043959</h2></a>
 			</div>
 			<div class="footer__column">
-				<h3 class="footer__sub-title">Email us</h3>
-				<a href="mailto:info@palmer-house.co.uk"><h2 class="footer__title">Send an email</h2></a>
+				<h3 class="footer__sub-title">Send us an email</h3>
+				<a href="mailto:info@palmer-house.co.uk"><h2 class="footer__title">info@palmer-house.co.uk</h2></a>
 			</div>
 			<div class="footer__column">
-				<h3 class="footer__sub-title">Get Social</h3>
+				<h3 class="footer__sub-title">Get social</h3>
 				<ul class="footer__social">
 					<li class="footer__social-icon">
 						<a href="http://instagram.com"><span class="socicon socicon-instagram"></span></a>
@@ -30,7 +30,7 @@
 	</div>
 </footer>
 
-<script src='https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js'></script>
+<script src='https://api.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.js'></script>
 
 <script>
 
@@ -39,7 +39,7 @@
 	    container: 'map',
 	    style: 'mapbox://styles/jorddobbo/cjjq8ko5u0cax2srj15q4vbkh',
 	    zoom:14.1,
-  		center: [-1.14954,52.95256],
+  		center: [-1.154583,52.971800],
 	});
 
 	map.scrollZoom.disable();
@@ -58,7 +58,7 @@
           type: "geojson",
           data: {
             type: "FeatureCollection",
-            features:[{"type":"Feature","geometry":{"type":"Point","coordinates":[-1.14954,52.95256]}}]}
+            features:[{"type":"Feature","geometry":{"type":"Point","coordinates":[-1.154696,52.971200]}}]}
         },
         layout: {
           "icon-image": "custom-marker",
