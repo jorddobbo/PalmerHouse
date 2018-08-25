@@ -2,12 +2,22 @@
 	background: $darker;
 	padding: 80px 0 0 0;
 	background-image: url(#{$img-path}footer/footer_pattern.png);
-    background-size: 100% auto;
+    background-size: 980px auto;
     background-position: 0 100%;
     background-repeat: no-repeat;
 
     @media screen and (min-width: $lap-start) {
+		padding: 80px 0 28px 0;
+		background-size: 1200px auto;
+	}
+
+	@media screen and (min-width: $desk-start) {
+		background-size: 1340px auto;
 		padding: 180px 0 28px 0;
+	}
+
+	@media screen and (min-width: 1340px) {
+		background-size: 100% auto;
 	}
 }
 
@@ -35,7 +45,12 @@
 	font-family: $sans;
 	margin: 0 0 10px 0;
 
-	@media screen and (min-width: $lap-start) {
+    @media screen and (min-width: $lap-start) {
+		margin: 0 0 10px 0;
+    	font-size: 16px;
+	}
+
+	@media screen and (min-width: $desk-start) {
 		margin: 0 0 30px 0;
 	}
 }
@@ -48,6 +63,10 @@
 	margin: 0;
 
 	@media screen and (min-width: $lap-start) {
+		font-size: 20px;
+	}
+
+	@media screen and (min-width: $desk-start) {
 		font-size: 30px;
 	}
 }
@@ -72,9 +91,13 @@
 
 .footer__bottom {
 	text-align: center;
-	padding: 20px 0 20px 0;
+	padding: 80px 0 20px 0;
 
 	@media screen and (min-width: $lap-start) {
+		padding: 110px 0 0 0;
+	}
+
+	@media screen and (min-width: $desk-start) {
 		padding: 220px 0 0 0;
 	}
 }

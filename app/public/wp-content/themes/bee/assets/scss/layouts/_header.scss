@@ -22,8 +22,8 @@
 	margin: 40px 0 0 -53px;
 
 	@include media-query(max, $desk-start) {
-		width: 100px;
-		margin: 20px 0 0 -50px;
+		width: 80px;
+    	margin: 20px 0 0 -40px;
 	}
 }
 

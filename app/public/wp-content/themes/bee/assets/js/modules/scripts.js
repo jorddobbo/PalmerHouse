@@ -19,26 +19,31 @@ export default function() {
 			header.find('.nav-primary').toggleClass('show');
 		});
 
-		$(".home-hero__image").slick({
+		$(".home-gallery__inner").slick({
 
 		    autoplay: false,
 		    dots: true,
-		    arrows: false,
+		    arrows: true,
+		    centerMode: true,
+		    variableWidth: true,
+		    accessibility: false,
 		    customPaging : function(slider, i) {
-		        return '<a>'+i+'</a>';
+		        return '<a>•</a>';
 		    },
-		    appendDots: $(".home-hero__arrows"),
+		    appendArrows: $(".home-hero__arrows"),
+		    prevArrow: $('.home-hero__arrows-prev'),
+			nextArrow: $('.home-hero__arrows-next'),
+		    appendDots: $(".home-hero__dots-inner"),
+		    
 
-		    responsive: [{ 
-		        breakpoint: 500,
-		        settings: {
-		            dots: false,
-		            arrows: false,
-		            infinite: false,
-		            slidesToShow: 2,
-		            slidesToScroll: 2
-		        } 
-		    }]
+		    responsive: [
+		    	{ 
+			        breakpoint: 1200,
+			        settings: {
+			            variableWidth: false,
+			        }
+		        }
+		    ]
 		});
 
 		function bookingForms() {
@@ -55,7 +60,7 @@ export default function() {
 				$('.booking-forms__item').removeClass('active');
 				$('#'+form).addClass('active');
 
-				console.log(btn, form);
+				console.log();
 			});
 
 		} bookingForms();

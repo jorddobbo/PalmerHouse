@@ -47,7 +47,7 @@
 	</div>
 </section>
 
-<section class="home-rates">
+<section id="anchor_rates" class="home-rates">
 	<div class="home-rates__container container">
 		<img class="home-rates__badge" src="<?= get_template_directory_uri(); ?>/assets/img/home/logo_badge.svg" alt="">
 		<h2 class="home-rates__title">Rooms & Rates</h2>
@@ -90,48 +90,80 @@
 			<div class="home-rooms__item">
 				<img src="<?= get_template_directory_uri(); ?>/assets/img/home/room-1.jpg" alt="">
 				<h3 class="home-rooms__item-title">Room .01</h3>
-				<p class="home-rooms__item-paragraph">We offer attractive and affordable rooms for hire to counsellors and therapists. If you are a practitioner in the therapy world and are.</p>
+				<!--<p class="home-rooms__item-paragraph">We offer attractive and affordable rooms for hire to counsellors and therapists. If you are a practitioner in the therapy world and are.</p>-->
 			</div>
 			<div class="home-rooms__item">
 				<img src="<?= get_template_directory_uri(); ?>/assets/img/home/room-2.jpg" alt="">
 				<h3 class="home-rooms__item-title">Room .02</h3>
-				<p class="home-rooms__item-paragraph">We offer attractive and affordable rooms for hire to counsellors and therapists. If you are a practitioner in the therapy world and are.</p>
+				<!--<p class="home-rooms__item-paragraph">We offer attractive and affordable rooms for hire to counsellors and therapists. If you are a practitioner in the therapy world and are.</p>-->
 			</div>
 			<div class="home-rooms__item">
 				<img src="<?= get_template_directory_uri(); ?>/assets/img/home/room-3.jpg" alt="">
 				<h3 class="home-rooms__item-title">Room .03</h3>
-				<p class="home-rooms__item-paragraph">We offer attractive and affordable rooms for hire to counsellors and therapists. If you are a practitioner in the therapy world and are.</p>
+				<!--<p class="home-rooms__item-paragraph">We offer attractive and affordable rooms for hire to counsellors and therapists. If you are a practitioner in the therapy world and are.</p>-->
 			</div>
 			<div class="home-rooms__item">
 				<img src="<?= get_template_directory_uri(); ?>/assets/img/home/room-4.jpg" alt="">
 				<h3 class="home-rooms__item-title">Room .04</h3>
-				<p class="home-rooms__item-paragraph">We offer attractive and affordable rooms for hire to counsellors and therapists. If you are a practitioner in the therapy world and are.</p>
+				<!--<p class="home-rooms__item-paragraph">We offer attractive and affordable rooms for hire to counsellors and therapists. If you are a practitioner in the therapy world and are.</p>-->
 			</div>
 			<div class="home-rooms__item">
 				<img src="<?= get_template_directory_uri(); ?>/assets/img/home/room-5.jpg" alt="">
 				<h3 class="home-rooms__item-title">Room .05</h3>
-				<p class="home-rooms__item-paragraph">We offer attractive and affordable rooms for hire to counsellors and therapists. If you are a practitioner in the therapy world and are.</p>
+				<!--<p class="home-rooms__item-paragraph">We offer attractive and affordable rooms for hire to counsellors and therapists. If you are a practitioner in the therapy world and are.</p>-->
 			</div>
 			<div class="home-rooms__item">
 				<img src="<?= get_template_directory_uri(); ?>/assets/img/home/room-6.jpg" alt="">
 				<h3 class="home-rooms__item-title">Room .06</h3>
-				<p class="home-rooms__item-paragraph">We offer attractive and affordable rooms for hire to counsellors and therapists. If you are a practitioner in the therapy world and are.</p>
+				<!--<p class="home-rooms__item-paragraph">We offer attractive and affordable rooms for hire to counsellors and therapists. If you are a practitioner in the therapy world and are.</p>-->
 			</div>
 			<div class="home-rooms__item">
 				<img src="<?= get_template_directory_uri(); ?>/assets/img/home/room-7.jpg" alt="">
 				<h3 class="home-rooms__item-title">Room .07</h3>
-				<p class="home-rooms__item-paragraph">We offer attractive and affordable rooms for hire to counsellors and therapists. If you are a practitioner in the therapy world and are.</p>
+				<!--<p class="home-rooms__item-paragraph">We offer attractive and affordable rooms for hire to counsellors and therapists. If you are a practitioner in the therapy world and are.</p>-->
 			</div>
 			<div class="home-rooms__item">
 				<img src="<?= get_template_directory_uri(); ?>/assets/img/home/room-8.jpg" alt="">
 				<h3 class="home-rooms__item-title">Room .08</h3>
-				<p class="home-rooms__item-paragraph">We offer attractive and affordable rooms for hire to counsellors and therapists. If you are a practitioner in the therapy world and are.</p>
+				<!--<p class="home-rooms__item-paragraph">We offer attractive and affordable rooms for hire to counsellors and therapists. If you are a practitioner in the therapy world and are.</p>-->
 			</div>
 		</div>
 	</div>
 </section>
 
-<section class="home-location">
+<section id="anchor_gallery" class="home-gallery">
+	<div class="home-gallery__inner">
+		<img class="home-gallery__img" src="<?= get_template_directory_uri(); ?>/assets/img/home/gallery/one.jpg" alt="">
+		<img class="home-gallery__img" src="<?= get_template_directory_uri(); ?>/assets/img/home/gallery/two.jpg" alt="">
+		<img class="home-gallery__img" src="<?= get_template_directory_uri(); ?>/assets/img/home/gallery/three.jpg" alt="">
+		<img class="home-gallery__img" src="<?= get_template_directory_uri(); ?>/assets/img/home/gallery/four.jpg" alt="">
+		<img class="home-gallery__img" src="<?= get_template_directory_uri(); ?>/assets/img/home/gallery/five.jpg" alt="">
+		<img class="home-gallery__img" src="<?= get_template_directory_uri(); ?>/assets/img/home/gallery/six.jpg" alt="">
+		<img class="home-gallery__img" src="<?= get_template_directory_uri(); ?>/assets/img/home/gallery/seven.jpg" alt="">
+		<img class="home-gallery__img" src="<?= get_template_directory_uri(); ?>/assets/img/home/gallery/eight.jpg" alt="">
+		<img class="home-gallery__img" src="<?= get_template_directory_uri(); ?>/assets/img/home/gallery/nine.jpg" alt="">
+		<img class="home-gallery__img" src="<?= get_template_directory_uri(); ?>/assets/img/home/gallery/ten.jpg" alt="">
+		<img class="home-gallery__img" src="<?= get_template_directory_uri(); ?>/assets/img/home/gallery/eleven.jpg" alt="">
+		<img class="home-gallery__img" src="<?= get_template_directory_uri(); ?>/assets/img/home/gallery/twelve.jpg" alt="">
+		<img class="home-gallery__img" src="<?= get_template_directory_uri(); ?>/assets/img/home/gallery/thirteen.jpg" alt="">
+		<img class="home-gallery__img" src="<?= get_template_directory_uri(); ?>/assets/img/home/gallery/fourteen.jpg" alt="">
+		<img class="home-gallery__img" src="<?= get_template_directory_uri(); ?>/assets/img/home/gallery/fifteen.jpg" alt="">
+		<img class="home-gallery__img" src="<?= get_template_directory_uri(); ?>/assets/img/home/gallery/sixteen.jpg" alt="">
+		<img class="home-gallery__img" src="<?= get_template_directory_uri(); ?>/assets/img/home/gallery/seventeen.jpg" alt="">
+		<img class="home-gallery__img" src="<?= get_template_directory_uri(); ?>/assets/img/home/gallery/eighteen.jpg" alt="">
+		<img class="home-gallery__img" src="<?= get_template_directory_uri(); ?>/assets/img/home/gallery/nineteen.jpg" alt="">
+		<img class="home-gallery__img" src="<?= get_template_directory_uri(); ?>/assets/img/home/gallery/twenty.jpg" alt="">
+	</div>
+	<div class="home-hero__arrows">
+		<div class="home-hero__arrows-prev"><img src="<?= get_template_directory_uri(); ?>/assets/img/svg/arrow-light-right.svg" alt=""></div>
+		<div class="home-hero__arrows-next"><img src="<?= get_template_directory_uri(); ?>/assets/img/svg/arrow-light-right.svg" alt=""></div>
+	</div>
+	<div class="home-hero__dots">
+		<div class="home-hero__dots-inner"></div>
+	</div>
+</section>
+
+<section id="anchor_location" class="home-location">
 	<div class="home-location__inner">
 		<div class="home-location__col-left">
 			<div class="home-location__info">

@@ -1,4 +1,4 @@
-<footer class="footer">
+<footer id="anchor_contact" class="footer">
 	<div class="footer__container container">
 		<div class="footer__row">
 			<div class="footer__column">
@@ -7,25 +7,25 @@
 			</div>
 			<div class="footer__column">
 				<h3 class="footer__sub-title">Email us</h3>
-				<h2 class="footer__title">Send an email</h2>
+				<a href="mailto:info@palmer-house.co.uk"><h2 class="footer__title">Send an email</h2></a>
 			</div>
 			<div class="footer__column">
 				<h3 class="footer__sub-title">Get Social</h3>
 				<ul class="footer__social">
 					<li class="footer__social-icon">
-						<a href="http://twitter.com"><span class="socicon socicon-instagram"></span></a>
+						<a href="http://instagram.com"><span class="socicon socicon-instagram"></span></a>
 					</li>
 					<li class="footer__social-icon">
 						<a href="http://twitter.com"><span class="socicon socicon-twitter"></span></a>
 					</li>
 					<li class="footer__social-icon">
-						<a href="http://twitter.com"><span class="socicon socicon-facebook"></span></a>
+						<a href="http://facebook.com"><span class="socicon socicon-facebook"></span></a>
 					</li>
 				</ul>
 			</div>
 		</div>
 		<div class="footer__bottom">
-			<p class="footer__paragraph">© 2019 • The Palmer House • Terms & Conditions</p>
+			<p class="footer__paragraph">© 2019 • The Palmer House</p>
 		</div>
 	</div>
 </footer>
@@ -39,8 +39,10 @@
 	    container: 'map',
 	    style: 'mapbox://styles/jorddobbo/cjjq8ko5u0cax2srj15q4vbkh',
 	    zoom:14.1,
-  		center: [-1.14954,52.95256]
+  		center: [-1.14954,52.95256],
 	});
+
+	map.scrollZoom.disable();
 
 	map.on("load", function () {
   /* Image: An image is loaded and added to the map. */

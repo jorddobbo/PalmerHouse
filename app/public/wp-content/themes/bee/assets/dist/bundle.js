@@ -9916,14 +9916,9 @@ var _scripts = __webpack_require__(4);
 
 var _scripts2 = _interopRequireDefault(_scripts);
 
-var _transitions = __webpack_require__(5);
-
-var _transitions2 = _interopRequireDefault(_transitions);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (0, _scripts2.default)();
-(0, _transitions2.default)();
 
 console.log('bundle working 2');
 
@@ -12735,24 +12730,26 @@ exports.default = function () {
 			header.find('.nav-primary').toggleClass('show');
 		});
 
-		$(".home-hero__image").slick({
+		$(".home-gallery__inner").slick({
 
 			autoplay: false,
 			dots: true,
-			arrows: false,
+			arrows: true,
+			centerMode: true,
+			variableWidth: true,
+			accessibility: false,
 			customPaging: function customPaging(slider, i) {
-				return '<a>' + i + '</a>';
+				return '<a>•</a>';
 			},
-			appendDots: $(".home-hero__arrows"),
+			appendArrows: $(".home-hero__arrows"),
+			prevArrow: $('.home-hero__arrows-prev'),
+			nextArrow: $('.home-hero__arrows-next'),
+			appendDots: $(".home-hero__dots-inner"),
 
 			responsive: [{
-				breakpoint: 500,
+				breakpoint: 1200,
 				settings: {
-					dots: false,
-					arrows: false,
-					infinite: false,
-					slidesToShow: 2,
-					slidesToScroll: 2
+					variableWidth: false
 				}
 			}]
 		});
@@ -12771,107 +12768,12 @@ exports.default = function () {
 				$('.booking-forms__item').removeClass('active');
 				$('#' + form).addClass('active');
 
-				console.log(btn, form);
+				console.log();
 			});
 		}bookingForms();
 	});
 };
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
-exports.default = function () {
-
-	(0, _jquery2.default)(document).ready(function ($) {
-
-		$(".title-split").each(function (i, v) {
-			var title = $(this);
-			var listHTML = $(this).html();
-			var listItems = listHTML.split("<br>");
-			$(this).html("");
-
-			$.each(listItems, function (i, v) {
-				var item = '<div class="title-split__mask"><span class="title-split__line">' + v + "</span></div>";
-				title.append(item);
-			});
-		});
-
-		$('.fadeUp').on('inview', function (event, isInView) {
-			var $el = $(this);
-			if (typeof $el.data('delay') !== 'undefined') {
-				var $delay = $el.data('delay');
-			} else {
-				var $delay = 0;
-			}
-
-			if (isInView) {
-				setTimeout(function () {
-					$el.addClass('inview');
-				}, $delay);
-			} else {}
-		});
-
-		$('.reveal').on('inview', function (event, isInView) {
-			var $el = $(this);
-			if (typeof $el.data('delay') !== 'undefined') {
-				var $delay = $el.data('delay');
-			} else {
-				var $delay = 0;
-			}
-
-			if (isInView) {
-				setTimeout(function () {
-					$el.addClass('inview');
-				}, $delay);
-			} else {}
-		});
-
-		$('.fadeIn').on('inview', function (event, isInView) {
-			var $el = $(this);
-			if (typeof $el.data('delay') !== 'undefined') {
-				var $delay = $el.data('delay');
-			} else {
-				var $delay = 0;
-			}
-
-			if (isInView) {
-				setTimeout(function () {
-					$el.addClass('inview');
-				}, $delay);
-			} else {}
-		});
-
-		$('.title-split__line').on('inview', function (event, isInView) {
-			var $el = $(this);
-			if (typeof $el.closest('.title-split').data('delay') !== 'undefined') {
-				var $delay = $el.closest('.title-split').data('delay');
-			} else {
-				var $delay = 0;
-			}
-
-			if (isInView) {
-				setTimeout(function () {
-					$el.addClass('inview');
-				}, $delay);
-			} else {}
-		});
-	});
-};
-
-var _jquery = __webpack_require__(0);
-
-var _jquery2 = _interopRequireDefault(_jquery);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ })
 /******/ ]);
