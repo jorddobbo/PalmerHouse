@@ -1,9 +1,13 @@
 .booking-rates {
-	padding: 0 0 80px 0;
+	padding: 0 0 40px 0;
 	background-color: transparent;
 
 	&::after {
 		display: none;
+	}
+
+	@media screen and (min-width: $wide-start) {
+		padding: 0 0 80px 0;
 	}
 }
 
@@ -19,10 +23,23 @@
 	color: $darker;
 }
 
+.booking-rates .home-rates__hourly,
+.booking-rates .home-rates__daily {
+	&::after {
+		background: $pink;
+	}
+}
+
 .booking-rates .home-rates__times {
 	&::after {
 		background: $pink;
 	}
+}
+
+.booking-tabs__main-title {
+	text-align: center;
+	background: #fff;
+	padding-bottom: 5px;
 }
 
 .booking-tabs__list {
@@ -35,9 +52,13 @@
 
 .booking-tabs__item {
 	flex: 0 1 auto;
-	width: calc(25% - 15px);
+	width: calc(25% - 5px);
 	box-sizing: border-box;
 	cursor: pointer;
+
+	&:nth-child(-n+4) {
+		margin-bottom: 20px;
+	}
 
 	&.active {
 		.booking-tabs__image {
@@ -57,8 +78,16 @@
 		}
 	}
 
-	@media screen and (min-width: $wide-start) {
+	@media screen and (min-width: $lap-start) {
+		width: calc(25% - 15px);
+	}
+
+	@media screen and (min-width: $desk-start) {
 		width: calc(12.5% - 15px);
+
+		&:nth-child(-n+3) {
+			margin-bottom: 0;
+		}
 	}
 }
 

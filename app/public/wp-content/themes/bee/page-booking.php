@@ -15,7 +15,7 @@
 				<div class="home-rates__hourly">
 					<div class="home-rates__info-indicator">1</div>
 					<p class="home-rates__info-sub-title">Hourly</p>
-					<h2 class="home-rates__info-title">£12.50</h2>
+					<h2 class="home-rates__info-title">£12</h2>
 				</div>
 				<div class="home-rates__daily">
 					<div class="home-rates__info-indicator">2</div>
@@ -30,7 +30,7 @@
 							<h2 class="home-rates__info-title">£25</h2>
 						</div>
 						<div class="home-rates__times-single">
-							<p class="home-rates__info-sub-title">12:00 - 15:00</p>
+							<p class="home-rates__info-sub-title">13:00 - 16:00</p>
 							<h2 class="home-rates__info-title">£25</h2>
 						</div>
 						<div class="home-rates__times-single">
@@ -45,6 +45,7 @@
 
 	<div class="booking-tabs">
 		<div class="booking-tabs__container container">
+			<h2 class="booking-tabs__main-title">Select Your Room</h2>
 			<div class="booking-tabs__list">
 				<div data-form="form_room-1" class="booking-tabs__item booking-tabs__room-1 active">
 					<div class="booking-tabs__image" style="background-image: url('<?= get_template_directory_uri(); ?>/assets/img/home/room-1.jpg');"></div>

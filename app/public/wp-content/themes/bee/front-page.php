@@ -56,7 +56,7 @@
 			<div class="home-rates__hourly">
 				<div class="home-rates__info-indicator">1</div>
 				<p class="home-rates__info-sub-title">Hourly</p>
-				<h2 class="home-rates__info-title">£12.00</h2>
+				<h2 class="home-rates__info-title">£12</h2>
 			</div>
 			<div class="home-rates__daily">
 				<div class="home-rates__info-indicator">2</div>
@@ -71,7 +71,7 @@
 						<h2 class="home-rates__info-title">£25</h2>
 					</div>
 					<div class="home-rates__times-single">
-						<p class="home-rates__info-sub-title">12:00 - 15:00</p>
+						<p class="home-rates__info-sub-title">13:00 - 16:00</p>
 						<h2 class="home-rates__info-title">£25</h2>
 					</div>
 					<div class="home-rates__times-single">
@@ -169,7 +169,7 @@
 			<div class="home-location__info">
 				<h2 class="home-location__info-title">The Location</h2>
 				<p class="home-location__info-paragraph">We are situated at <strong>2 Pelham Court, Pelham Road, Nottingham, NG5 1AP</strong> just off Mansfield Road close to the Forest Recreation ground.<br><br>
-				There are a small number of parking spaces at Pelham Court but there is plenty of street parking locally.</p>
+				There are a small number of parking spaces at Pelham Court but there is plenty of street parking locally. There is also a bus stop at the end of the road for easy access to/from the city centre.</p>
 				<a target="_blank" href="https://www.google.co.uk/maps/place/pelham+court,+2+Pelham+Rd,+Nottingham+NG5+1AP/data=!4m2!3m1!1s0x4879c19e9bd584e1:0x3cf5c548f95871e2?sa=X&ved=2ahUKEwi3-ePNh4ndAhUlKsAKHZ0uDpcQ8gEwAHoECAUQAQ" class="button button--outline home-location__button">View on map <span>&rarr;</span></a>
 			</div>
 		</div>
