@@ -6,9 +6,25 @@ export default function() {
 			var header = $('header');
 
 			event.preventDefault();
+			header.find('.header__menu-toggle').toggleClass('show');
 			header.find('.header__menu').toggleClass('show');
 			$('.header__overlay').toggleClass('show');
 
+		});
+
+		$('header').on('click', 'a[href^="#"]', function (event) {
+			var header = $('header');
+
+		    event.preventDefault();
+		    console.log('anchor');
+
+		    $('html, body').animate({
+		        scrollTop: $($.attr(this, 'href')).offset().top
+		    }, 500);
+
+		    header.find('.header__menu').removeClass('show');
+		    header.find('.header__menu-toggle').toggleClass('show');
+			$('.header__overlay').removeClass('show');
 		});
 
 		$('body').on('click', '.header__overlay', function(event) {
@@ -34,6 +50,7 @@ export default function() {
 		    prevArrow: $('.home-hero__arrows-prev'),
 			nextArrow: $('.home-hero__arrows-next'),
 		    appendDots: $(".home-hero__dots-inner"),
+		    lazyLoad: 'ondemand',
 		    
 
 		    responsive: [

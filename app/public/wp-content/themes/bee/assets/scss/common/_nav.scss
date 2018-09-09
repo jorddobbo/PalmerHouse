@@ -9,6 +9,7 @@
 
 .menu-mobile-container {
 	display: block;
+	height: 100%;
 
 	@include media-query(min, $desk-start) {
 		display: none;
