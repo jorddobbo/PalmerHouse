@@ -13,13 +13,13 @@
 				<h3 class="footer__sub-title">Get social</h3>
 				<ul class="footer__social">
 					<li class="footer__social-icon">
-						<a href="http://instagram.com"><span class="socicon socicon-instagram"></span></a>
+						<a href="https://www.instagram.com/palmerhousenotts"><span class="socicon socicon-instagram"></span></a>
 					</li>
 					<li class="footer__social-icon">
-						<a href="http://twitter.com"><span class="socicon socicon-twitter"></span></a>
+						<a href="https://twitter.com/palmer_house_"><span class="socicon socicon-twitter"></span></a>
 					</li>
 					<li class="footer__social-icon">
-						<a href="http://facebook.com"><span class="socicon socicon-facebook"></span></a>
+						<a href="https://www.facebook.com/palmerhousenotts"><span class="socicon socicon-facebook"></span></a>
 					</li>
 				</ul>
 			</div>
