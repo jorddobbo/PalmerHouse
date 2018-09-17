@@ -36,7 +36,7 @@ options:
   bs:
     init:
       method: init
-      proxy: 'palmer-house--new.tld'
+      proxy: 'palmer-house--ne.tld'
     inject-css:
       method: "reload"
       args: ['main.css', 'main.min.css']
