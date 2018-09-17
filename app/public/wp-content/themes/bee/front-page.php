@@ -1,10 +1,16 @@
-<?php get_header() ?>
+<?php 
+
+get_header();
+
+$frontpage_id = get_option( 'page_on_front' );
+
+?>
 
 <section class="home-hero">
 	<div class="home-hero__container container">
 		<div class="home-hero__content">
-			<h2 class="home-hero__title"><?php echo the_field('hero_main', 75); ?></h2>
-			<div class="home-hero__sub-title"><?php echo the_field('hero_sub', 75); ?></div>
+			<h2 class="home-hero__title"><?php echo the_field('hero_main'); ?></h2>
+			<div class="home-hero__sub-title"><?php echo the_field('hero_sub'); ?></div>
 		</div>
 	</div>
 
@@ -16,7 +22,7 @@
 <section class="home-intro">
 	<div class="home-intro__container container">
 		<div class="home-intro__top">
-			<p class="home-intro__paragraph"><?php echo the_field('intro_summary', 75); ?></p>
+			<p class="home-intro__paragraph"><?php echo the_field('intro_summary'); ?></p>
 		</div>
 	</div>
 </section>
@@ -28,9 +34,9 @@
 				<img src="<?= get_template_directory_uri(); ?>/assets/img/home/intro_img3.jpg" alt="">
 			</div>
 			<div class="home-detail__paragraph">
-				<span class="home-detail__highlight"><?php echo the_field('intro_description_bold', 75); ?></span>
+				<span class="home-detail__highlight"><?php echo the_field('intro_description_bold'); ?></span>
 
-				<?php echo the_field('intro_description', 75); ?>
+				<?php echo the_field('intro_description'); ?>
 			</div>
 		</div>
 		<div class="home-detail__col-right">
@@ -48,7 +54,7 @@
 	<div class="home-rates__container container">
 		<img class="home-rates__badge" src="<?= get_template_directory_uri(); ?>/assets/img/home/logo_badge.svg" alt="">
 		<h2 class="home-rates__title">Rooms & Rates</h2>
-		<p class="home-rates__paragraph"><?php echo the_field('rates_summary', 75); ?></p>
+		<p class="home-rates__paragraph"><?php echo the_field('rates_summary'); ?></p>
 
 	<?php 
 
