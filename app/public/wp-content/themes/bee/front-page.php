@@ -71,7 +71,7 @@ $frontpage_id = get_option( 'page_on_front' );
 			<div class="home-rates__daily">
 				<div class="home-rates__info-indicator">2</div>
 				<p class="home-rates__info-sub-title"><?php echo $rates['daily_label']; ?></p>
-				<h2 class="home-rates__info-title"><?php echo $rates['hourly_rate']; ?></h2>
+				<h2 class="home-rates__info-title"><?php echo $rates['daily_rate']; ?></h2>
 			</div>
 			<div class="home-rates__times">
 				<div class="home-rates__info-indicator">3</div>
