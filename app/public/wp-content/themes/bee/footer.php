@@ -3,11 +3,11 @@
 		<div class="footer__row">
 			<div class="footer__column">
 				<h3 class="footer__sub-title">Get in touch</h3>
-				<a href="tel:07939043959"><h2 class="footer__title">0115 962 6840</h2></a>
+				<a href="tel:01159626840"><h2 class="footer__title">0115 962 6840</h2></a>
 			</div>
 			<div class="footer__column">
 				<h3 class="footer__sub-title">Send us an email</h3>
-				<a href="mailto:info@palmer-house.co.uk"><h2 class="footer__title">hello@palmer-house.co.uk</h2></a>
+				<a href="mailto:hello@palmer-house.co.uk"><h2 class="footer__title">hello@palmer-house.co.uk</h2></a>
 			</div>
 			<div class="footer__column">
 				<h3 class="footer__sub-title">Get social</h3>
